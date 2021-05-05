@@ -24,6 +24,18 @@ def addU():
     if request.method == "GET":
         return "Get Method TO be implemented"
 
-    database.addUser(name=name, age=age, email=email, phone=phone, pincode=0)
+    datas={}
+    datas['res']='wrking'
+    datas['name']=request.form.get('name')
+    datas['phone']=request.form['phone']
+    datas['email']=request.form['email']
+    datas['selectby']=request.form['selectby']
+    datas['age']=request.form['age']
+    datas['pincode']=request.form['pincode']
+    datas['dist_id']=request.form['dist_id']
+    datas['dist_name']=request.form['dist_name']
 
-    return "User Added Successfully"
+    return str(datas)
+
+    # database.addUser(name=name, age=age, email=email, phone=phone, pincode=0)
+

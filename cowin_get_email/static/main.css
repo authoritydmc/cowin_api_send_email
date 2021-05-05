@@ -1,11 +1,13 @@
 body{
     background-color: aliceblue;
     border:1px solid green;
+    height:100vh;
 }
 
 
 #form_add_user 
 {
+    padding:50px;
     display:flex;
     flex-direction: column;
 
@@ -32,4 +34,12 @@ body{
 .text-center
 {
     text-align:center;
+}
+
+#selectby
+{
+
+    display:flex;
+    flex-direction: column;
+    justify-content:space-between;
 }

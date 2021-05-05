@@ -43,3 +43,44 @@ function changedDistrict() {
   document.getElementById("dist_name").value =
     districts[districts.selectedIndex].text;
 }
+
+function selectBy(val)
+{
+if(val==0)
+{
+  // select By pincode
+document.querySelector('#states').style.visibility="hidden";  
+document.querySelector('#districts').style.visibility="hidden";  
+document.querySelector('#dist_name').style.visibility="hidden";  
+document.querySelector('#dist_id').style.visibility="hidden";  
+
+document.querySelector('#pincode').style.visibility='visible';
+
+document.querySelector('#lblpin').style.visibility="visible";  
+
+document.querySelector('#lbldist').style.visibility="hidden";  
+document.querySelector('#lblstates').style.visibility="hidden";  
+
+
+
+
+}else
+{
+  //select By dist
+
+  document.querySelector('#states').style.visibility="visible";  
+document.querySelector('#districts').style.visibility="visible";  
+document.querySelector('#pincode').style.visibility='hidden';
+document.querySelector('#dist_name').style.visibility="visible";  
+document.querySelector('#dist_id').style.visibility="visible";
+document.querySelector('#lblpin').style.visibility="hidden";  
+
+document.querySelector('#lbldist').style.visibility="visible";  
+document.querySelector('#lblstates').style.visibility="visible"; 
+
+}
+
+
+}
+
+selectBy(0);

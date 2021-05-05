@@ -15,34 +15,33 @@
         <form action="/addUser" method="post" id="form_add_user">
 
             <label for="name">Name</label>
-            <input type="text" required placeholder="Enter Name" id="name" value='default'>
+            <input type="text" required placeholder="Enter Name" name="name" id="name" value='default'>
 
             <label for="age">Age</label>
-            <input type="number" required min="18" max="120" placeholder="Enter Age" id="age" value='25'>
+            <input type="number" name="age" required min="18" max="120" placeholder="Enter Age" id="age" value='25'>
 
             <label for="email">Email</label>
-            <input type="email" required placeholder="Enter Email" id="email" value='default@df.com'>
+            <input type="email" name="email" required placeholder="Enter Email" id="email" value='default@df.com'>
 
             <label for="phone">Phone</label>
-            <input type="text" placeholder="Enter Phone Number" id="phone" value='+12345'>
+            <input type="text" name="phone" placeholder="Enter Phone Number" id="phone" value='+12345'>
 
             <div id="selectby">
                 <h3>SelectBy</h3>
                 <label for="selectby_pin">Pincode</label>
-                <input type="radio" id="selectby_pin" name="selectby" value="pin" selected>
+                <input type="radio" id="selectby_pin" name="selectby" value="pincode" checked onclick='selectBy(0)'>
 
                 <label for="selectby_dis">District</label>
 
-                <input type="radio" id="selectby_dis" name="selectby" value="district">
+                <input type="radio" id="selectby_dis" name="selectby" value="district" onclick='selectBy(1)'>
 
                 <br>
 
 
-                <label for="pincode">Pincode</label>
-                <input type="text" placeholder="Enter Pincode" id="pincode">
+                <label for="pincode" id="lblpin" >Pincode</label>
+                <input type="text" name="pincode" placeholder="Enter Pincode" id="pincode" value="">
 
-                <h3 class="text-center">OR</h3>
-                <label for="states">State</label>
+                <label for="states" id="lblstates" >State</label>
 
                 <select name="states" id="states" onchange="populateDistricts()">
                     <option value="0">None</option>
@@ -52,22 +51,24 @@
                 </select>
 
                 <!-- Now get District by States -->
+                <br>
+                <br>
+
 
                 <div id="div_dist">
                     <!-- Insert District Here -->
-                    <label for="districts">Select Districts</label>
+                    <label for="districts" id="lbldist" >Select Districts</label>
                     <select name="districts" id="districts" onchange='changedDistrict()'>
 
                         <option value="0" name="0">None</option>
 
                     </select>
                 </div>
-
-                <input readonly type="text" id="dist_id" value="id">
-                <input readonly type="text" id="dist_name" value="name">
+                <br>
+                <input readonly type="text" id="dist_id" name="dist_id" value="">
+                <input readonly type="text" id="dist_name" name="dist_name" value="">
 
             </div>
-
             <Button type="submit" value="submit" id="registerBtn">Register</Button>
         </form>
 
