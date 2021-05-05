@@ -7,4 +7,5 @@ bp=Blueprint('route1',__name__)
     
 @bp.route('/')
 def home():
-        return render_template('base.html')
+        testR="Test"
+        return render_template('base.html',test=testR)
