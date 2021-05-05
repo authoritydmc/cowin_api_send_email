@@ -1,0 +1,35 @@
+body{
+    background-color: aliceblue;
+    border:1px solid green;
+}
+
+
+#form_add_user 
+{
+    display:flex;
+    flex-direction: column;
+
+    justify-content: space-evenly;
+
+    width:500px;
+    height:500px;
+    border:1px solid red;
+    align-items: center;
+}
+#registerBtn
+{
+    width:80px;
+    height:20px;
+    text-align:center;
+
+}
+#form_add_user #name,#email,#phone,#age
+{
+    width:400px;
+    height:65px;
+
+}
+.text-center
+{
+    text-align:center;
+}

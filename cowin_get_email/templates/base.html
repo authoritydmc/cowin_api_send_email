@@ -1,15 +1,79 @@
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cowin Register</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='main.css') }}">
 </head>
-<body>
-  
 
-        <div style="border:1px solid green;margin:20px;padding:20px">{{test}}</div>
+<body>
+
+    <div id="div_add_user_main">
+
+        <form action="/addUser" method="post" id="form_add_user">
+
+            <label for="name">Name</label>
+            <input type="text" required placeholder="Enter Name" id="name" value='default'>
+
+            <label for="age">Age</label>
+            <input type="number" required min="18" max="120" placeholder="Enter Age" id="age" value='25'>
+
+            <label for="email">Email</label>
+            <input type="email" required placeholder="Enter Email" id="email" value='default@df.com'>
+
+            <label for="phone">Phone</label>
+            <input type="text" placeholder="Enter Phone Number" id="phone" value='+12345'>
+
+            <div id="selectby">
+                <h3>SelectBy</h3>
+                <label for="selectby_pin">Pincode</label>
+                <input type="radio" id="selectby_pin" name="selectby" value="pin" selected>
+
+                <label for="selectby_dis">District</label>
+
+                <input type="radio" id="selectby_dis" name="selectby" value="district">
+
+                <br>
+
+
+                <label for="pincode">Pincode</label>
+                <input type="text" placeholder="Enter Pincode" id="pincode">
+
+                <h3 class="text-center">OR</h3>
+                <label for="states">State</label>
+
+                <select name="states" id="states" onchange="populateDistricts()">
+                    <option value="0">None</option>
+                    {%for id,name in data['states'].items() %}
+                    <option value='{{id}}'>{{name}}</option>
+                    {%endfor%}
+                </select>
+
+                <!-- Now get District by States -->
+
+                <div id="div_dist">
+                    <!-- Insert District Here -->
+                    <label for="districts">Select Districts</label>
+                    <select name="districts" id="districts" onchange='changedDistrict()'>
+
+                        <option value="0" name="0">None</option>
+
+                    </select>
+                </div>
+
+                <input readonly type="text" id="dist_id" value="id">
+                <input readonly type="text" id="dist_name" value="name">
+
+            </div>
+
+            <Button type="submit" value="submit" id="registerBtn">Register</Button>
+        </form>
+
+
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
 </body>
+
 </html>
-    
