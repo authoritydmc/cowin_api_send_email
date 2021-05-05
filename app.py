@@ -1,3 +1,6 @@
 from cowin_get_email import app
+from cowin_get_email.databases.database import  db
+
 if __name__ == "__main__":
-    app.run()
+    db.init_app(app)
+    
