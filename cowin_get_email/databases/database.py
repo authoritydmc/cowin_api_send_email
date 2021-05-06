@@ -12,6 +12,12 @@ Base=declarative_base()
 
 
 def addUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='NA'):
-    
     from cowin_get_email.databases.user_model import addUser
+    
+    
     return addUser(name, age, email, phone, search_by,pincode ,dist_id,dist_name)
+
+def isUserExist(email):
+    from cowin_get_email.databases.user_model import isUserExist
+
+    return  isUserExist(email)
