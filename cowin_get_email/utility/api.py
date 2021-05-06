@@ -1,6 +1,6 @@
 import requests
 import json
-from . import model
+from cowin_get_email.utility import model
 
 
 base_url='https://cdn-api.co-vin.in/api'

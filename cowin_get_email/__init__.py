@@ -1,6 +1,6 @@
 from flask import  Flask
-from .routes import route1
-from .databases import database
+from cowin_get_email.routes import route1
+from cowin_get_email.databases import database
 
 app=Flask(__name__)
 
