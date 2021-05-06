@@ -17,6 +17,14 @@ class User(Base):
     registered = Column('registered', DateTime, default=datetime.now)
     search_by = Column('search_by', String)
 
+    def __repr__(self):
+        sbl=''
+        if self.search_by=='pincode':
+            sbl=self.pincode
+        else:
+            sbl=self.dist_name
+        return '<div style="border:1px solid green;padding:10px;"> <b>{}</b> residing at  <b>{} </b> , aged <b>{}</b> and email <b>{}</b> is searching by <b>{}</b> </div>'.format(self.name,sbl,self.age,self.email,self.search_by)
+
 
 def addUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='NA'):
     session=Session()
@@ -30,7 +38,7 @@ def addUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='NA'
     user.pincode = pincode
     user.dist_id = dist_id
     user.dist_name=dist_name
-    _,isExist=isUserExist(email,session)
+    _,isExist=isUserExist(email)
     if isExist==False:
         session.add(user)
         session.commit()
@@ -40,16 +48,42 @@ def addUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='NA'
         session.close()
         return 'User already exists with Email Id ',False
 
-def isUserExist(email,session=None):
+def isUserExist(email):
     try:
-        if session==None:
-            session=Session()
+        session=Session()
         res= session.query(User).filter(User.email==email).first()
         return '{} {} {}'.format(res.name,res.email,res.age),True
     except Exception as e:
         return 'Not Found e->{}'.format(e),False
+    finally:
+        session.close()
 
-def getUser():
+def getUsers():
+    try:
+        session=Session()
+        users=session.query(User)
+        datas={}
+        userslst=[]
+        for user in users:
+            userslst.append(user)
+            
+        datas['users']=userslst
+        datas['total']=len(datas['users'])
+        print(datas)
+
+        return datas,True
+
+
+
+    except Exception as e:
+        return "Exception occurred {}".format(e),False
+    
+    finally:
+        session.close()
+
+
     pass
+
+
 
 Base.metadata.create_all(bind=engine)

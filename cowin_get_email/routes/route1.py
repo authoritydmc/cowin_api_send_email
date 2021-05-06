@@ -55,3 +55,10 @@ def user():
         res=database.isUserExist(email)
 
     return str(res)
+
+@bp.route('/users')
+def users():
+
+    res,_=database.getAllUser()
+
+    return str(res)

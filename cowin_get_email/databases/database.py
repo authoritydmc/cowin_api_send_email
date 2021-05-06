@@ -21,3 +21,7 @@ def isUserExist(email):
     from cowin_get_email.databases.user_model import isUserExist
 
     return  isUserExist(email)
+
+def getAllUser():
+    from cowin_get_email.databases.user_model import getUsers
+    return getUsers()
