@@ -9,12 +9,13 @@ if envrn==None:
     # it is local envrn
     lc=local_config()
     DB_URL=lc.DB_URI
-    print('database.py called in Local environment')
+    print('database.py called in Local environment'+DB_URL)
 
 else:
-    DB_URL=prod_config.DB_URI
+    pc=prod_config()
+    DB_URL=pc.DB_URI
 
-    print('database.py called in Prod environment')
+    print('database.py called in Prod environment URL->'+DB_URL)
 
 
 
