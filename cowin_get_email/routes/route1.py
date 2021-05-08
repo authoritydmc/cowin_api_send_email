@@ -67,9 +67,10 @@ def addU():
                         dist_name=datas['dist_name'])
         datas['msg'] = msg
         datas['result']=res
-        send_email.sendWelcomeEmail(datas['name'],datas['email'],datas['selectby'],datas['pincode'],datas['dist_name'])
         info=msg
         if res==True:
+            send_email.sendWelcomeEmail(datas['name'],datas['email'],datas['selectby'],datas['pincode'],datas['dist_name'])
+
             info='Thank you for Registering. Please Check your email Inbox [make sure to check SPAM folder too]'
         return render_template('info.html',info=info)
     else:

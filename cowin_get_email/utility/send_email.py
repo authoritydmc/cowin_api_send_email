@@ -7,13 +7,13 @@ from jinja2 import Environment, FileSystemLoader
 import os
 import logging
 
-from config import prod_config,local_config
+from config import prod_config,local_config,checkENV
 
 envrn=prod_config.environment
 EMAIL=''
 EMAIL_PASSWORD=''
 
-if envrn==None:
+if checkENV()=='LOCAL':
     # it is local envrn
     lc=local_config()
     EMAIL=lc.sender_email

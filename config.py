@@ -19,5 +19,10 @@ class local_config:
     except:
         logging.error("Error Occured IN Setting Up local env")
 
-ens=prod_config.environment if prod_config.environment!=None else 'Local'
+ens=prod_config.environment if prod_config.environment!=None else 'LOCAL'
 print("Running in ",ens)
+
+def checkENV():
+    return prod_config.environment if prod_config.environment!=None else 'LOCAL'
+
+    

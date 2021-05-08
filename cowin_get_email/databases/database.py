@@ -1,25 +1,23 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from config import prod_config,local_config
+from config import prod_config,local_config,checkENV
 
-envrn=prod_config.environment
+
 DB_URL=''
-if envrn==None:
+if checkENV()=='LOCAL':
     # it is local envrn
     lc=local_config()
     DB_URL=lc.DB_URI
-    print('database.py called in Local environment'+DB_URL)
+    print('database.py called in Local environment '+str(DB_URL))
 
 else:
     pc=prod_config()
     DB_URL=pc.DB_URI
 
-    print('database.py called in Prod environment URL->'+DB_URL)
+    print('database.py called in Prod environment URL->'+str(DB_URL))
 
 
-
-dbv='database.py var'
 engine = create_engine(DB_URL, echo=True,connect_args={'check_same_thread':False})
 
 
