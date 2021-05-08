@@ -25,3 +25,20 @@ def isUserExist(email):
 def getAllUser():
     from cowin_get_email.databases.user_model import getUsers
     return getUsers()
+
+def addPincode(pin,dist_id=-1):
+    from cowin_get_email.databases.pincode_model import addPincode
+
+    return addPincode(pin,dist_id)
+
+def isPincodeExist(pincode):
+    from cowin_get_email.databases.pincode_model import isPincodeExist
+    return isPincodeExist(pincode)
+
+def getAllPincode():
+    from cowin_get_email.databases.pincode_model import getAllPincodes
+    return getAllPincodes()
+
+
+
+

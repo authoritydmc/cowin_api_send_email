@@ -62,3 +62,21 @@ def users():
     res,_=database.getAllUser()
 
     return str(res)
+
+@bp.route('/pincodes')
+def pincodes():
+
+    res,_=database.getAllPincode()
+
+    return str(res)
+
+@bp.route('/dpa')
+# ################# Sample Pincode Entry
+def addPincode():
+
+    database.addPincode(224513,235)
+    database.addPincode(502301)
+
+    database.addPincode(235124,1245)
+    return 'dummy pincode Added'
+
