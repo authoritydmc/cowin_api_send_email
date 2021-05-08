@@ -1,4 +1,4 @@
-from flask import  Flask
+from flask import  Flask,jsonify
 from cowin_get_email.routes import route1
 from cowin_get_email.databases import database
 
