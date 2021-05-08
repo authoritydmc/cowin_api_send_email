@@ -38,15 +38,24 @@ def addU():
     datas['dist_id'] = request.form['dist_id']
     datas['dist_name'] = request.form['dist_name']
 
+    # Valid the Datas
+
+    msg,isValidUser=validator.validUser(datas)
+
+
     # remove pincode or dist_id and Name based on selectby
 
     if datas['selectby']=='pincode':
         datas['dist_id']=''
         datas['dist_name']=''
+        # save this pincode for Tracking...
+        database.addPincode(datas['pincode'])
     else:
         datas['pincode']=''
+        database.addDistrict(dist_id=datas['dist_id'],dist_name=datas['dist_name'])
+        # add pincodes of this Districts
 
-    msg,isValidUser=validator.validUser(datas)
+
     if isValidUser==True:
         msg,res=database.addUser(name=datas['name'],
                         age=datas['age'],
@@ -129,3 +138,27 @@ def addVaccine():
     available_vaccine_cap=74,center_id=2341,center_name='Center Excellance',center_address='Place2')
 
     return 'dummy Vaccine Added'
+
+
+@bp.route('/districts')
+def districts():
+
+    tracked=request.args.get('isTracked', None)
+    if tracked!=None and tracked=='true':
+        res,_=database.getAllDistrictWithoutTracked()
+        return str(res)
+    else:
+
+        res,_=database.getAllDistricts()
+
+        return str(res)
+
+
+@bp.route('/dpd')
+def addDumD():
+
+    database.addDistrict(dist_id=123,dist_name='Dummy A',track=True)
+    database.addDistrict(dist_id=242,dist_name='Dummy B',track=False)
+
+    database.addDistrict(dist_id=789,dist_name='Dummy C',track=True)
+    return 'Dummy districts added to'

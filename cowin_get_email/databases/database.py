@@ -53,6 +53,20 @@ def getAllVaccines():
     from cowin_get_email.databases.vaccine_model import  getAllVaccineRecords
     return getAllVaccineRecords()
 
+
+def addDistrict(dist_id,dist_name,track=False):
+    from cowin_get_email.databases.district_model import addDistrict
+    return addDistrict(dist_id=dist_id,dist_name=dist_name,isTracked=track)
+
+def getAllDistrictWithoutTracked():
+    from cowin_get_email.databases.district_model import getAllDistWithoutTracked
+    return getAllDistWithoutTracked()
+
+def getAllDistricts():
+    from cowin_get_email.databases.district_model import getAllDistricts
+    return getAllDistricts()
+
+
     
 
 
