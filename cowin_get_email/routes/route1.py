@@ -2,7 +2,7 @@ from flask import render_template,redirect
 from flask import  url_for, Blueprint, request,Response
 from flask import jsonify
 from cowin_get_email.databases import database
-from cowin_get_email.utility import api,validator
+from cowin_get_email.utility import api,validator,send_email
 import json
 
 bp = Blueprint('route1', __name__)
@@ -66,6 +66,7 @@ def addU():
                         dist_name=datas['dist_name'])
         datas['msg'] = msg
         datas['result']=res
+        send_email.sendWelcomeEmail(datas['name'],datas['email'],datas['selectby'],datas['pincode'],datas['dist_name'])
         return str(datas)
     else:
        return  json.dumps(msg)

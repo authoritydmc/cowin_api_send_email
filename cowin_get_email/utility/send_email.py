@@ -21,9 +21,9 @@ smtp_server = "smtp.gmail.com"
 port = 587  # For starttlss
 # print(cred['email'])
 sender_email=cred['email']
-testReceiver_email=cred['testreceivers']
-def sndEmail(recipient_email,subject,body):
-    receiver_email='authoritydmc@gmail.com'
+testReceiver_email=cred['testreceiver']
+def sndEmail(rec_email,subject,body):
+
 
     message = MIMEMultipart("alternative")
     message["Subject"] = subject
@@ -48,7 +48,7 @@ def sndEmail(recipient_email,subject,body):
         message.attach(msgc)
 
 
-        server.sendmail(sender_email,receiver_email,message.as_string())
+        server.sendmail(sender_email,rec_email,message.as_string())
         print("Mail sent ")
     except Exception as e:
         # Print any error messages to stdout
@@ -57,17 +57,12 @@ def sndEmail(recipient_email,subject,body):
         if server!=None:
             server.quit() 
 
-def sendWelcomeEmail():
-        subject='Welcome User '
+def sendWelcomeEmail(name,rec_email,selectby,pincode,dist_name):
+        subject='Welcome '+name
         template = env.get_template('email_welcome.html')
-        msg1= template.render(name='1337')
-        msg2= template.render(name='Raj')
-       
-        
+        sdata=pincode if selectby=='pincode' else dist_name
+        msg= template.render(name=name,selectby=selectby,search_data=sdata)
+        sndEmail(rec_email,subject,msg)
 
-        sndEmail(testReceiver_email,subject,msg1)
-        sndEmail(testReceiver_email,subject,msg2)
-
-sendWelcomeEmail()
 
         
