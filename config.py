@@ -4,7 +4,9 @@ import logging
 
 class prod_config:
     sender_email=os.environ.get('email',None)
-    DB_URI=os.environ.get('sqlite:///dblocal.sqlite3',None)
+    # DB_URI=os.environ.get('DATABASE_URL',None)
+    DB_URI="sqlite:///dblocal.sqlite3"
+    
     password=os.environ.get('password',None)
     environment=os.environ.get('environment',None)
 
