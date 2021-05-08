@@ -1,10 +1,25 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from config import prod_config,local_config
 
-print('database.py called')
+envrn=prod_config.environment
+DB_URL=''
+if envrn==None:
+    # it is local envrn
+    lc=local_config()
+    DB_URL=lc.DB_URI
+    print('database.py called in Local environment')
+
+else:
+    DB_URL=prod_config.DB_URI
+
+    print('database.py called in Prod environment')
+
+
+
 dbv='database.py var'
-engine = create_engine("sqlite:///db.sqlite3", echo=True,connect_args={'check_same_thread':False})
+engine = create_engine(DB_URL, echo=True,connect_args={'check_same_thread':False})
 
 
 Session = sessionmaker(autocommit=False,autoflush=False,bind=engine)

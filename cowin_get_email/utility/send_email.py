@@ -5,12 +5,28 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from jinja2 import Environment, FileSystemLoader
 import os
+import logging
+
+from config import prod_config,local_config
+
+envrn=prod_config.environment
+EMAIL=''
+EMAIL_PASSWORD=''
+
+if envrn==None:
+    # it is local envrn
+    lc=local_config()
+    EMAIL=lc.sender_email
+    EMAIL_PASSWORD=local_config.password
+    logging.info('sendemail.py called in Local environment')
+
+else:
+    EMAIL=prod_config.sender_email
+    EMAIL_PASSWORD=prod_config.password
+
+    logging.info('sendemail.py called in Prod environment')
 
 
-
-f=open('setup.cred','r')
-cred=json.load(f)
-f.close()
 
 print("Loading env")
 patht='%s/email_templates/' % os.path.dirname(__file__)
@@ -18,19 +34,18 @@ print("PATH-->",patht)
 env = Environment(loader=FileSystemLoader(patht))
 
 smtp_server = "smtp.gmail.com"
-port = 587  # For starttlss
-# print(cred['email'])
-sender_email=cred['email']
-testReceiver_email=cred['testreceiver']
+port = 587  
+
+
 def sndEmail(rec_email,subject,body):
 
 
     message = MIMEMultipart("alternative")
     message["Subject"] = subject
     message["From"] = sender_email
-    message["To"] = recipient_email
+    message["To"] = rec_email
 
-    print("Sending Email to ",recipient_email)
+    print("Sending Email to ",rec_email)
     # Create a secure SSL context
     context = ssl.create_default_context()
     server=None
@@ -39,7 +54,7 @@ def sndEmail(rec_email,subject,body):
         server.ehlo() # Can be omitted
         server.starttls(context=context) # Secure the connection
         server.ehlo() # Can be omitted
-        server.login(sender_email, cred['password'])
+        server.login(EMAIL, EMAIL_PASSWORD)
 
         msgc = MIMEText(body, "html")
 
@@ -48,7 +63,7 @@ def sndEmail(rec_email,subject,body):
         message.attach(msgc)
 
 
-        server.sendmail(sender_email,rec_email,message.as_string())
+        server.sendmail(EMAIL,rec_email,message.as_string())
         print("Mail sent ")
     except Exception as e:
         # Print any error messages to stdout

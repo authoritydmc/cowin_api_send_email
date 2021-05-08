@@ -2,3 +2,4 @@
 setup.cred
 *.sqlite3
 test.py
+setup.py
