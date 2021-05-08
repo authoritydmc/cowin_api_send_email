@@ -1,45 +1,66 @@
-body{
-    background-color: aliceblue;
-    border:1px solid green;
-    height:100vh;
+body {
+    background: #d9a7c7;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #fffcdc, #d9a7c7);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #fffcdc, #d9a7c7);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    /* border:1px solid green; */
+
+
 }
 
 
-#form_add_user 
-{
-    padding:50px;
-    display:flex;
+#form_add_user {
+    /* border:2px solid green; */
+    padding: 10px;
+    margin: 50px 0;
+
+
+}
+
+#registerBtn {
+    background: #c31432;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #240b36, #c31432);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #240b36, #c31432); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    margin: 0;
+    position: absolute;
+    border-radius: 20px;
+    height: 40px;
+    width: 200px;
+    color: aqua;
+
+    left: 50%;
+
+    margin-bottom: 50px;
+
+
+}
+
+#form_add_user #name,
+#email,
+#phone,
+#age {
+    display: flex;
     flex-direction: column;
 
-    justify-content: space-evenly;
-
-    width:500px;
-    height:500px;
-    border:1px solid red;
-    align-items: center;
-}
-#registerBtn
-{
-    width:80px;
-    height:20px;
-    text-align:center;
-
-}
-#form_add_user #name,#email,#phone,#age
-{
-    width:400px;
-    height:65px;
-
-}
-.text-center
-{
-    text-align:center;
 }
 
-#selectby
-{
+.text-center {}
 
-    display:flex;
-    flex-direction: column;
-    justify-content:space-between;
+#selectby {}
+
+.fields {
+    display: flex !important;
+    padding: 20px;
+
+}
+
+.fields label {
+    margin-right: 20px;
+
 }

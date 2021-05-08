@@ -49,20 +49,20 @@ function selectBy(val)
 if(val==0)
 {
   // select By pincode
-document.querySelector('#states').style.visibility="hidden";  
-document.querySelector('#districts').style.visibility="hidden";  
-document.querySelector('#dist_name').style.visibility="hidden";  
-document.querySelector('#dist_id').style.visibility="hidden";  
+document.querySelector('#states').style.display="none"; 
+document.querySelector('#districts').style.display="none";  
+document.querySelector('#dist_name').style.display="none";  
+document.querySelector('#dist_id').style.display="none";  
 
-document.querySelector('#pincode').style.visibility='visible';
+document.querySelector('#pincode').style.display="block"; 
 
 document.querySelector('#pincode').required=true;
 
 
-document.querySelector('#lblpin').style.visibility="visible";  
+document.querySelector('#lblpin').style.display="block";  
 
-document.querySelector('#lbldist').style.visibility="hidden";  
-document.querySelector('#lblstates').style.visibility="hidden";  
+document.querySelector('#lbldist').style.display="none";   
+document.querySelector('#lblstates').style.display="none";   
 
 document.querySelector('#dist_name').value=''; 
 document.querySelector('#dist_id').value='';  
@@ -74,16 +74,16 @@ document.querySelector('#dist_id').value='';
 {
   //select By dist
 
-  document.querySelector('#states').style.visibility="visible";  
-document.querySelector('#districts').style.visibility="visible";  
-document.querySelector('#pincode').style.visibility='hidden';
-document.querySelector('#dist_name').style.visibility="hidden";  
-document.querySelector('#dist_id').style.visibility="hidden";
-document.querySelector('#lblpin').style.visibility="hidden";  
+  document.querySelector('#states').style.display="block";  
+document.querySelector('#districts').style.display="block";  
+document.querySelector('#pincode').style.display="none"; 
+document.querySelector('#dist_name').style.display="none"; 
+document.querySelector('#dist_id').style.display="none"; 
+document.querySelector('#lblpin').style.display="none";   
 document.querySelector('#pincode').value='';
 
-document.querySelector('#lbldist').style.visibility="visible";  
-document.querySelector('#lblstates').style.visibility="visible"; 
+document.querySelector('#lbldist').style.display="block";  
+document.querySelector('#lblstates').style.display="block"; 
 document.querySelector('#pincode').required=false;
 
 
