@@ -44,18 +44,19 @@ def addU():
 
     # remove pincode or dist_id and Name based on selectby
 
-    if datas['selectby']=='pincode':
-        datas['dist_id']=''
-        datas['dist_name']=''
-        # save this pincode for Tracking...
-        database.addPincode(datas['pincode'])
-    else:
-        datas['pincode']=''
-        database.addDistrict(dist_id=datas['dist_id'],dist_name=datas['dist_name'])
-        # add pincodes of this Districts
+
 
 
     if isValidUser==True:
+        if datas['selectby']=='pincode':
+            datas['dist_id']=''
+            datas['dist_name']=''
+            # save this pincode for Tracking...
+            database.addPincode(datas['pincode'])
+        else:
+            datas['pincode']=''
+            database.addDistrict(dist_id=datas['dist_id'],dist_name=datas['dist_name'])
+            # add pincodes of this Districts
         msg,res=database.addUser(name=datas['name'],
                         age=datas['age'],
                         email=datas['email'],
@@ -67,9 +68,12 @@ def addU():
         datas['msg'] = msg
         datas['result']=res
         send_email.sendWelcomeEmail(datas['name'],datas['email'],datas['selectby'],datas['pincode'],datas['dist_name'])
-        return str(datas)
+        info=msg
+        if res==True:
+            info='Thank you for Registering. Please Check your email Inbox [make sure to check SPAM folder too]'
+        return render_template('info.html',info=info)
     else:
-       return  json.dumps(msg)
+       return  render_template('info.html',info=json.dumps(msg))
 
 
 @bp.route('/user')

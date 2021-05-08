@@ -42,7 +42,7 @@ def sndEmail(rec_email,subject,body):
 
     message = MIMEMultipart("alternative")
     message["Subject"] = subject
-    message["From"] = sender_email
+    message["From"] = EMAIL
     message["To"] = rec_email
 
     print("Sending Email to ",rec_email)
