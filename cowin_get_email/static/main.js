@@ -56,10 +56,16 @@ document.querySelector('#dist_id').style.visibility="hidden";
 
 document.querySelector('#pincode').style.visibility='visible';
 
+document.querySelector('#pincode').required=true;
+
+
 document.querySelector('#lblpin').style.visibility="visible";  
 
 document.querySelector('#lbldist').style.visibility="hidden";  
 document.querySelector('#lblstates').style.visibility="hidden";  
+
+document.querySelector('#dist_name').value=''; 
+document.querySelector('#dist_id').value='';  
 
 
 
@@ -71,12 +77,15 @@ document.querySelector('#lblstates').style.visibility="hidden";
   document.querySelector('#states').style.visibility="visible";  
 document.querySelector('#districts').style.visibility="visible";  
 document.querySelector('#pincode').style.visibility='hidden';
-document.querySelector('#dist_name').style.visibility="visible";  
-document.querySelector('#dist_id').style.visibility="visible";
+document.querySelector('#dist_name').style.visibility="hidden";  
+document.querySelector('#dist_id').style.visibility="hidden";
 document.querySelector('#lblpin').style.visibility="hidden";  
+document.querySelector('#pincode').value='';
 
 document.querySelector('#lbldist').style.visibility="visible";  
 document.querySelector('#lblstates').style.visibility="visible"; 
+document.querySelector('#pincode').required=false;
+
 
 }
 
