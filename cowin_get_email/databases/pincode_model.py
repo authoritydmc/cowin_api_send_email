@@ -42,17 +42,21 @@ def addPincode(pincode, district_id=-1):
             # pincode exist..
             # now check whether it has District ID or not
 
-            if district_id != -1:
-                # district id is provided .
-                if res.district_id == -1:
+            if district_id != -1 and res.district_id==-1:
+                    print('-+'*40)
+                    print("Updating Pincode {} District id with {} where old dist id was {}".format(pincode,district_id,res.district_id))
+
                     # queried district id is not provided i.e it is -1
                     res.district_id = district_id
+                    session.add(res)
                     session.commit()
+                    print('-+'*40)
+
                     # updated Pincode with District Id
 
             # else pincode already exist and no modification is going to be done .
 
-            return 'Pincode Exists[no modification done', False
+            return 'Pincode Exists[no modification done]', False
 
     except Exception as e:
 

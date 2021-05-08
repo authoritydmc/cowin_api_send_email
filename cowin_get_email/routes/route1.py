@@ -9,6 +9,7 @@ print("Calling Routes")
 
 @bp.route('/')
 def home():
+    redirect(url_for('/dpa'))
     testR = "DB CONNECTED"
     data = {}
     data['states'] = api.getStates()
@@ -75,7 +76,7 @@ def pincodes():
 def addPincode():
 
     database.addPincode(224513,235)
-    database.addPincode(502301)
+    database.addPincode(502301,777)
 
     database.addPincode(235124,1245)
     return 'dummy pincode Added'
