@@ -35,6 +35,7 @@ def trackPinofDist(dist_id):
 
     try:
         res = requests.get(furl)
+        print(res.status_code)
         response = res.json()
         logging.info(response)
 
