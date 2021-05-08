@@ -16,7 +16,6 @@ def home():
     data = {}
     data['states'] = api.getStates()
 
-    print("From Main", data['states'])
 
     return render_template('base.html', data=data)
 

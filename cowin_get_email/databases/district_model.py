@@ -5,9 +5,7 @@ from datetime import datetime
 print("District model called")
 class District(Base):
     __tablename__ = 'districts'
-    id = Column(Integer, primary_key=True)
-
-    district_id = Column(Integer, default=-1)
+    district_id = Column(Integer,primary_key=True)
     district_name=Column(String,default='district Name')
     isTrackedAllPin=Column(Boolean,default=False)
 
@@ -69,15 +67,16 @@ def isDistExist(dist_id):
 def getAllDistricts():
     try:
         session = Session()
-        districts = session.query(District)
+        districts = session.query(District).all()
         datas = {}
         lst = []
         for dist in districts:
+
             lst.append(dist)
 
         datas['districts'] = lst
-        datas['total'] = len(datas['Districts'])
-        print(datas)
+        datas['total'] = len(datas['districts'])
+
 
         return datas, True
 
@@ -97,8 +96,8 @@ def getAllDistWithoutTracked():
             lst.append(dist)
 
         datas['districts'] = lst
-        datas['total'] = len(datas['Districts'])
-        print(datas)
+        datas['total'] = len(datas['districts'])
+
 
         return datas, True
 

@@ -23,7 +23,7 @@ def getStates():
         print('Exception occured While fetching States List ',e)
         f=open('cowin_get_email/utility/states.json','r')
         res=json.load(f)
-        print(res)
+
         for state in res['states']:
             states[state['state_id']]=state['state_name']
 
