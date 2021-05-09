@@ -5,7 +5,7 @@ from datetime import  datetime
 
 
 class User(Base):
-    __tablename__ = "USER"
+    __tablename__ = "users"
     id = Column('id', Integer, primary_key=True)
     name = Column('name', String)
     phone = Column('phone', String)

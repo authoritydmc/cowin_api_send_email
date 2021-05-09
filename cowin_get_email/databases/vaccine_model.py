@@ -5,7 +5,7 @@ import json
 
 
 class Vaccine(Base):
-    __tablename__ = 'vaccine'
+    __tablename__ = 'vaccines'
     id = Column('id', Integer, primary_key=True)
     pincode = Column('pincode', Integer)
     vaccine = Column('vaccine', String)
