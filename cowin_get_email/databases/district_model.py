@@ -107,4 +107,24 @@ def getAllDistWithoutTracked():
     finally:
         session.close()
 
+def trackComplete(dist_id):
+    try:
+        session = Session()
+        district = session.query(District).filter(District.district_id==dist_id).first()
+        
+        district.isTrackedAllPin=True
+
+        session.add(district)
+        session.commit()
+
+        return 'Districts All pin tracked successfully',True
+
+    except Exception as e:
+        return "Exception occurred {}".format(e), False
+
+    finally:
+        session.close()
+
+
+
 Base.metadata.create_all(bind=engine)

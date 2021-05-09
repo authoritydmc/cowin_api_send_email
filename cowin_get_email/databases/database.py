@@ -53,10 +53,10 @@ def getAllPincode():
     from cowin_get_email.databases.pincode_model import getAllPincodes
     return getAllPincodes()
 
-def addVaccine(vaccine,pincode, min_age, fee, available_vaccine_cap, center_id, center_name, center_address,previous_cap=-1):
+def addVaccine(vaccine,pincode, min_age, fee, available_vaccine_cap, center_id, center_name, center_address,date_avail,previous_cap=-1):
     from cowin_get_email.databases.vaccine_model import  addVaccine
 
-    return addVaccine(vaccine,pincode, min_age, fee, available_vaccine_cap, center_id, center_name, center_address,previous_cap)
+    return addVaccine(vaccine,pincode, min_age, fee, available_vaccine_cap, center_id, center_name, center_address,date_avail,previous_cap)
 
 def getVaccineByPincode(pincode):
     from cowin_get_email.databases.vaccine_model import  getVaccineByPincode

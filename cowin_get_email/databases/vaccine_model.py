@@ -15,6 +15,7 @@ class Vaccine(Base):
     center_id = Column('center_id', Integer)
     center_name = Column('center_name', String)
     center_address = Column('center_address', String)
+    date_avail=Column('date_available', String)
     prev_cap = Column('prev_cap', Integer, default=-1)
 
 
@@ -29,6 +30,7 @@ class Vaccine(Base):
      response['center_id']=self.center_id
      response['center_name']=self.center_name
      response['center_address']=self.center_address
+     response['date_available']=self.date_avails
      return json.dumps(response,indent=4)
 
      
@@ -36,7 +38,7 @@ class Vaccine(Base):
 
 
 
-def addVaccine(vaccine,pincode, min_age, fee, available_vaccine_cap, center_id, center_name, center_address,previous_cap):
+def addVaccine(vaccine,pincode, min_age, fee, available_vaccine_cap, center_id, center_name, center_address,date_avail,previous_cap):
     try:
         session=Session()
         temp_v=Vaccine()
@@ -49,7 +51,7 @@ def addVaccine(vaccine,pincode, min_age, fee, available_vaccine_cap, center_id, 
         temp_v.center_name=center_name
         temp_v.center_address=center_address 
         temp_v.prev_cap=previous_cap
-
+        temp_v.date_avail=date_avail
         session.add(temp_v)
         session.commit()
         return 'Vaccine Added successfully',True
