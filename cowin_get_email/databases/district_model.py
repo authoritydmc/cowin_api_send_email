@@ -29,7 +29,7 @@ def addDistrict(dist_id, dist_name='districtName',isTracked=False):
             print("District ",dist_id,"NOT EXIST IN DB ")
             temp_p = District()
             temp_p.district_name=dist_name
-            temp_p.district_id=dist_id
+            temp_p.district_id=int(dist_id)
             temp_p.isTrackedAllPin=isTracked
             print(temp_p)
             session.add(temp_p)

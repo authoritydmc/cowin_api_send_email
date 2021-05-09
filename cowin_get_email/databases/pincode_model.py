@@ -27,8 +27,8 @@ def addPincode(pincode, district_id=-1):
             print('-'*80)
             print("PINCODE ",pincode,"NOT EXIST IN DB ")
             temp_p = Pincode()
-            temp_p.pincode=pincode
-            temp_p.district_id=district_id
+            temp_p.pincode=int(pincode)
+            temp_p.district_id=int(district_id)
             print(temp_p)
             session.add(temp_p)
             session.commit()
@@ -47,7 +47,7 @@ def addPincode(pincode, district_id=-1):
                     print("Updating Pincode {} District id with {} where old dist id was {}".format(pincode,district_id,res.district_id))
 
                     # queried district id is not provided i.e it is -1
-                    res.district_id = district_id
+                    res.district_id = int(district_id)
                     session.add(res)
                     session.commit()
                     print('-+'*40)

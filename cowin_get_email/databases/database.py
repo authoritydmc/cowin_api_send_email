@@ -18,7 +18,7 @@ else:
     print('database.py called in Prod environment URL->'+str(DB_URL))
 
 
-engine = create_engine(DB_URL, echo=True,connect_args={'check_same_thread':False})
+engine = create_engine(DB_URL, echo=True)
 
 
 Session = sessionmaker(autocommit=False,autoflush=False,bind=engine)

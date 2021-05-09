@@ -31,13 +31,13 @@ def addUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='NA'
     
     user = User()
     user.name = name
-    user.age = age
+    user.age = int(age)
     user.phone = phone
     user.email = email
     user.search_by = search_by
-    user.pincode = pincode
-    user.dist_id = dist_id
-    user.dist_name=dist_name
+    user.pincode = int(pincode) if user.search_by=='pincode' else 0
+    user.dist_id = int(dist_id) if user.search_by=='district' else 0
+    user.dist_name=dist_name  if user.search_by=='district' else 'NA'
     _,isExist=isUserExist(email)
     if isExist==False:
         session.add(user)
