@@ -43,14 +43,14 @@ def addVaccine(vaccine,pincode, min_age, fee, available_vaccine_cap, center_id, 
         session=Session()
         temp_v=Vaccine()
         temp_v.vaccine=vaccine
-        temp_v.pincode=pincode
-        temp_v.min_age=min_age
+        temp_v.pincode=int(pincode)
+        temp_v.min_age=int(min_age)
         temp_v.fee=fee
-        temp_v.available_vac_cap=available_vaccine_cap
-        temp_v.center_id=center_id
+        temp_v.available_vac_cap=int(available_vaccine_cap)
+        temp_v.center_id=int(center_id)
         temp_v.center_name=center_name
         temp_v.center_address=center_address 
-        temp_v.prev_cap=previous_cap
+        temp_v.prev_cap=int(previous_cap)
         temp_v.date_avail=date_avail
         session.add(temp_v)
         session.commit()
