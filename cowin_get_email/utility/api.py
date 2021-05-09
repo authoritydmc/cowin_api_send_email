@@ -4,6 +4,8 @@ from cowin_get_email.utility import model
 
 
 base_url='https://cdn-api.co-vin.in/api'
+headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"}
+
 
 def getStates():
     # returns StateName and StateID
