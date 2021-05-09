@@ -1,3 +1,3 @@
 How to use <> 
 
-Navigate to https://slots-cowin.herokuapp.com/
+Navigate to https://cowin-track.herokuapp.com/
