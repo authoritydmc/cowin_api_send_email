@@ -55,7 +55,7 @@ def trackPinofDist(dist_id):
 
 def processDistData(response,dist_id):
     pincodes=[]
-    for center in response['centers']:
+    for center in response['result']['centers']:
                 # getting Center as JSON OBJECT..
         # vaccine Details alongwith pincode
         #now only Store Pincodes ..
