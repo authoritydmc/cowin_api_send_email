@@ -4,3 +4,4 @@ setup.cred
 test.py
 setup.py
 *.pyc
+Pipfile*
