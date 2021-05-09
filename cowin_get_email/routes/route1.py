@@ -86,12 +86,12 @@ def user():
 
     return str(res)
 
-@bp.route('/users')
-def users():
+# @bp.route('/users')
+# def users():
 
-    res,_=database.getAllUser()
+#     res,_=database.getAllUser()
 
-    return str(res)
+#     return str(res)
 
 @bp.route('/pincodes')
 def pincodes():
