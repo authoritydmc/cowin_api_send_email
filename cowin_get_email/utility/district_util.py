@@ -12,11 +12,7 @@ import json
 
 print('District_util Called')
 def getUrl(dist_id):
-    date_ = common_util.getDate()
-
-
-    url = 'https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id={}&date={}'.format(
-        dist_id, date_)
+    url='https://n3wq0c30m2.execute-api.ap-south-1.amazonaws.com/default/cowin_gateway?endPoint=calendarByDistrict&data='+str(dist_id)
     return url
 
 def trackAllPin():
