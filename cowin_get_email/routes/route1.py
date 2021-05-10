@@ -77,14 +77,14 @@ def addU():
        return  render_template('info.html',info=json.dumps(msg))
 
 
-@bp.route('/user')
-def user():
-    email=request.args.get('email',None)
-    res='No User Found'
-    if email!=None:
-        res=database.isUserExist(email)
+# @bp.route('/user')
+# def user():
+#     email=request.args.get('email',None)
+#     res='No User Found'
+#     if email!=None:
+#         res=database.isUserExist(email)
 
-    return str(res)
+#     return str(res)
 
 # @bp.route('/users')
 # def users():
@@ -97,15 +97,16 @@ def user():
 def pincodes():
 
     res,_=database.getAllPincode()
-
-    return str(res)
+    return  render_template('info.html',info=str(res))
+  
 
 @bp.route('/vaccines')
 def vaccines():
 
     res,_=database.getAllVaccines()
 
-    return str(res)
+    return  render_template('info.html',info=str(res))
+
 
 @bp.route('/vaccine')
 def vaccine():
@@ -115,7 +116,8 @@ def vaccine():
 
         res,_=database.getVaccineByPincode(pincode)
 
-        return str(res)
+        return  render_template('info.html',info=str(res))
+
     else:
         return "Expected get Parameter pincode "
 
@@ -143,7 +145,8 @@ def districts():
 
         res,_=database.getAllDistricts()
 
-        return str(res)
+    return  render_template('info.html',info=json.dumps(res))
+
 
 
 @bp.route('/dpd')
