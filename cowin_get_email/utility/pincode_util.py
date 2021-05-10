@@ -17,6 +17,7 @@ def getCalendarByPincode(pincode):
     try:
         print("Searching for CalenderByPincode for ",pincode)
         furl=getUrl(pincode)
+        print("Formed URL->"+furl)
         res = requests.get(furl,headers=api.headers)
         print(res.status_code)
         response = res.json()

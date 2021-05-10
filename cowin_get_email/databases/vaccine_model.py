@@ -30,22 +30,34 @@ class Vaccine(Base):
 def addVaccine(pincode,res_str,lastUpdated=''):
     try:
         session=Session()
-        temp_v=Vaccine()
         if lastUpdated=='':
             lastUpdated=int(common_util.getUtcTimeStamp())
 
-        temp_v.pincode=int(pincode)
-        temp_v.res_str=res_str
-        temp_v.lastUpdated=lastUpdated
-        session.add(temp_v)
-        session.commit()
+        # check Whether Pincode already pin Added of not 
+        vaccine,isSuccess=getVaccineByPincode(pincode)
+        if isSuccess:
+            # update lastUpdated and res_str
+            print('$'*40)
+            print(f"PINCODE {pincode} FOUND HENCE UPDATING DATA OF VACCINATION")
+            print('$'*40)
+
+            vaccine.res_str=res_str
+            vaccine.lastUpdated=lastUpdated
+            session.add(vaccine)
+            session.commit()
+            
+
+        else:
+            temp_v=Vaccine()
+            temp_v.pincode=int(pincode)
+            temp_v.res_str=res_str
+            temp_v.lastUpdated=lastUpdated
+            session.add(temp_v)
+            session.commit()
         return 'Vaccine Added successfully',True
-        
-
-
     except Exception as e:
 
-        return 'Exception Occured {} '.format(e),False
+        return 'Exception Occured {} at addVaccine'.format(e),False
     finally:
         session.close()
 
@@ -55,22 +67,14 @@ def addVaccine(pincode,res_str,lastUpdated=''):
 def getVaccineByPincode(pincode):
     try:
         session = Session()
-        vaccines = session.query(Vaccine).filter(Vaccine.pincode==pincode).all()
-        datas = {}
-        lst = []
-        for vaccine in vaccines:
-            lst.append(vaccine)
-
-        datas['vaccines'] = lst
-        datas['total'] = len(datas['vaccines'])
-        datas['filter_by']='pincode'
-        datas['filter_param']=pincode
-        # print(datas)
-
-        return json.dumps(datas), True
+        vaccine = session.query(Vaccine).filter(Vaccine.pincode==pincode).first()
+        if vaccine==None:
+            return "None Found while quering VaccineByPincode",False
+        else:
+            return vaccine, True
 
     except Exception as e:
-        return "Exception occurred {}".format(e), False
+        return "Exception occurred {} at getVaccineByPincode".format(e), False
 
     finally:
         session.close()
@@ -94,7 +98,7 @@ def getAllVaccineRecords():
         return datas, True
 
     except Exception as e:
-        return "Exception occurred {}".format(e), False
+        return "Exception occurred {} at getAllVaccineRecords".format(e), False
 
     finally:
         session.close()

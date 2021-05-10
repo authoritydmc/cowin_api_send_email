@@ -1,6 +1,7 @@
 from cowin_get_email.databases.database import Base, engine, Session
 from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from datetime import datetime
+from cowin_get_email.utility import common_util
 
 print("pincode model called")
 class Pincode(Base):
@@ -8,11 +9,14 @@ class Pincode(Base):
     id = Column(Integer, primary_key=True)
     pincode = Column(Integer, unique=True)
     district_id = Column(Integer, default=-1)
+    lastUpdated=Column(Integer,default=0)
 
     def __repr__(self):
         res = {}
         res['pincode'] = self.pincode
         res['district_id'] = self.district_id
+        res['lastUpdated']=self.lastUpdated
+
         return str(res)
 
 
@@ -20,6 +24,7 @@ def addPincode(pincode, district_id=-1):
     print('*'*80)
     print('Adding Pincode {} with dist id {} '.format(pincode,district_id))
     print('*'*80)
+    lastUpdated=common_util.getUtcTimeStamp()
     try:
         session = Session()
         res, isexist = isPincodeExist(pincode)
@@ -29,6 +34,7 @@ def addPincode(pincode, district_id=-1):
             temp_p = Pincode()
             temp_p.pincode=int(pincode)
             temp_p.district_id=int(district_id)
+            temp_p.lastUpdated=lastUpdated
             print(temp_p)
             session.add(temp_p)
             session.commit()
@@ -48,6 +54,7 @@ def addPincode(pincode, district_id=-1):
 
                     # queried district id is not provided i.e it is -1
                     res.district_id = int(district_id)
+                    res.lastUpdated=lastUpdated
                     session.add(res)
                     session.commit()
                     print('-+'*40)

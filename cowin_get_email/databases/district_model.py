@@ -1,18 +1,21 @@
 from cowin_get_email.databases.database import Base, engine, Session
 from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from datetime import datetime
+from cowin_get_email.utility import common_util
 
 print("District model called")
 class District(Base):
     __tablename__ = 'districts'
     district_id = Column(Integer,primary_key=True)
     district_name=Column(String,default='district Name')
+    lastUpdated=Column(Integer,default=0)
     isTrackedAllPin=Column(Boolean,default=False)
 
     def __repr__(self):
         res = {}
         res['district_name'] = self.district_name
         res['district_id'] = self.district_id
+        res['lastUpdated']=self.lastUpdated
         res['is_tracked_all_pincode']=self.isTrackedAllPin
         return str(res)
 
@@ -21,6 +24,7 @@ def addDistrict(dist_id, dist_name='districtName',isTracked=False):
     print('*'*80)
     print('Adding District {} with  id {} '.format(dist_name,dist_id))
     print('*'*80)
+    lastUpdated=common_util.getUtcTimeStamp()
     try:
         session = Session()
         res, isexist = isDistExist(dist_id)
@@ -31,6 +35,7 @@ def addDistrict(dist_id, dist_name='districtName',isTracked=False):
             temp_p.district_name=dist_name
             temp_p.district_id=int(dist_id)
             temp_p.isTrackedAllPin=isTracked
+            temp_p.lastUpdated=lastUpdated
             print(temp_p)
             session.add(temp_p)
             session.commit()
