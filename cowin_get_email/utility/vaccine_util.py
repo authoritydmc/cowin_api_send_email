@@ -40,4 +40,3 @@ def VaccineDataDecrypted():
 
     for vaccine in vaccines['vaccines']:
         print(vaccine.pincode,common_util.decodestr(vaccine.res_str))
-
