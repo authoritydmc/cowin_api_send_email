@@ -89,7 +89,7 @@ def isPincodeExist(pincode):
 def getAllPincodes():
     try:
         session = Session()
-        pincodes = session.query(Pincode)
+        pincodes = session.query(Pincode).order_by(Pincode.lastUpdated)
         datas = {}
         lst = []
         for pincode in pincodes:
@@ -110,7 +110,7 @@ def getAllPincodes():
 def getAllPincodeWithoutDistricts():
     try:
         session = Session()
-        pincodes = session.query(Pincode).filter(Pincode.district_id==-1).all()
+        pincodes = session.query(Pincode).filter(Pincode.district_id==-1).order_by(Pincode.lastUpdated).all()
         datas = {}
         lst = []
         for pincode in pincodes:

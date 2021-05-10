@@ -72,7 +72,7 @@ def isDistExist(dist_id):
 def getAllDistricts():
     try:
         session = Session()
-        districts = session.query(District).all()
+        districts = session.query(District).order_by(District.lastUpdated).all()
         datas = {}
         lst = []
         for dist in districts:
@@ -94,7 +94,7 @@ def getAllDistricts():
 def getAllDistWithoutTracked():
     try:
         session = Session()
-        districts = session.query(District).filter(District.isTrackedAllPin==False).all()
+        districts = session.query(District).filter(District.isTrackedAllPin==False).order_by(District.lastUpdated).all()
         datas = {}
         lst = []
         for dist in districts:
