@@ -85,7 +85,7 @@ def getVaccineByPincode(pincode):
 def getAllVaccineRecords():
     try:
         session = Session()
-        vaccines = session.query(Vaccine)
+        vaccines = session.query(Vaccine).order_by(Vaccine.lastUpdated).all()
         datas = {}
         lst = []
         for vaccine in vaccines:

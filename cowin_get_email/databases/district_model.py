@@ -114,9 +114,10 @@ def getAllDistWithoutTracked():
 
 def trackComplete(dist_id):
     try:
+        
         session = Session()
         district = session.query(District).filter(District.district_id==dist_id).first()
-        
+        districts.lastUpdated=common_util.getUtcTimeStamp()
         district.isTrackedAllPin=True
 
         session.add(district)
