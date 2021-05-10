@@ -25,19 +25,13 @@ def trackAllPin():
 
 
 def trackPinofDist(dist_id):
-    print('*'*80)
-    furl = getUrl(dist_id)
-    print(furl)
-    print('*'*80)
+    
 
     try:
-        res = requests.get(furl,headers=api.headers)
-        print(res.status_code)
-        response = res.json()
+
+        response,_ = getCalendarByDistrict(dist_id)
         logging.info(response)
-        print('*'*80)
-        print('Response from Calender Search of District')
-        print(response)
+
         _,isSuccess=processDistData(response,dist_id)
         if isSuccess:
             # mark all pin track complete SuccessFul.
@@ -72,11 +66,23 @@ def processDistData(response,dist_id):
     else:
         return 'Pincodes Not Found len(0)',False
 
-def processDistDataforAddVaccine(response,dist_id):
-    pass
+def getCalendarByDistrict(dist_id):
+    try:
+        print("Searching for CalenderByPincode for ",dist_id)
+        furl=getUrl(dist_id)
+        print("Formed URL->"+furl)
+        res = requests.get(furl,headers=api.headers)
+        print(res.status_code)
+        response = res.json()
+        logging.info(response)
+        print('*'*80)
+        print('Response from Calender Search of Districct ',dist_id)
+        print(response)
+        print('*'*80)
 
-
-
+        return response,True
+    except Exception as e:
+        return 'Error '+str(e),False
         
 
        

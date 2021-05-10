@@ -30,3 +30,14 @@ def getCalendarByPincode(pincode):
         return response,True
     except Exception as e:
         return 'Error '+str(e),False
+
+
+def getListofPincodeBydist_id(dist_id):
+    data,isSuccess=pincode_model.getPincodesByDistID(dist_id)
+
+    pincodes=[]
+
+    for pincode in data['pincodes']:
+        pincodes.append(pincode.pincode)
+
+    return pincodes

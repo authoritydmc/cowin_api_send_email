@@ -15,6 +15,7 @@ def addVaccineByDistrict():
     print('*'*80)
     for district in allDistricts['districts']:
         print(district.district_id)
+        distToPincodeCnvt(district.district_id)
     print('*'*80)
 
 
@@ -48,4 +49,6 @@ def VaccineDataDecrypted():
 
 
 def distToPincodeCnvt(dist_id):
-    pass
+    pincodes=pincode_util.getListofPincodeBydist_id(dist_id)
+    print("All available pincode in dist ",dist_id)
+    print(pincodes)
