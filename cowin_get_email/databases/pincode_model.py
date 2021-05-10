@@ -100,5 +100,25 @@ def getAllPincodes():
     finally:
         session.close()
 
+def getAllPincodeWithoutDistricts():
+    try:
+        session = Session()
+        pincodes = session.query(Pincode).filter(Pincode.district_id==-1).all()
+        datas = {}
+        lst = []
+        for pincode in pincodes:
+            lst.append(pincode)
+
+        datas['pincodes'] = lst
+        datas['total'] = len(datas['pincodes'])
+        print(datas)
+
+        return datas, True
+
+    except Exception as e:
+        return "Exception occurred {}".format(e), False
+
+    finally:
+        session.close()
 
 Base.metadata.create_all(bind=engine)

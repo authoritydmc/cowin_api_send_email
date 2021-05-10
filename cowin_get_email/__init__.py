@@ -5,4 +5,10 @@ from cowin_get_email.databases import database
 app=Flask(__name__)
 
 print("Calling INIT")
-app.register_blueprint(route1.bp)
+try:
+    from cowin_get_email.routes import localRoute
+    app.register_blueprint(route1.bp)
+    app.register_blueprint(localRoute.bp)
+
+except:
+    print('Exception occured while Registering Route')
