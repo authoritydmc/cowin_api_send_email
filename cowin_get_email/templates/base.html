@@ -9,8 +9,9 @@
 </head>
 
 <body>
-<a href='https://cowin-track.herokuapp.com/'>
-<div id='mainTitle'>Cowin Slots Tracker</div></a>
+    <a href='https://cowin-track.herokuapp.com/'>
+        <div id='mainTitle'>Cowin Slots Tracker</div>
+    </a>
     <div id="div_add_user_main">
 
         <form action="/addUser" method="post" id="form_add_user">
@@ -36,7 +37,7 @@
             </div>
 
             <div id="selectby">
-                    <h3>Search Vaccination By </h3>
+                <h3>Search Vaccination By </h3>
                 <div class='fields'>
 
                     <label for="selectby_pin">Pincode</label>
@@ -89,16 +90,16 @@
 
             </div>
             <Button type="submit" value="submit" id="registerBtn">Register</Button>
-            
+
         </form>
 
 
     </div>
-<div class='links'>
-<h3> Get All </h3>
-<a href='/vaccines'> Vaccines</a>
-<a href='/pincodes'>pincodes</a>
-<a href='/districts'>districts</a>
+    <div class='links'>
+        <h3> Get All </h3>
+        <a href='/vaccines'> Vaccines</a>
+        <a href='/pincodes'>pincodes</a>
+        <a href='/districts'>districts</a>
 
 
 
@@ -113,7 +114,7 @@
         <a href='https://github.com/authoritydmc'> <span>By Raj Dubey </span></a>
     </footer>
 
-    
+
 
     <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
 
