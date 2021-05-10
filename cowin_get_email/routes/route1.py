@@ -120,29 +120,16 @@ def vaccine():
         return "Expected get Parameter pincode "
 
 
-@bp.route('/dpa')
-# ################# Sample Pincode Entry
-def addPincode():
+# @bp.route('/dpa')
+# # ################# Sample Pincode Entry
+# def addPincode():
 
-    database.addPincode(224513,235)
-    database.addPincode(502301,777)
+#     database.addPincode(224513,235)
+#     database.addPincode(502301,777)
 
-    database.addPincode(235124,1245)
-    return 'dummy pincode Added'
+#     database.addPincode(235124,1245)
+#     return 'dummy pincode Added'
 
-@bp.route('/dpv')
-# ################# Sample Vaccine Entry
-def addVaccine():
-
-    database.addVaccine(vaccine='Covaxin'
-    ,pincode='251523',min_age=45,fee='0',
-    available_vaccine_cap=74,center_id=2341,center_name='CenterA',center_address='Place1')
-
-    database.addVaccine(vaccine='Covishield'
-    ,pincode='101010',min_age=18,fee='0',
-    available_vaccine_cap=74,center_id=2341,center_name='Center Excellance',center_address='Place2')
-
-    return 'dummy Vaccine Added'
 
 
 @bp.route('/districts')
