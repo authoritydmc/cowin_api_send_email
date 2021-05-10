@@ -8,9 +8,9 @@ from cowin_get_email.utility import common_util
 class Vaccine(Base):
     __tablename__ = 'vaccines'
     id = Column('id', Integer, primary_key=True)
-    pincode = Column('pincode', Integer)
+    pincode = Column('pincode', Integer,unique=True)
     res_str=Column(Text)
-    lastUpdated=Column(String)
+    lastUpdated=Column(Integer,default=0)
 
 
 
@@ -32,7 +32,7 @@ def addVaccine(pincode,res_str,lastUpdated=''):
         session=Session()
         temp_v=Vaccine()
         if lastUpdated=='':
-            lastUpdated=common_util.getUtcTimeStamp()
+            lastUpdated=int(common_util.getUtcTimeStamp())
 
         temp_v.pincode=int(pincode)
         temp_v.res_str=res_str
