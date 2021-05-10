@@ -3,7 +3,7 @@ import json
 import logging
 
 class prod_config:
-    sender_email=os.environ.get('email',None)
+    sender_email=os.environ.get('sender_email',None)
     # DB_URI=os.environ.get('DATABASE_URL',None)
     DB_URI=os.environ.get('DB_URL',None)
     

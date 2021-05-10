@@ -67,7 +67,7 @@ def sndEmail(rec_email,subject,body):
         print("Mail sent ")
     except Exception as e:
         # Print any error messages to stdout
-        print('Exception occurred',e)
+        print('Exception occurred while sending Mail',e)
     finally:
         if server!=None:
             server.quit() 
