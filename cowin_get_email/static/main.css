@@ -72,3 +72,13 @@ body {
     margin:20px 20px;
     border:2px solid red;
 }
+
+.links
+{
+    margin:20px;
+}
+
+a:visited
+{
+    color:red;
+}
