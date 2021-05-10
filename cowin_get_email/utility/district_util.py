@@ -72,6 +72,9 @@ def processDistData(response,dist_id):
     else:
         return 'Pincodes Not Found len(0)',False
 
+def processDistDataforAddVaccine(response,dist_id):
+    pass
+
 
 
         

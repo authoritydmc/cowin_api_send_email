@@ -9,9 +9,14 @@ import json
 print('Vaccine Util is Called ')
 
 
-def addVaccineByDistrict(dist_id):
-    # this method will call addVaccineByPincode for each of the pincodes
-    pass
+def addVaccineByDistrict():
+    # this method will call addVaccineByPincode for each of the Districts
+    allDistricts,_=district_model.getAllDistricts()
+    print('*'*80)
+    for district in allDistricts['districts']:
+        print(district.district_id)
+    print('*'*80)
+
 
 def addVaccineByPincode():
     allPincodes,_=pincode_model.getAllPincodeWithoutDistricts()
@@ -37,6 +42,10 @@ def addVaccine(pincode,res_str):
 
 def VaccineDataDecrypted():
     vaccines,_=vaccine_model.getAllVaccineRecords()
-
+    print("Data from VaccineDataDecryption",end="-->")
     for vaccine in vaccines['vaccines']:
         print(vaccine.pincode,common_util.decodestr(vaccine.res_str))
+
+
+def distToPincodeCnvt(dist_id):
+    pass
