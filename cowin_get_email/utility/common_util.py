@@ -15,4 +15,4 @@ def getUtcTimeStamp():
     utc_time = dt.replace(tzinfo=timezone.utc)
     utc_timestamp = utc_time.timestamp()
     
-    return int(utc_timestamp)
+    return str(int(utc_timestamp))

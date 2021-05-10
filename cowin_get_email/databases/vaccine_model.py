@@ -2,6 +2,7 @@ from cowin_get_email.databases.database import Base, engine, Session
 from sqlalchemy import Column, Integer, String, DateTime, Boolean,Text
 from datetime import datetime
 import json
+from cowin_get_email.utility import common_util
 
 
 class Vaccine(Base):
@@ -30,7 +31,12 @@ def addVaccine(pincode,res_str,lastUpdated=''):
     try:
         session=Session()
         temp_v=Vaccine()
+        if lastUpdated=='':
+            lastUpdated=common_util.getUtcTimeStamp()
 
+        temp_v.pincode=int(pincode)
+        temp_v.res_str=res_str
+        temp_v.lastUpdated=lastUpdated
         session.add(temp_v)
         session.commit()
         return 'Vaccine Added successfully',True
