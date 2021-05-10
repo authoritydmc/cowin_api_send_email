@@ -77,22 +77,6 @@ def addU():
        return  render_template('info.html',info=json.dumps(msg))
 
 
-# @bp.route('/user')
-# def user():
-#     email=request.args.get('email',None)
-#     res='No User Found'
-#     if email!=None:
-#         res=database.isUserExist(email)
-
-#     return str(res)
-
-# @bp.route('/users')
-# def users():
-
-#     res,_=database.getAllUser()
-
-#     return str(res)
-
 @bp.route('/pincodes')
 def pincodes():
 
@@ -122,15 +106,6 @@ def vaccine():
         return "Expected get Parameter pincode "
 
 
-# @bp.route('/dpa')
-# # ################# Sample Pincode Entry
-# def addPincode():
-
-#     database.addPincode(224513,235)
-#     database.addPincode(502301,777)
-
-#     database.addPincode(235124,1245)
-#     return 'dummy pincode Added'
 
 
 
@@ -145,7 +120,7 @@ def districts():
 
         res,_=database.getAllDistricts()
 
-    return  render_template('info.html',info=json.dumps(res))
+    return  render_template('info.html',info=str(res))
 
 
 

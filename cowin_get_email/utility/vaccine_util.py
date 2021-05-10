@@ -13,10 +13,10 @@ def addVaccineByDistrict(dist_id):
     pass
 
 def addVaccineByPincode():
-    allPincodes=pincode_model.getAllPincodeWithoutDistricts()
+    allPincodes,_=pincode_model.getAllPincodeWithoutDistricts()
 
     print('*'*80)
-    for pin in allPincodes:
+    for pin in allPincodes['pincodes']:
         print("To find for -> ",pin)
     print('*'*80)
 
