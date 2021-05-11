@@ -2,6 +2,9 @@ import os
 import json
 import logging
 
+
+TEST_DATA_API=True
+
 class prod_config:
     sender_email=os.environ.get('sender_email',None)
     # DB_URI=os.environ.get('DATABASE_URL',None)

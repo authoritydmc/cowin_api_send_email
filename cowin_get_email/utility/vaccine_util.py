@@ -11,23 +11,22 @@ print('Vaccine Util is Called ')
 
 def addVaccineByDistrict():
     # this method will call addVaccineByPincode for each of the Districts
-    allDistricts,_=district_model.getAllDistricts()
-    print('*'*80)
-    for district in allDistricts['districts']:
-        print(district.district_id)
-        distToPincodeCnvt(district.district_id)
+    allDistricts=district_util.getListofDistrictIds()
+    for districtid in allDistricts:
+
+        distToPincodeCnvt(districtid)
     print('*'*80)
 
 
 def addVaccineByPincode():
-    allPincodes,_=pincode_model.getAllPincodeWithoutDistricts()
+    pincodes=pincode_util.getListofPincodesWithoutDistricts()
 
     print('*'*80)
-    for pin in allPincodes['pincodes']:
-        print("PIN-->",pin.pincode)
-        response,isSuccess=pincode_util.getCalendarByPincode(pin.pincode)
+    for pin in pincodes:
+        print("PIN-->",pin)
+        response,isSuccess=pincode_util.getCalendarByPincode(pin)
         if isSuccess:
-            addVaccine(pin.pincode,response['result'])
+            addVaccine(pin,response['result'])
     print('*'*80)
 
 
@@ -59,8 +58,12 @@ def distToPincodeCnvt(dist_id):
     response,isSuccess=district_util.getCalendarByDistrict(dist_id)
     if isSuccess:
         # print("Dist UTil response -->",response)
-
-        Allcenters=response['result']['centers']
+        Allcenters=None
+        try:
+            Allcenters=response['result']['centers']
+        except KeyError:
+            print("Exception Occured for {} while Fetching data from server")
+            return "Error Fetching Data",False
 
         print("Type of ",type(Allcenters))
         for center in Allcenters:
@@ -93,4 +96,6 @@ def distToPincodeCnvt(dist_id):
             print('&'*100)
 
         print("$$"*40)
+
+        return "All District "+dist_id+ "based Vaccine Added",True
 

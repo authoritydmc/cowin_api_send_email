@@ -41,3 +41,13 @@ def getListofPincodeBydist_id(dist_id):
         pincodes.append(pincode.pincode)
 
     return pincodes
+
+def getListofPincodesWithoutDistricts():
+
+    data,isSuccess=pincode_model.getAllPincodeWithoutDistricts()
+    lst=[]
+    if isSuccess:
+        for pin in data['pincodes']:
+            lst.append(pin)
+    
+    return lst
