@@ -56,7 +56,7 @@ def distToPincodeCnvt(dist_id):
     dataStorer={}
 
 
-    response,isSuccess=district_util.getCalendarByDistrict(-1)
+    response,isSuccess=district_util.getCalendarByDistrict(dist_id)
     if isSuccess:
         # print("Dist UTil response -->",response)
 
