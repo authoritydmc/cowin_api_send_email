@@ -62,8 +62,8 @@ def distToPincodeCnvt(dist_id):
         try:
             Allcenters=response['result']['centers']
         except KeyError:
-            print("Exception Occured for {} while Fetching data from server")
-            return "Error Fetching Data",False
+            print(f"Exception Occured for {dist_id} while Fetching data from server")
+            return f"Error Fetching Data for dist {dist_id}",False
 
         print("Type of ",type(Allcenters))
         for center in Allcenters:
@@ -97,5 +97,5 @@ def distToPincodeCnvt(dist_id):
 
         print("$$"*40)
 
-        return "All District "+dist_id+ "based Vaccine Added",True
+        return "All District "+str(dist_id)+ "based Vaccine Added",True
 
