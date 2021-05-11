@@ -5,6 +5,7 @@ from datetime import datetime
 from cowin_get_email.utility import common_util,api
 import logging
 import json
+import config
 # sample URL
 
 # https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=654&date=08-05-2021
@@ -12,7 +13,12 @@ import json
 
 print('District_util Called')
 def getUrl(dist_id):
+
+    if config.TEST_DATA_API==True:
+        dist_id=-1
     url='https://n3wq0c30m2.execute-api.ap-south-1.amazonaws.com/default/cowin_gateway?endPoint=calendarByDistrict&data='+str(dist_id)
+    
+    
     return url
 
 def trackAllPin():

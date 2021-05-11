@@ -4,12 +4,15 @@ from datetime import datetime
 from cowin_get_email.utility import common_util,api
 import logging
 import json
+import config
 # sample URL
 
 print('Pincode Util is Called ')
 
 
 def getUrl(pincode):
+    if config.TEST_DATA_API==True:
+        pincode=-1
     url='https://n3wq0c30m2.execute-api.ap-south-1.amazonaws.com/default/cowin_gateway?endPoint=calendarByPincode&data='+str(pincode)
     return url
 
