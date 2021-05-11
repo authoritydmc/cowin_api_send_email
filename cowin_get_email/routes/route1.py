@@ -86,10 +86,14 @@ def pincodes():
 
 @bp.route('/vaccines')
 def vaccines():
+    d=request.args.get('decrypted',None)
+    shdDecrypt=True if d=="true" else False
+    res,_=database.getAllVaccines(shdDecrypt)
 
-    res,_=database.getAllVaccines()
 
     return  render_template('info.html',info=str(res))
+
+
 
 
 @bp.route('/vaccine')

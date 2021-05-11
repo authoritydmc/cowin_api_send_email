@@ -1,7 +1,7 @@
 from cowin_get_email.databases import vaccine_model,pincode_model,district_model
 import requests
 from datetime import datetime
-from cowin_get_email.utility import common_util,api,pincode_util
+from cowin_get_email.utility import common_util,api,pincode_util,district_util
 import logging
 import json
 
@@ -52,3 +52,45 @@ def distToPincodeCnvt(dist_id):
     pincodes=pincode_util.getListofPincodeBydist_id(dist_id)
     print("All available pincode in dist ",dist_id)
     print(pincodes)
+    # now get the calendarbyDistrict()
+    dataStorer={}
+
+
+    response,isSuccess=district_util.getCalendarByDistrict(-1)
+    if isSuccess:
+        # print("Dist UTil response -->",response)
+
+        Allcenters=response['result']['centers']
+
+        print("Type of ",type(Allcenters))
+        for center in Allcenters:
+
+            # print("Current Center is ",center)
+            # print("Its pincode is ",center['pincode'])
+            lst=dataStorer.get(center['pincode'],None)
+            if lst==None:
+                dataStorer[center['pincode']]=[]
+                dataStorer[center['pincode']].append(center)
+                # print("Currently No key with Pincode ",center['pincode'])
+                # print("Hence Adding to New List")
+            else:
+                # print("Pincode ",center['pincode'] ,'already Exist hence adding it to existing')
+
+                lst.append(center)
+            # print("Currenly Value of ",center['pincode'], " \t",dataStorer[center['pincode']])
+            # print("currently  Items cnt ->",len(dataStorer[center['pincode']]))
+            # input("Press Key to Continue")
+        print("$$"*40)
+        print("now printing All Seperated Datas")
+
+        for k,v in dataStorer.items():
+            print('&'*100)
+            finalPresent={}
+            finalPresent['centers']=v
+            finalPresent['total']=len(v)
+            finalPresent['pincode']=k
+            addVaccine(k,finalPresent)
+            print('&'*100)
+
+        print("$$"*40)
+

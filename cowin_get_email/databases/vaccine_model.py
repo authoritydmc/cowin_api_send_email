@@ -15,12 +15,15 @@ class Vaccine(Base):
 
 
     def __repr__(self):
-     response={}
-     response['pincode']=self.pincode
-     response['last_updated']=self.lastUpdated
-     response['res_str']=self.res_str
+        response={}
+        response['pincode']=self.pincode
+        response['last_updated']=self.lastUpdated
+        response['res_str']=self.res_str
 
-     return json.dumps(response,indent=4)
+
+    
+
+        return json.dumps(response,indent=4)
 
      
 
@@ -82,17 +85,21 @@ def getVaccineByPincode(pincode):
     
 
 
-def getAllVaccineRecords():
+def getAllVaccineRecords(decrypt=False):
     try:
         session = Session()
         vaccines = session.query(Vaccine).order_by(Vaccine.lastUpdated).all()
         datas = {}
         lst = []
         for vaccine in vaccines:
+            if decrypt==True:
+                vaccine.res_str=common_util.decodestr(vaccine.res_str)
             lst.append(vaccine)
+
 
         datas['vaccines'] = lst
         datas['total'] = len(datas['vaccines'])
+        datas['isDecrypted']=decrypt
         print(datas)
 
         return datas, True

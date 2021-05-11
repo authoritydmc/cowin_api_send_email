@@ -63,9 +63,9 @@ def getVaccineByPincode(pincode):
 
     return getVaccineByPincode(pincode)
 
-def getAllVaccines():
+def getAllVaccines(decrypt):
     from cowin_get_email.databases.vaccine_model import  getAllVaccineRecords
-    return getAllVaccineRecords()
+    return getAllVaccineRecords(decrypt)
 
 
 def addDistrict(dist_id,dist_name,track=False):

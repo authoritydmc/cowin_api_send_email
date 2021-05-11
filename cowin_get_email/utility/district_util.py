@@ -75,10 +75,8 @@ def getCalendarByDistrict(dist_id):
         print(res.status_code)
         response = res.json()
         logging.info(response)
-        print('*'*80)
-        print('Response from Calender Search of Districct ',dist_id)
         print(response)
-        print('*'*80)
+ 
 
         return response,True
     except Exception as e:
