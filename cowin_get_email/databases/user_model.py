@@ -1,7 +1,9 @@
 from cowin_get_email.databases.database import Base,engine,Session
 from sqlalchemy import Column,Integer,String,DateTime
 from datetime import  datetime
+import json
 
+# Valid search_by values = pincode or district
 
 
 class User(Base):
@@ -18,13 +20,15 @@ class User(Base):
     search_by = Column('search_by', String)
 
     def __repr__(self):
-        sbl=''
-        if self.search_by=='pincode':
-            sbl=self.pincode
-        else:
-            sbl=self.dist_name
-        return '<div style="border:1px solid green;padding:10px;"> <b>{}</b> residing at  <b>{} </b> , aged <b>{}</b> and email <b>{}</b> is searching by <b>{}</b> </div>'.format(self.name,sbl,self.age,self.email,self.search_by)
 
+        returnData={}
+        returnData['name']=self.name
+        returnData['email']=self.email
+        returnData['age']=self.age
+        returnData['search_by']=self.search_by
+        returnData['dist_id']=self.dist_id
+        returnData['pincode']=self.pincode
+        return json.dumps(returnData)
 
 def addUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='NA'):
     session=Session()
@@ -82,7 +86,52 @@ def getUsers():
         session.close()
 
 
-    pass
+def getUsersWithPincodeSelectBy():
+    try:
+        session=Session()
+        users=session.query(User).filter(User.search_by=="pincode").all()
+        datas={}
+        userslst=[]
+        for user in users:
+            userslst.append(user)
+            
+        datas['users']=userslst
+        datas['total']=len(datas['users'])
+        print(datas)
+
+        return datas,True
+
+
+
+    except Exception as e:
+        return "Exception occurred {}".format(e),False
+    
+    finally:
+        session.close()
+
+
+def getUserofDistID(distID):
+    try:
+        session=Session()
+        users=session.query(User).filter(User.dist_id==distID).all()
+        datas={}
+        userslst=[]
+        for user in users:
+            userslst.append(user)
+            
+        datas['users']=userslst
+        datas['total']=len(datas['users'])
+        print(datas)
+
+        return datas,True
+
+
+
+    except Exception as e:
+        return "Exception occurred {}".format(e),False
+    
+    finally:
+        session.close()
 
 
 

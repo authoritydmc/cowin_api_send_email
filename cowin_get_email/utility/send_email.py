@@ -6,6 +6,7 @@ from email.mime.multipart import MIMEMultipart
 from jinja2 import Environment, FileSystemLoader
 import os
 import logging
+from cowin_get_email.utility import common_util,vaccine_util
 
 from config import prod_config,local_config,checkENV
 
@@ -80,4 +81,56 @@ def sendWelcomeEmail(name,rec_email,selectby,pincode,dist_name):
         sndEmail(rec_email,subject,msg)
 
 
+def sendDailyReminder(dataSource,UserList):
+
+    print("Called sendDaiilyReminder ")
+
+    subject='Daily Slots - {}'.format(common_util.getDate())
+    template = env.get_template('daily_reminder.html')
+
+    cld,sld=vaccine_util.cnvtCenterJSONtoCenter_SessionDict(dataSource)
+
+    print("@"*80)
+    print(UserList)
+    print("@"*80)
+
+
+    for user in UserList['users']:
+        emailData={}
+        emailData['centerData']=cld
+        emailData['date']=common_util.getDate()
+        emailData['name']=user.name
+        search_data=user.pincode if user.search_by=="pincode" else user.dist_name
+        emailData['search_by']=user.search_by
+        emailData['search_data']=search_data
+        validSession=[]
+        print("Currently Working to Send Mail to ->{} of age {}".format(user.email,user.age))
+
+        for sessionID,sdata in sld.items():
+            # only Valid Vaccines Are which has more than 0 available cap and age > min_age
+            # print("{} has Vaccine avilable to {} and its cap->{}".format(sdata.session_id,sdata.min_age,sdata.available))
+            if user.age>sdata.min_age and sdata.available>0:
+
+                # TODO : change this or to and in PROD 
+                # valid Vaccine Add it to Valid sessions
+                validSession.append(sdata)
+            
         
+        print("Valid Sessions are -> ",validSession)
+        if (len(validSession)==0):
+            print( "No Valid Vaccine Info Found")
+            return
+        emailData['session']=validSession
+
+        msg= template.render(data=emailData)
+
+        # send the mail
+        sndEmail(user.email,subject,msg)
+
+
+
+
+
+
+  
+

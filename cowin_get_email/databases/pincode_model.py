@@ -150,4 +150,8 @@ def getPincodesByDistID(dist_id):
     finally:
         session.close()
 
+
+
+
+
 Base.metadata.create_all(bind=engine)

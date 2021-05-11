@@ -29,3 +29,12 @@ def decodestr(ed):
     fd=base64.b64decode(ed)
     fd=fd.decode('ascii')
     return fd
+
+
+def getPythonDictofStr(x):
+    x="{"+x[1:-1]+"}"
+
+        # j=json.loads(x)
+    j=eval(x)
+
+    return j

@@ -111,4 +111,21 @@ def getAllVaccineRecords(decrypt=False):
         session.close()
 
 
+
+def getResouceStringByPincodeDecrypted(pincode):
+    try:
+        session = Session()
+        vaccine = session.query(Vaccine).filter(Vaccine.pincode==pincode).first()
+        if vaccine==None:
+            return "None Found while quering VaccineByPincode",False
+        else:
+            return  (common_util.decodestr(vaccine.res_str)), True
+
+    except Exception as e:
+        return "Exception occurred {} at getVaccineByPincode".format(e), False
+
+    finally:
+        session.close()
+
+
 Base.metadata.create_all(bind=engine)

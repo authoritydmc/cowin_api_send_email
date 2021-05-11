@@ -1,7 +1,7 @@
 from cowin_get_email.databases import vaccine_model,pincode_model,district_model
 import requests
 from datetime import datetime
-from cowin_get_email.utility import common_util,api,pincode_util,district_util
+from cowin_get_email.utility import common_util,api,pincode_util,district_util,model
 import logging
 import json
 
@@ -99,3 +99,36 @@ def distToPincodeCnvt(dist_id):
 
         return "All District "+str(dist_id)+ "based Vaccine Added",True
 
+
+def getResouceStringDecryptedByPincode(pincode):
+
+    x,_= vaccine_model.getResouceStringByPincodeDecrypted(pincode)
+    # print("PINCODE -> {} extracted -> {} // its type->{} ".format(pincode,x,type(x)))
+    # input("Press Key @ vaccineUtil")
+    return x
+
+
+def cnvtCenterJSONtoCenter_SessionDict(dataSource):
+
+    print("Convert to model center And Session Classes Called")
+
+    # print(dataSource)
+
+    centerDic={}
+    sessionDic={}
+    for pincodeBasedCenter in dataSource:
+        # a district may contain many Pincodes
+        for ic in pincodeBasedCenter['centers']:
+            # a pincode has Many Center
+            # sore center Info in centerDic here
+ 
+            tc=model.Center(ic['center_id'],ic['name'],ic['address'],ic['pincode'],ic['fee_type'],ic['block_name'])
+            centerDic[ic['center_id']]=tc
+
+            # process this Center all Sessions
+            for session in ic['sessions']:
+                ts=model.sessionsVaccine(session['session_id'],ic['center_id'],session['min_age_limit'],session['available_capacity'],session['slots'],session['date'],session['vaccine'])
+                sessionDic[session['session_id']]=ts
+
+    # all Data Processed return it
+    return centerDic,sessionDic

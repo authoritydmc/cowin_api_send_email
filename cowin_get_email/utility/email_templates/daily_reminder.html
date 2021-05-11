@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Indie+Flower&family=Satisfy&display=swap');
+
+        body {
+            width: auto;
+            height: auto;
+        }
+
+        .main {
+            font-family: 'Satisfy', cursive;
+            font-size: 2em;
+        }
+
+        .centerInfo {
+            font-size: 1.1em;
+        }
+
+        .centerName {
+            font-size: 1.3em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+
+        Hello <span id="name">{{data['name']}}</span>,<br><br>
+
+        Vaccines Available in {{data['search_by']}} {{data['search_data']}}
+    </div>
+    <hr style="  border: 2px dotted green;
+        border-radius: 5px;width:100%">
+    <div>
+        {% for session in data['session'] %}
+
+        <!-- Adding Vaccine Datas -->
+        <div class="centerInfo">
+            <div style="border:1px solid black;text-align:center;">
+
+
+                <div class="centerName">{{(data['centerData'][session.center_id]).center_name}}</div> <br>
+                <div class="fee"> Fees: {{"&#8377;"if (data['centerData'][session.center_id]).fee!="Free" else ""}}{{(data['centerData'][session.center_id]).fee}}</div><br>
+
+                <div class="block">Block: {{(data['centerData'][session.center_id]).block_name}}</div><br>
+
+                <div class="address"> Address: {{(data['centerData'][session.center_id]).address}}</div><br>
+                <br>
+            </div>
+            <table style="border:1px dotted red;" align="center" >
+                <thead>
+                    <tr>
+                        <th scope="col">Vaccine Name</th>
+                        <th scope="col">Available</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Slots</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> {{session.vaccine_name}}</td>
+
+                        <td> {{session.available}}</td>
+                        <td> {{session.date}}</td>
+
+                        <td style="font-size:0.6em;"> {{"<br>".join(session.slots)}}</td>
+
+
+                    </tr>
+
+                </tbody>
+            </table>
+
+
+            <hr style="  border: 2px solid red;
+        border-radius: 5px;width:100%">
+        </div>
+
+        {%endfor%}
+    </div>
+
+    <div class="main">
+        <br>Regards,<br>
+        <a href=' https://cowin-track.herokuapp.com/'>Cowin Slots Tracker</a>
+        v1.0.1
+    </div>
+</body>
+
+</html>
