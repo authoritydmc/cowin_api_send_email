@@ -24,9 +24,9 @@ def addVaccineByPincode():
     print('*'*80)
     for pin in pincodes:
         print("PIN-->",pin)
-        response,isSuccess=pincode_util.getCalendarByPincode(pin)
+        response,isSuccess=pincode_util.getCalendarByPincode(pin.pincode)
         if isSuccess:
-            addVaccine(pin,response['result'])
+            addVaccine(pin.pincode,response['result'])
     print('*'*80)
 
 

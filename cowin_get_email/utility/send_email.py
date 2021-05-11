@@ -125,7 +125,7 @@ def sendDailyReminder(dataSource,UserList):
         msg= template.render(data=emailData)
 
         # send the mail
-        sndEmail(user.email,subject,msg)
+        # sndEmail(user.email,subject,msg)
 
 
 

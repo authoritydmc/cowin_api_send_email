@@ -61,7 +61,13 @@ def processPincodeData(pincodeList):
     return pincodeFormattedData
 
 
+def PincodeMailer():
+# step1 get All Users who are Searching By Pincode
+    allUser=user_util.getListofUserSearchingByPincode()
 
+    print(allUser)
+        
+# DistrictMailer()
 
-DistrictMailer()
+PincodeMailer()
 print('*'*30,'End Email Scheduler','*'*35)

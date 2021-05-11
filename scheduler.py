@@ -10,7 +10,7 @@ district_util.trackAllPin()
 
 vaccine_util.addVaccineByPincode()
 
-vaccine_util.addVaccineByDistrict()
+# vaccine_util.addVaccineByDistrict()
 
 print('*'*80)
 
