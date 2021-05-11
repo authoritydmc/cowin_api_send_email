@@ -134,5 +134,29 @@ def getUserofDistID(distID):
         session.close()
 
 
+def getUsersofPincode(pincode):
+    try:
+        session=Session()
+        users=session.query(User).filter(User.pincode==pincode).all()
+        datas={}
+        userslst=[]
+        for user in users:
+            userslst.append(user)
+            
+        datas['users']=userslst
+        datas['total']=len(datas['users'])
+        print(datas)
+
+        return datas,True
+
+
+
+    except Exception as e:
+        return "Exception occurred {}".format(e),False
+    
+    finally:
+        session.close()
+
+
 
 Base.metadata.create_all(bind=engine)

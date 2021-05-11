@@ -42,6 +42,7 @@ def DistrictMailer():
         # step 6 :now we have all pincodes data and list of users  to whom we have to send this
 
         # pass it to sendEmail Method
+    
 
         send_email.sendDailyReminder(formattedDictData,userList)
 
@@ -62,12 +63,25 @@ def processPincodeData(pincodeList):
 
 
 def PincodeMailer():
-# step1 get All Users who are Searching By Pincode
-    allUser=user_util.getListofUserSearchingByPincode()
+    allPincodes=pincode_util.getListofPincodesWithoutDistricts()
+    for pincode in allPincodes:
+        print(pincode.pincode)
+        # get List of All User who are Searching By this 
 
-    print(allUser)
-        
-# DistrictMailer()
+        allUser=user_util.getListofUserSearchingByPincode(pincode.pincode)
+        print("All Users->",allUser)
+
+        finalAssembledData=[]
+
+        finalAssembledData.append(vaccine_util.getResouceStringDecryptedByPincode(pincode.pincode))
+                
+        formattedDictData=processPincodeData(finalAssembledData)
+        # print("Formatted Data-> ",formattedDictData,"its type->",type(formattedDictData[0]))
+        send_email.sendDailyReminder(formattedDictData,allUser)
+
+
+
+DistrictMailer()
 
 PincodeMailer()
 print('*'*30,'End Email Scheduler','*'*35)

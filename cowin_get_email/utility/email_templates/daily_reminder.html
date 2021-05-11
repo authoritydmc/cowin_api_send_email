@@ -26,6 +26,10 @@
         .centerName {
             font-size: 1.3em;
         }
+        #noVac
+        {
+            font-size: 1.5em; 
+        }
     </style>
 </head>
 
@@ -34,7 +38,7 @@
 
         Hello <span id="name">{{data['name']}}</span>,<br><br>
 
-        Vaccines Available in {{data['search_by']}} {{data['search_data']}}
+       Here's your Daily Slot Tracking of Vaccines Available in {{data['search_by']}} {{data['search_data']}}
     </div>
     <hr style="  border: 2px dotted green;
         border-radius: 5px;width:100%">
@@ -85,9 +89,17 @@
 
         {%endfor%}
     </div>
+    {% if data['total']==0 %}
+    <div id="noVac">
+        Sorry !!!<br>
+        No Vaccine is Available based on your Age and Vaccine Availability
+
+    </div>
+
+    {% endif %}
 
     <div class="main">
-        <br>Regards,<br>
+        Regards,<br>
         <a href=' https://cowin-track.herokuapp.com/'>Cowin Slots Tracker</a>
         v1.0.1
     </div>

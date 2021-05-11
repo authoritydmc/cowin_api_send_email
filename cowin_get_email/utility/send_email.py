@@ -117,15 +117,14 @@ def sendDailyReminder(dataSource,UserList):
             
         
         print("Valid Sessions are -> ",validSession)
-        if (len(validSession)==0):
-            print( "No Valid Vaccine Info Found")
-            return
+
         emailData['session']=validSession
+        emailData['total']=len(validSession)
 
         msg= template.render(data=emailData)
 
         # send the mail
-        # sndEmail(user.email,subject,msg)
+        sndEmail(user.email,subject,msg)
 
 
 
