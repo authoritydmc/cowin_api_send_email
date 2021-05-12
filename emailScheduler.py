@@ -69,7 +69,7 @@ def PincodeMailer():
         # get List of All User who are Searching By this 
 
         allUser=user_util.getListofUserSearchingByPincode(pincode.pincode)
-        print("All Users->",allUser)
+        print("All Users->",allUser,type(allUser))
 
         finalAssembledData=[]
 
@@ -77,6 +77,7 @@ def PincodeMailer():
                 
         formattedDictData=processPincodeData(finalAssembledData)
         # print("Formatted Data-> ",formattedDictData,"its type->",type(formattedDictData[0]))
+       
         send_email.sendDailyReminder(formattedDictData,allUser)
 
 

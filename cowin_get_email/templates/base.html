@@ -15,109 +15,149 @@
     <div id="div_add_user_main">
 
         <form action="/addUser" method="post" id="form_add_user">
+         
+    <div class="Wrapper">
+        <div class="Input">
+          <input type="text" required name="name" id="name" class="Input-text" placeholder="Your Name">
+          <label for="name" class="Input-label">Name</label>
+        </div>
+      </div>
+      <div class="Wrapper">
+        <div class="Input">
+          <input type="number" id="age" class="Input-text" placeholder="Your Age" name="age" required min="18" max="120">
+          <label for="age" class="Input-label">Age</label>
+        </div>
+      </div>
+      <div class="Wrapper">
+        <div class="Input">
+          <input type="email" id="email" name="email" required  class="Input-text" placeholder="Your Email">
+          <label for="email" class="Input-label">Email</label>
+        </div>
+      </div>
+      <div class="Wrapper">
+        <div class="Input">
+          <input type="text"  name="phone" id="phone" class="Input-text" placeholder="Phone number [optional]">
+          <label for="phone" class="Input-label">Phone</label>
+        </div>
+      </div>
+    <h2>Search Vaccination By </h3>
+        <div class="mainSelectDiv">
+            <div class="wrapper" align="center">
+                <input type="radio" name="selectby" id="option-1" value="pincode" checked>
+                <input type="radio" name="selectby" id="option-2" value="district">
+                <label for="option-1" class="option option-1">
+                    <div class="dot"></div>
+                    <span>Pincode</span>
+                </label>
+                <label for="option-2" class="option option-2">
+                    <div class="dot"></div>
+                    <span>District</span>
+                </label>
+            </div>
+        </div>
+        <div class="Wrapper">
+            <div class="Input">
+              <input type="text" name="pincode" placeholder="Enter Pincode" id="pincode" minlength="6" maxlength="6" class="Input-text" >
+              <label for="pincode" class="Input-label">Pincode</label>
+            </div>
+          </div>
 
+ 
+    
+        <div id="div_dist">
+            <!-- Insert District Here -->
             <div class='fields'>
-                <label for="name">Name</label>
-                <input type="text" required placeholder="Enter Name" name="name" id="name">
 
+                <label for="districts" id="lbldist">Select Districts</label>
+                <select name="districts" id="districts" onchange='changedDistrict()'>
+
+                    <option value="0" name="0">None</option>
+
+                </select>
             </div>
 
-            <div class='fields'>
-                <label for="age">Age</label>
-                <input type="number" name="age" required min="18" max="120" placeholder="Enter Age" id="age" >
-            </div>
-            <div class='fields'>
-                <label for="email">Email</label>
-                <input type="email" name="email" required placeholder="Enter Email" id="email">
-            </div>
-            <div class='fields'>
-                <label for="phone">Phone[Optional]</label>
-                <input type="text" name="phone" placeholder="Enter Phone Number" id="phone" 
-                    placeholder='Enter Phone Number (optional)'>
-            </div>
 
-            <div id="selectby">
-                <h3>Search Vaccination By </h3>
-                <div class='fields'>
+        </div>
 
-                    <label for="selectby_pin">Pincode</label>
-                    <input type="radio" id="selectby_pin" name="selectby" value="pincode" checked onclick='selectBy(0)'>
+        <!-- Choose State -->
+        <div class="select animated zoomIn">
+            <input type="radio" name="option">
+            <i class="toggle icon icon-arrow-down"></i>
+            <i class="toggle icon icon-arrow-up"></i>
+            <span class="placeholder">Choose State</span>
 
-                    <label for="selectby_dis">District</label>
+            {%for id,name in data['states'].items() %}
+            <label class="option">
+                <input type="radio" name="option" value={{id}} onclick="populateDistricts({{id}})">
+                <span class="title animated fadeIn"><i class="icon icon-badge"></i>{{name}}</span>
+            </label>
+            {%endfor%}
 
-                    <input type="radio" id="selectby_dis" name="selectby" value="district" onclick='selectBy(1)'>
-                </div>
-                <br>
 
-                <div class='fields'>
-                    <label for="pincode" id="lblpin">Pincode</label>
-                    <input type="text" name="pincode" placeholder="Enter Pincode" id="pincode" minlength="6"
-                        maxlength="6">
-                </div>
-                <div class='fields'>
+            
+        </div>
 
-                    <label for="states" id="lblstates">State</label>
 
-                    <select name="states" id="states" onchange="populateDistricts()">
-                        <option value="0">None</option>
-                        {%for id,name in data['states'].items() %}
-                        <option value='{{id}}'>{{name}}</option>
-                        {%endfor%}
+
+
+        <!-- End State Choose -->
+
+            <!--Choose District-->
+      
+            <div class="selectdiv" >
+                <label>
+                    <select id='insrtDist' onchange='changedDistrict()'>
+<!-- insrt Data Here -->
                     </select>
-                </div>
-                <!-- Now get District by States -->
-                <br>
-                <br>
+                </label>
+              </div>
+            
+     
+       
+    
+             
+
+            <!-- end choose District -->
 
 
-                <div id="div_dist">
-                    <!-- Insert District Here -->
-                    <div class='fields'>
-
-                        <label for="districts" id="lbldist">Select Districts</label>
-                        <select name="districts" id="districts" onchange='changedDistrict()'>
-
-                            <option value="0" name="0">None</option>
-
-                        </select>
-                    </div>
-
-
-                </div>
-                <br>
-                <input readonly type="text" id="dist_id" name="dist_id" value="">
-                <input readonly type="text" id="dist_name" name="dist_name" value="">
-
-            </div>
             <Button type="submit" value="submit" id="registerBtn">Register</Button>
+
+        <br>
+        <br>
+        <br>
+        <input readonly type="text" id="dist_id"  name="dist_id" value="">
+        <input readonly type="text" id="dist_name"  name="dist_name" value="">
+
 
         </form>
 
 
-    </div>
-    <div class='links'>
-        <h3> Get All </h3>
-        <a href='/vaccines'> Vaccines</a>
-        <a href='/pincodes'>pincodes</a>
-        <a href='/districts'>districts</a>
-        <a href='/vaccines?decrypted=true'>Vaccine Decrypted</a>
+        </div>
+
+
+        <div class='links'>
+            <h3> Get All </h3>
+            <a href='/vaccines'> Vaccines</a>
+            <a href='/pincodes'>pincodes</a>
+            <a href='/districts'>districts</a>
+            <a href='/vaccines?decrypted=true'>Vaccine Decrypted</a>
 
 
 
-    </div>
+        </div>
 
 
-    <a href='https://github.com/authoritydmc/cowin_api_send_email'>Project Hosted at Github</a>
+        <a href='https://github.com/authoritydmc/cowin_api_send_email'>Project Hosted at Github</a>
 
 
-    <footer>
+        <footer>
 
-        <a href='https://github.com/authoritydmc'> <span>By Raj Dubey </span></a>
-    </footer>
+            <a href='https://github.com/authoritydmc'> <span>By Raj Dubey </span></a>
+        </footer>
 
 
 
-    <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
 
 </body>
 
