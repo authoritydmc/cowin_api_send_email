@@ -53,6 +53,9 @@ function changedDistrict() {
 }
 
 
-
+function selectby(n)
+{
+  
+}
 
 // selectBy(0);

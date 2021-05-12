@@ -63,23 +63,29 @@ body {
 {
     margin:20px;
 }
-
+a
+{
+    text-decoration:none;
+}
 a:visited
 {
     color:red;
+
 }
 
 #mainTitle
 {
     font-size:2.4em;
-       font-family: 'Satisfy', cursive;
+       font-family:"Dosis", 'Satisfy', sans-serif;
    text-align:center;
+   color:#7e57c2 !important;
+   underline
    
 }
 
 .wrapper{
   display: inline-flex;
-  /* background: #fff; */
+  background: #fff;
   height: 100px;
   width: 300px;
   
@@ -88,6 +94,7 @@ a:visited
   border-radius: 5px;
   padding: 20px 15px;
   box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+  margin:10px auto;
 }
 .wrapper .option{
   /* background: #fff; */
@@ -220,7 +227,7 @@ body {
 .Wrapper {
   flex: 0 0 80%;
   max-width: 100%;
-  margin:10px;
+  margin:10px  0;
 }
 
 .Title {
@@ -447,9 +454,9 @@ body {
     -moz-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     transform: rotate(90deg);
-    right: 11px;
+    right: auto;
     /*Adjust for position however you want*/
-    
+    margin-left:135px;
     top: 18px;
     padding: 0 0 2px;
     border-bottom: 1px solid #999;
@@ -470,7 +477,6 @@ body {
     max-width: 340px;
     height: 50px;
     /* float: right; */
-    margin: 5px 0px;
     padding: 0px 24px;
     font-size: 16px;
     line-height: 1.75;
