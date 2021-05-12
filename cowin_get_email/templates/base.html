@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>Cowin Slots Tracker</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='main.css') }}">
 </head>
@@ -43,8 +44,8 @@
     <h2>Search Vaccination By </h3>
         <div class="mainSelectDiv">
             <div class="wrapper" align="center">
-                <input type="radio" name="selectby" id="option-1" value="pincode" checked onclick="selectby(0)">
-                <input type="radio" name="selectby" id="option-2" value="district"  onclick="selectby(1)">
+                <input type="radio" name="selectby" id="option-1" value="pincode" checked onclick="selectBy_F(0)">
+                <input type="radio" name="selectby" id="option-2" value="district"  onclick="selectBy_F(1)">
                 <label for="option-1" class="option option-1">
                     <div class="dot"></div>
                     <span>Pincode</span>
@@ -55,7 +56,7 @@
                 </label>
             </div>
         </div>
-        <div class="Wrapper">
+        <div class="Wrapper" id="pinINs">
             <div class="Input">
               <input type="text" name="pincode" placeholder="Enter Pincode" id="pincode" minlength="6" maxlength="6" class="Input-text" >
               <label for="pincode" class="Input-label">Pincode</label>
@@ -78,10 +79,7 @@
                 <input type="radio" name="option" value={{id}} onclick="populateDistricts({{id}})">
                 <span class="title animated fadeIn"><i class="icon icon-badge"></i>{{name}}</span>
             </label>
-            {%endfor%}
-
-
-            
+            {%endfor%}  
         </div>
 
 
@@ -113,8 +111,8 @@
         <br>
         <br>
         <br>
-        <input readonly  type="text" id="dist_id"  name="dist_id" value="">
-        <input readonly  type="text" id="dist_name"  name="dist_name" value="">
+        <input readonly hidden type="text" id="dist_id"  name="dist_id" value="">
+        <input readonly hidden type="text" id="dist_name"  name="dist_name" value="">
 
 
         </form>

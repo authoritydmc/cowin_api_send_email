@@ -53,9 +53,34 @@ function changedDistrict() {
 }
 
 
-function selectby(n)
+function selectBy_F(n)
 {
-  
+  console.log("Selectby->"+n);
+
+ 
+
+  if (n==0)
+  {
+    // show pincode ,Hide Dist
+    $('#pinINs').show();
+    $('.select').hide();
+    $('.selectdiv').hide();
+
+    
+    
+  }else
+  {
+    $('#pinINs').hide();
+    $('.select').show();
+    $('.selectdiv').show();
+
+
+
+  }
 }
 
 // selectBy(0);
+
+window.onload = function(){
+  selectBy_F(0);
+}
