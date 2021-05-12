@@ -37,6 +37,7 @@ def addU():
     datas['dist_id'] = request.form['dist_id']
     datas['dist_name'] = request.form['dist_name']
 
+    
     # Valid the Datas
 
     msg,isValidUser=validator.validUser(datas)

@@ -13,7 +13,10 @@ def validUser(userDict):
         selectby=userDict.get('selectby',None)
         if selectby!=None and selectby=='district':
             # integer checking of CenterID
-            did = int(userDict.get('dist_id','NA'))
+            try:
+                did = int(userDict.get('dist_id','NA'))
+            except :
+                return "Please Select Valid District",False
             return 'Validated By District successfully',True
          
         else:

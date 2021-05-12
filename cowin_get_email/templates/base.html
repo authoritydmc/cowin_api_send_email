@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -111,8 +112,8 @@
         <br>
         <br>
         <br>
-        <input readonly hidden type="text" id="dist_id"  name="dist_id" value="">
-        <input readonly hidden type="text" id="dist_name"  name="dist_name" value="">
+        <input readonly hidden type="text" id="dist_id" required name="dist_id" value="">
+        <input readonly hidden type="text" id="dist_name"  required name="dist_name" value="">
 
 
         </form>
@@ -133,15 +134,15 @@
         </div>
 
 
+
+
+        <p class="footer-heart" style="font-size: 1.4em;">
+          Made with <g-emoji class="g-emoji" alias="heart" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png">
+        <img class="emoji" alt="heart" height="20" width="20" src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png"></g-emoji> by <a href="https://github.com/authoritydmc">Raj Dubey</a>
+        </p>
+
+
         <a href='https://github.com/authoritydmc/cowin_api_send_email'>Project Hosted at Github</a>
-
-
-        <footer>
-
-            <a href='https://github.com/authoritydmc'> <span>By Raj Dubey </span></a>
-        </footer>
-
-
 
         <script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
 
