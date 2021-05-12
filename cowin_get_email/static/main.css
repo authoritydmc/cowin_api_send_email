@@ -209,7 +209,7 @@ body {
   overflow: hidden;
   width: 100vw;
   height: 100vh; */
-  color: #455A64;
+  color: black;
   background-color: #7E57C2;
   font-family: var(--fontFamily);
   font-size: var(--fontSizeMd);
@@ -374,7 +374,7 @@ body {
     z-index: 0;
     display: inline-block;
     width: 100%;
-    color: #999;
+    color: black;
     border-top: 0px;
   }
   .select label.option {
