@@ -11,6 +11,7 @@ function populateDistricts(state_id) {
 
     opt.value = "0";
     opt.innerHTML = "Select Districts";
+    // opt.setAttribute('disabled','disabled');
     distDiv.appendChild(opt);    
     console.log(distDiv.innerHTML);
 
@@ -42,10 +43,13 @@ function changedDistrict() {
       " id=" +
       districts.value
   );
-  document.getElementById("dist_id").value = districts.value;
-  document.getElementById("dist_name").value =
-    districts[districts.selectedIndex].text;
-    
+  if (districts.value!=0)
+  {document.getElementById("dist_id").value = districts.value;
+  document.getElementById("dist_name").value =districts[districts.selectedIndex].text;
+  }
+  else { document.getElementById("dist_id").value='';
+  document.getElementById("dist_name").value='';
+ }   
 }
 
 
