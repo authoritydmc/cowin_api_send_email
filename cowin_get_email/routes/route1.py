@@ -4,9 +4,13 @@ from flask import jsonify
 from cowin_get_email.databases import database
 from cowin_get_email.utility import api,validator,send_email
 import json
+from config import  checkENV
 
 bp = Blueprint('route1', __name__)
 print("Calling Routes")
+local=False
+if checkENV()=="LOCAL":
+    local=True
 
 
 @bp.route('/')
@@ -17,7 +21,7 @@ def home():
     data['states'] = api.getStates()
 
 
-    return render_template('base.html', data=data)
+    return render_template('base.html', data=data,local=local)
 
 
 @bp.route('/addUser', methods=['POST', 'GET'])
@@ -73,16 +77,16 @@ def addU():
             send_email.sendWelcomeEmail(datas['name'],datas['email'],datas['selectby'],datas['pincode'],datas['dist_name'])
 
             info='Thank you for Registering. Please Check your email Inbox [make sure to check SPAM folder too]'
-        return render_template('info.html',info=info)
+        return render_template('info.html',info=info,local=local)
     else:
-       return  render_template('info.html',info=json.dumps(msg))
+       return  render_template('info.html',info=json.dumps(msg),local=local)
 
 
 @bp.route('/pincodes')
 def pincodes():
 
     res,_=database.getAllPincode()
-    return  render_template('info.html',info=str(res))
+    return  render_template('info.html',info=str(res),local=local)
   
 
 @bp.route('/vaccines')
@@ -92,7 +96,7 @@ def vaccines():
     res,_=database.getAllVaccines(shdDecrypt)
 
 
-    return  render_template('info.html',info=str(res))
+    return  render_template('info.html',info=str(res),local=local)
 
 
 
@@ -105,7 +109,7 @@ def vaccine():
 
         res,_=database.getVaccineByPincode(pincode)
 
-        return  render_template('info.html',info=str(res))
+        return  render_template('info.html',info=str(res),local=local)
 
     else:
         return "Expected get Parameter pincode "
@@ -125,15 +129,7 @@ def districts():
 
         res,_=database.getAllDistricts()
 
-    return  render_template('info.html',info=str(res))
+    return  render_template('info.html',info=str(res),local=local)
 
 
 
-@bp.route('/dpd')
-def addDumD():
-
-    database.addDistrict(dist_id=123,dist_name='Dummy A',track=True)
-    database.addDistrict(dist_id=242,dist_name='Dummy B',track=False)
-
-    database.addDistrict(dist_id=789,dist_name='Dummy C',track=True)
-    return 'Dummy districts added to'

@@ -45,15 +45,18 @@ body {
 
 #info{
     font-size:3em;
-    font-family: 'Satisfy', cursive;
-    font-size:2em;
+    font-family: 'Dosis', cursive;
+    font-size:1.2em;
     margin:20px 20px;
-    border:2px solid red;
+    border:2px dashed red;
+    padding:5px;
 }
 
 .links
 {
     margin:20px;
+    display:flex;
+    justify-content: space-between;
 }
 a
 {
