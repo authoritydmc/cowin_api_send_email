@@ -6,7 +6,7 @@ from email.mime.multipart import MIMEMultipart
 from jinja2 import Environment, FileSystemLoader
 import os
 import logging
-from cowin_get_email.utility import common_util,vaccine_util
+from cowin_get_email.utility import common_util,vaccine_util,pincode_util,district_util
 
 from config import prod_config,local_config,checkENV
 
@@ -78,7 +78,7 @@ def sendWelcomeEmail(name,rec_email,selectby,pincode,dist_name):
         template = env.get_template('email_welcome.html')
         sdata=pincode if selectby=='pincode' else dist_name
         msg= template.render(name=name,selectby=selectby,search_data=sdata)
-        # sndEmail(rec_email,subject,msg)
+        sndEmail(rec_email,subject,msg)
 
 
 def sendDailyReminder(dataSource,UserList):
@@ -103,6 +103,14 @@ def sendDailyReminder(dataSource,UserList):
         search_data=user.pincode if user.search_by=="pincode" else user.dist_name
         emailData['search_by']=user.search_by
         emailData['search_data']=search_data
+        emailData['url']=''
+        if user.search_by=="pincode":
+            emailData['url']=pincode_util.getCowinApiUrl(search_data)
+        else:
+            emailData['url']=district_util.getCowinApiUrl((user.dist_id))
+        
+
+
         validSession=[]
         print("Currently Working to Send Mail to ->{} of age {}".format(user.email,user.age))
 

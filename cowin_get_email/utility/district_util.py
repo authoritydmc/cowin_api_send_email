@@ -10,6 +10,10 @@ import config
 
 # https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=654&date=08-05-2021
 
+def getCowinApiUrl(dist_id):
+    url='https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?district_id={}&date={}'.format(dist_id,common_util.getDate())
+    return url
+
 
 print('District_util Called')
 def getUrl(dist_id):
