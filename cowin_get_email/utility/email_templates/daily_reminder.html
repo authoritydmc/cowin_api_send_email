@@ -77,8 +77,9 @@
 
                 <div class="block">Block: {{(data['centerData'][session.center_id]).block_name}}</div><br>
 
-                <div class="address"> Address: {{(data['centerData'][session.center_id]).address}}</div><br>
-                <br>
+                <div class="address"> Address: {{(data['centerData'][session.center_id]).address}}</div>
+                data cached at {{session.lastUpdate}}
+                <br><br>
             </div>
             <table style="border:1px dotted red;" align="center" >
                 <thead>
@@ -125,7 +126,7 @@
     <br>
     <br>
     
-    data Fetched from api <a href="{{data['url']}}">URL</a>data cached at {{}}
+    data Fetched from api <a href="{{data['url']}}">URL</a>
     <div style="border:1px solid red;padding:10px;  ">
         <b>##NOTICE##</b><br>
     <br>Soon you will be able to Edit your registration Details and also opt out of this Daily Reminder incase no vaccine is Available<br>
