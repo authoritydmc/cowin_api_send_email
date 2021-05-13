@@ -38,3 +38,7 @@ def getPythonDictofStr(x):
     j=eval(x)
 
     return j
+
+
+def updateLocalUpdate(dist_id):
+    print(pincode_model.updateLastUpdated(pincode))

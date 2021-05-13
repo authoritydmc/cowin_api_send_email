@@ -55,6 +55,9 @@ def getListofPincodesWithoutDistricts():
     lst=[]
     if isSuccess:
         for pin in data['pincodes']:
-            lst.append(pin)
+            lst.append(pin.pincode)
     
     return lst
+
+def updateLocalUpdate(pincode):
+    print(pincode_model.updateLastUpdated(pincode))

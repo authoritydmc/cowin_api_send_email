@@ -101,3 +101,7 @@ def getListofDistrictIds():
     for district in allDistricts['districts']:  
         lst.append(district.district_id)
     return lst
+
+
+def updateLocalUpdate(dist_id):
+    print(district_model.updateLastUpdated(dist_id))

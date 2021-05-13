@@ -14,6 +14,7 @@ class VaccineSession(Base):
     date = Column(String)
     vaccine_name = Column(String)
     lastUpdated=Column(Integer,default=0)
+    last_avail_cnt=Column(Integer,default=0)
 
     def __repr__(self):
 
@@ -31,8 +32,28 @@ class VaccineSession(Base):
 def addSessions(sid, cid, min_age, available, slots, date, vaccine_name):
     try:
         session = Session()
-        temp=VaccineSession()
+        slots=str(slots)
+        sid=str(sid)
+        cid=int(cid)
+        available=int(available)
+        date=str(date)
+        vaccine_name=str(vaccine_name)
+        print("$"*80)
+        # whether Session Exist.
+        temp=None
+        oldRecord=session.query(VaccineSession).filter(VaccineSession.session_id==sid).first()
 
+        print("OLD RECORD-->",oldRecord)
+       
+        if oldRecord!=None:
+            temp=oldRecord
+            print("{} {} already Exist hence Updating...".format(sid,vaccine_name))
+            temp.last_avail_cnt=oldRecord.available 
+        else:
+            temp=VaccineSession()
+            print("{} {} is New Record".format(sid,vaccine_name))
+            temp.last_avail_cnt=available
+        
         temp.session_id = sid
         temp.center_id = cid
         temp.min_age = min_age
@@ -41,13 +62,16 @@ def addSessions(sid, cid, min_age, available, slots, date, vaccine_name):
         temp.date = date
         temp.vaccine_name = vaccine_name
         temp.lastUpdated=common_util.getUtcTimeStamp()
+        
+        # for the first Time Last available is same as avail.
         session.add(temp)
         res=session.commit()
 
         return "Added Seesion->[{}]".format(res),True
     
     except Exception as e:
-        return "error {} occured while Adding Sessions of Vaccine for {}".format(e,cid),False
+        print("A fatal Exception "+str(e))
+        return "error [{}] occured while Adding Sessions of Vaccine for Center[{}]".format(e,cid),False
     
     finally:
         session.close()
@@ -55,10 +79,10 @@ def addSessions(sid, cid, min_age, available, slots, date, vaccine_name):
 def getAllSessions():
     try:
         session = Session()
-        centers = session.query(VaccineSession).order_by(VaccineSession.lastUpdated).all()
+        sessionsQ = session.query(VaccineSession).order_by(VaccineSession.lastUpdated).all()
         sessionList = []
-        for center in centers:
-            sessionList.append(center)
+        for s in sessionsQ:
+            sessionList.append(s)
 
         return sessionList, True
 
@@ -83,6 +107,7 @@ def getSessionByCenter(center_id):
 
     finally:
         session.close()
+
 
 
 Base.metadata.create_all(bind=engine)

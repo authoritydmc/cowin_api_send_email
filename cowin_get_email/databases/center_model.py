@@ -32,7 +32,13 @@ def addCenter(cid, cname, caddr, cpin, fee, block_name):
     try:
         session = Session()
 
-        temp = Center()
+        temp = None
+        centerobj=session.query(Center).filter(Center.center_id==cid).first()
+
+        if centerobj!=None:
+            temp=centerobj
+        else:
+            temp=Center()
         temp.center_name = cname
         temp.center_id = cid
         temp.address = caddr
@@ -83,6 +89,7 @@ def getCentersByPincode(pincode):
 
     finally:
         session.close()
+
 
 
 Base.metadata.create_all(bind=engine)

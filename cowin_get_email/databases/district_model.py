@@ -130,6 +130,22 @@ def trackComplete(dist_id):
     finally:
         session.close()
 
+def updateLastUpdated(dist_id):
+    try:
+        session = Session()
+        Obj = session.query(District).filter(District.district_id == dist_id).first()
+        if Obj==None:
+            raise Exception
+        Obj.lastUpdated=common_util.getUtcTimeStamp()
+        session.add(Obj)
+        session.commit()
+        
+        return "Updated LastUpdated Successfully", True
+    except Exception as e:
+        return 'Not Found e->{}'.format(e), False
+    finally:
+        session.close()
+
 
 
 Base.metadata.create_all(bind=engine)

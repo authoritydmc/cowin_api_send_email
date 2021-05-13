@@ -150,6 +150,22 @@ def getPincodesByDistID(dist_id):
     finally:
         session.close()
 
+def updateLastUpdated(pincode):
+    try:
+        session = Session()
+        pinObj = session.query(Pincode).filter(Pincode.pincode == pincode).first()
+        if pinObj==None:
+            raise Exception
+        pinObj.lastUpdated=common_util.getUtcTimeStamp()
+        session.add(pinObj)
+        session.commit()
+        
+        return "Updated LastUpdated Successfully", True
+    except Exception as e:
+        return 'Not Found e->{}'.format(e), False
+    finally:
+        session.close()
+
 
 
 

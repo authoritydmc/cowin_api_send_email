@@ -56,7 +56,11 @@ body {
 {
     margin:20px;
     display:flex;
-    justify-content: space-between;
+    
+}
+.links a
+{
+  margin:0 20px;
 }
 a
 {
