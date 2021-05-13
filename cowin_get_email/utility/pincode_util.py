@@ -1,7 +1,7 @@
 from cowin_get_email.databases import district_model,pincode_model
 import requests
 from datetime import datetime
-from cowin_get_email.utility import common_util,api
+from cowin_get_email.utility import common_util,api,center_util
 import logging
 import json
 import config
@@ -61,3 +61,26 @@ def getListofPincodesWithoutDistricts():
 
 def updateLocalUpdate(pincode):
     print(pincode_model.updateLastUpdated(pincode))
+
+
+def populatePincodeBased():
+    # getALL Pincodes
+    x= getListofPincodesWithoutDistricts()
+
+    print("All Pincodes without District ID are-> ",x)
+
+    for pin in x:
+        res,isSuccess=getCalendarByPincode(pin)
+
+        if isSuccess:
+            # print("Resposne {} ->{}".format(pin,res))
+
+            # now process this data
+            for center in res['result']['centers']:
+                print("$"*40)
+                print(center)
+                print("$"*40)
+                isProcessed=center_util.processCenter(center)
+
+            # update local Update of this Pincode.
+            updateLocalUpdate(pin)
