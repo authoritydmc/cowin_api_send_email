@@ -1,7 +1,10 @@
 from cowin_get_email.databases import session_model
 
 def addSessions(sid, cid, min_age, available, slots, date, vaccine_name):
-    return  session_model.addSessions(sid, cid, min_age, available, slots, date, vaccine_name)
+    if available>0:
+        return  session_model.addSessions(sid, cid, min_age, available, slots, date, vaccine_name)
+    else:
+        return "Skipped as available is 0",True
 
 
 def processSessions(sessions,centerID):
