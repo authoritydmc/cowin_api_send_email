@@ -3,6 +3,9 @@ import json
 import logging
 
 
+# Keep it FALSE FOR PRODUCTION
+# while testing Use as True
+
 TEST_DATA_API=False 
 
 class prod_config:
