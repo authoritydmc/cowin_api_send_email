@@ -88,36 +88,6 @@ def pincodes():
     res,_=database.getAllPincode()
     return  render_template('info.html',info=str(res),local=local)
   
-
-@bp.route('/vaccines')
-def vaccines():
-    d=request.args.get('decrypted',None)
-    shdDecrypt=True if d=="true" else False
-    res,_=database.getAllVaccines(shdDecrypt)
-
-
-    return  render_template('info.html',info=str(res),local=local)
-
-
-
-
-@bp.route('/vaccine')
-def vaccine():
-    pincode=request.args.get('pincode')
-
-    if pincode!=None:
-
-        res,_=database.getVaccineByPincode(pincode)
-
-        return  render_template('info.html',info=str(res),local=local)
-
-    else:
-        return "Expected get Parameter pincode "
-
-
-
-
-
 @bp.route('/districts')
 def districts():
 
@@ -133,3 +103,14 @@ def districts():
 
 
 
+@bp.route('/sessions')
+def session():
+    res,_=database.getAllSessions()
+
+    return  render_template('info.html',info=str(res),local=local)
+
+@bp.route('/centers')
+def center():
+    res,_=database.getAllCenters()
+    
+    return  render_template('info.html',info=str(res),local=local)

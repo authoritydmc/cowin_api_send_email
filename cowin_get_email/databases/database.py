@@ -53,20 +53,6 @@ def getAllPincode():
     from cowin_get_email.databases.pincode_model import getAllPincodes
     return getAllPincodes()
 
-def addVaccine(vaccine,pincode, min_age, fee, available_vaccine_cap, center_id, center_name, center_address,date_avail,previous_cap=-1):
-    from cowin_get_email.databases.vaccine_model import  addVaccine
-
-    return addVaccine(vaccine,pincode, min_age, fee, available_vaccine_cap, center_id, center_name, center_address,date_avail,previous_cap)
-
-def getVaccineByPincode(pincode):
-    from cowin_get_email.databases.vaccine_model import  getVaccineByPincode
-
-    return getVaccineByPincode(pincode)
-
-def getAllVaccines(decrypt):
-    from cowin_get_email.databases.vaccine_model import  getAllVaccineRecords
-    return getAllVaccineRecords(decrypt)
-
 
 def addDistrict(dist_id,dist_name,track=False):
     from cowin_get_email.databases.district_model import addDistrict
@@ -80,7 +66,13 @@ def getAllDistricts():
     from cowin_get_email.databases.district_model import getAllDistricts
     return getAllDistricts()
 
+def getAllCenters():
+    from cowin_get_email.databases import center_model
+    return center_model.getAllCenters()
 
+def getAllSessions():
+    from cowin_get_email.databases import session_model
+    return session_model.getAllSessions()
     
 
 

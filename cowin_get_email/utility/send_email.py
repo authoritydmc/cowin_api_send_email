@@ -6,7 +6,7 @@ from email.mime.multipart import MIMEMultipart
 from jinja2 import Environment, FileSystemLoader
 import os
 import logging
-from cowin_get_email.utility import common_util,vaccine_util,pincode_util,district_util
+from cowin_get_email.utility import common_util,pincode_util,district_util
 
 from config import prod_config,local_config,checkENV
 
