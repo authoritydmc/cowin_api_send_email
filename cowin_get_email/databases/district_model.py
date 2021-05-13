@@ -1,6 +1,5 @@
 from cowin_get_email.databases.database import Base, engine, Session
 from sqlalchemy import Column, Integer, String, DateTime, Boolean
-from datetime import datetime
 from cowin_get_email.utility import common_util
 
 print("District model called")
