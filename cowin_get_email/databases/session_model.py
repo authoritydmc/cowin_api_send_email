@@ -1,6 +1,7 @@
 from cowin_get_email.databases.database import Base, engine, Session
 from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from cowin_get_email.utility import common_util
+import json
 
 print("Session Model is called")
 class VaccineSession(Base):
@@ -14,9 +15,20 @@ class VaccineSession(Base):
     vaccine_name = Column(String)
     lastUpdated=Column(Integer,default=0)
 
+    def __repr__(self):
+
+        data={}
+        data['id']=self.session_id
+        data['Vaccine_name']=self.vaccine_name
+        data['center_id']=self.center_id
+        data['min_age']=self.min_age
+        data['available']=self.available
+        data['onDate']=self.date
+        return json.dumps(data)
 
 
-def addSessions(self, sid, cid, min_age, available, slots, date, vaccine_name):
+
+def addSessions(sid, cid, min_age, available, slots, date, vaccine_name):
     try:
         session = Session()
         temp=VaccineSession()
