@@ -127,9 +127,12 @@ def sendDailyReminder(centerDic,sessionList,UserList):
         print("Valid Sessions are -> ",validSession)
 
         emailData['session']=validSession
+
+        # print(sessionList)
+
         emailData['total']=len(validSession)
 
-        msg= template.render(data=emailData)
+        msg= template.render(data=emailData,cnvrtutcLocal=common_util.getSimpleDatenTimeFromtimeStamp)
         if len(validSession)==0:
             subject+=" [No Slots Available]"
         else:
@@ -137,6 +140,7 @@ def sendDailyReminder(centerDic,sessionList,UserList):
 
         # send the mail
         sndEmail(user.email,subject,msg)
+
 
 
 

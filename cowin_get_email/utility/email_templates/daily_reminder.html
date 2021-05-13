@@ -78,7 +78,7 @@
                 <div class="block">Block: {{(data['centerData'][session.center_id]).block_name}}</div><br>
 
                 <div class="address"> Address: {{(data['centerData'][session.center_id]).address}}</div>
-                data cached at {{session.lastUpdate}}
+                data cached at {{cnvrtutcLocal(session.lastUpdated)}}
                 <br><br>
             </div>
             <table style="border:1px dotted red;" align="center" >

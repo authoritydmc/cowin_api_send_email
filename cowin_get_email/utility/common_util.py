@@ -43,5 +43,5 @@ def getPythonDictofStr(x):
 def getSimpleDatenTimeFromtimeStamp(timeStamp):
     os.environ['TZ'] = 'Asia/Calcutta'
     time.tzset()
-    x=datetime.fromtimestamp(s)
+    x=datetime.fromtimestamp(timeStamp)
     return datetime.today().strftime('%d-%m-%Y %I:%M:%S %p')

@@ -60,3 +60,4 @@ def PincodeBasedUserMailer():
         allUser['users']=[user]
 
         send_email.sendDailyReminder(ALL_CENTER_DATA,ALL_VACCINE_SESSIONS,allUsers)
+        
