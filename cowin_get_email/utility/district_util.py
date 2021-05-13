@@ -102,6 +102,14 @@ def getListofDistrictIds():
         lst.append(district.district_id)
     return lst
 
+def getListofDistricts():
+    # this method will call addVaccineByPincode for each of the Districts
+    allDistricts,_=district_model.getAllDistricts()
+    lst=[]
+    for district in allDistricts['districts']:  
+        lst.append(district)
+    return lst
+
 
 def updateLocalUpdate(dist_id):
     print(district_model.updateLastUpdated(dist_id))
