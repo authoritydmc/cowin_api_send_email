@@ -82,5 +82,5 @@ function selectBy_F(n)
 // selectBy(0);
 
 window.onload = function(){
-  selectBy_F(0);
+  selectBy_F(1);
 }

@@ -78,7 +78,7 @@ def sendWelcomeEmail(name,rec_email,selectby,pincode,dist_name):
         template = env.get_template('email_welcome.html')
         sdata=pincode if selectby=='pincode' else dist_name
         msg= template.render(name=name,selectby=selectby,search_data=sdata)
-        sndEmail(rec_email,subject,msg)
+        # sndEmail(rec_email,subject,msg)
 
 
 def sendDailyReminder(dataSource,UserList):

@@ -36,20 +36,19 @@ def trackPinofDist(dist_id):
     try:
 
         response,_ = getCalendarByDistrict(dist_id)
-        logging.info(response)
-
-        _,isSuccess=processDistData(response,dist_id)
+        msg,isSuccess=processDistData(response,dist_id)
+        print('$'*40)
+        print("message ->{} and it is {}".format(msg,isSuccess))
+        print("$"*40)
         if isSuccess:
             # mark all pin track complete SuccessFul.
+            print("Now Marking ",dist_id,"for ll pincode Tracked")
             district_model.trackComplete(dist_id)
         else:
             print('Can not Mark All pincode Tracked for ',dist_id)
         print('*'*80)
-
-
-
     except Exception as e:
-        logging.error('Exception occured'+str(e))
+        print('Exception occured'+str(e))
 
 
 
@@ -74,7 +73,7 @@ def processDistData(response,dist_id):
 
 def getCalendarByDistrict(dist_id):
     try:
-        print("Searching for CalenderByPincode for ",dist_id)
+        print("Searching for CalendarByDistrict for ",dist_id)
         furl=getUrl(dist_id)
         print("Formed URL->"+furl)
         res = requests.get(furl,headers=api.headers)
