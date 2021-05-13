@@ -85,7 +85,7 @@ def sendDailyReminder(dataSource,UserList):
 
     print("Called sendDaiilyReminder ")
 
-    subject='Daily Slots - {}'.format(common_util.getDate())
+    subject='Daily Slots [{}] '.format(common_util.getDate())
     template = env.get_template('daily_reminder.html')
 
     cld,sld=vaccine_util.cnvtCenterJSONtoCenter_SessionDict(dataSource)
@@ -130,6 +130,10 @@ def sendDailyReminder(dataSource,UserList):
         emailData['total']=len(validSession)
 
         msg= template.render(data=emailData)
+        if len(validSession)==0:
+            subject+=" [No Slots Available]"
+        else:
+            subject+=" [Slots available]"
 
         # send the mail
         sndEmail(user.email,subject,msg)

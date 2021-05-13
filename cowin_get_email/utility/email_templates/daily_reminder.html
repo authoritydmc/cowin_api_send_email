@@ -60,8 +60,11 @@
        Here's your Daily Slot Tracking of Vaccines Available in {{data['search_by']}} {{data['search_data']}}
         {%endif%}
     </div>
+    {% if data['total']!=0 %}
     <hr style="  border: 2px dotted green;
         border-radius: 5px;width:100%">
+        {%endif%}
+
     <div>
         {% for session in data['session'] %}
 
