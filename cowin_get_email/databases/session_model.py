@@ -32,7 +32,7 @@ class VaccineSession(Base):
 def addSessions(sid, cid, min_age, available, slots, date, vaccine_name):
     try:
         session = Session()
-        slots="<br>".join(slots)
+        slots=",".join(slots)
         sid=str(sid)
         cid=int(cid)
         available=int(available)

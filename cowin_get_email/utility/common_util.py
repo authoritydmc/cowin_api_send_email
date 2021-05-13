@@ -40,5 +40,8 @@ def getPythonDictofStr(x):
     return j
 
 
-def updateLocalUpdate(dist_id):
-    print(pincode_model.updateLastUpdated(pincode))
+def getSimpleDatenTimeFromtimeStamp(timeStamp):
+    os.environ['TZ'] = 'Asia/Calcutta'
+    time.tzset()
+    x=datetime.fromtimestamp(s)
+    return datetime.today().strftime('%d-%m-%Y %I:%M:%S %p')
