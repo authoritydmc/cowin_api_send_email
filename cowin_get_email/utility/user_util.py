@@ -14,3 +14,7 @@ def getUserOfDistId(distID):
 def getListofUserSearchingByPincode(pincode):
     x,_=user_model.getUsersofPincode(pincode)
     return x
+
+def getAllUsersSearchingByPincode():
+    x,_=user_model.getUsersWithPincodeSelectBy()
+    return x

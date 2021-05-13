@@ -81,15 +81,15 @@ def sendWelcomeEmail(name,rec_email,selectby,pincode,dist_name):
         sndEmail(rec_email,subject,msg)
 
 
-def sendDailyReminder(dataSource,UserList):
+def sendDailyReminder(centerDic,sessionList,UserList):
+    
 
     print("Called sendDaiilyReminder ")
 
     subject='Daily Slots [{}] '.format(common_util.getDate())
     template = env.get_template('daily_reminder.html')
 
-    cld,sld=vaccine_util.cnvtCenterJSONtoCenter_SessionDict(dataSource)
-
+   
     print("@"*80)
     print(UserList)
     print("@"*80)
@@ -97,7 +97,7 @@ def sendDailyReminder(dataSource,UserList):
 
     for user in UserList['users']:
         emailData={}
-        emailData['centerData']=cld
+        emailData['centerData']=centerDic
         emailData['date']=common_util.getDate()
         emailData['name']=user.name
         search_data=user.pincode if user.search_by=="pincode" else user.dist_name
@@ -114,7 +114,7 @@ def sendDailyReminder(dataSource,UserList):
         validSession=[]
         print("Currently Working to Send Mail to ->{} of age {}".format(user.email,user.age))
 
-        for sessionID,sdata in sld.items():
+        for sdata in sessionList:
             # only Valid Vaccines Are which has more than 0 available cap and age > min_age
             # print("{} has Vaccine avilable to {} and its cap->{}".format(sdata.session_id,sdata.min_age,sdata.available))
             if user.age>sdata.min_age and sdata.available>0:
@@ -137,6 +137,7 @@ def sendDailyReminder(dataSource,UserList):
 
         # send the mail
         sndEmail(user.email,subject,msg)
+
 
 
 

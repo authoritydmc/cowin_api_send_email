@@ -91,5 +91,4 @@ def getCentersByPincode(pincode):
         session.close()
 
 
-
 Base.metadata.create_all(bind=engine)

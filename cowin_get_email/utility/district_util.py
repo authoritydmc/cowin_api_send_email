@@ -2,7 +2,7 @@
 from cowin_get_email.databases import district_model,pincode_model
 import requests
 from datetime import datetime
-from cowin_get_email.utility import common_util,api
+from cowin_get_email.utility import common_util,api,center_util
 import logging
 import json
 import config
@@ -113,3 +113,25 @@ def getListofDistricts():
 
 def updateLocalUpdate(dist_id):
     print(district_model.updateLastUpdated(dist_id))
+
+
+def populateDistrictsData():
+    
+    # step 1 get All Districts.
+    districts=getListofDistrictIds()
+
+    print("list->",districts)
+
+    for dist_id in districts:
+        response,isSuccess = getCalendarByDistrict(dist_id)
+        if isSuccess ==True:
+            # now add its Data
+            for center in response['result']['centers']:
+                print("$"*40)
+                print(center)
+                print("$"*40)
+                isProcessed=center_util.processCenter(center)
+
+        # update that this dist has been Updated
+
+        updateLocalUpdate(dist_id)

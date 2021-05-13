@@ -10,7 +10,7 @@ import config
 print('Pincode Util is Called ')
 
 def getCowinApiUrl(pincode):
-    url='https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode={}}&date={}'.format(pincode,common_util.getDate())
+    url='https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode={}&date={}'.format(pincode,common_util.getDate())
     return url
 
 

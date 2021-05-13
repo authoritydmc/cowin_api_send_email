@@ -15,3 +15,11 @@ def processSessions(sessions,centerID):
         res,_=addSessions(session['session_id'],centerID,session['min_age_limit'],session['available_capacity'],session['slots'],session['date'],session['vaccine'])
         print("Session->[{}] response->[{}] isSucess=[{}]".format(session,res,_))
         
+
+def getListofSessionByCenter(centerID):
+    x,_= session_model.getSessionByCenter(centerID)
+    if _==True:
+        return x
+    else :
+        return []
+ 
