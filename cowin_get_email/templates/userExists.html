@@ -2,16 +2,24 @@
 
 {% block head %}
  
-<title>Info-Cowin Slots Tracker</title>
+<title>Error-User Exist Cowin Slots Tracker</title>
 {% endblock %}
 
 {%block content %}
   <a href='https://cowin-track.herokuapp.com/'>
     <div id='mainTitle'>Cowin Slots Tracker</div></a>
 
+
+
     
 <div id="info">
-    {{info}}
+    
+ There is already a User is registered with email: {{data['email']}}
+
+ <br>  <a href='/login?email={{data["email"]}}'>
+ Click here </a>to Login/Update the Details 
+
+
 </div>
 
 {% endblock %}

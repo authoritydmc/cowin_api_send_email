@@ -56,7 +56,9 @@ def isUserExist(email):
     try:
         session=Session()
         res= session.query(User).filter(User.email==email).first()
-        return '{} {} {}'.format(res.name,res.email,res.age),True
+        if res==None:
+            return "Not found ",False
+        return res,True
     except Exception as e:
         return 'Not Found e->{}'.format(e),False
     finally:

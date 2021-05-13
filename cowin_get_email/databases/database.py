@@ -74,6 +74,9 @@ def getAllSessions():
     from cowin_get_email.databases import session_model
     return session_model.getAllSessions()
     
+def matchToken(email,token):
+    from cowin_get_email.databases import user_pref_model
+    return user_pref_model.matchToken(email,token)
 
 
 

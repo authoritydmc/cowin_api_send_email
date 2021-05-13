@@ -1,8 +1,8 @@
-from flask import render_template,redirect
+from flask import render_template,redirect,url_for
 from flask import  url_for, Blueprint, request,Response
 from flask import jsonify
 from cowin_get_email.databases import database
-from cowin_get_email.utility import api,validator,send_email
+from cowin_get_email.utility import api,validator,send_email,user_util
 import json
 from config import  checkENV
 
@@ -15,21 +15,21 @@ if checkENV()=="LOCAL":
 
 @bp.route('/')
 def home():
-
-    testR = "DB CONNECTED"
-    data = {}
-    data['states'] = api.getStates()
+        return render_template('landing.html',local=local)
 
 
-    return render_template('base.html', data=data,local=local)
+
 
 
 @bp.route('/addUser', methods=['POST', 'GET'])
 def addU():
 
     if request.method == "GET":
-        return "Get Method TO be implemented"
+        data = {}
+        data['states'] = api.getStates()
+        return render_template('addUser.html', data=data,local=local)
 
+    # below codes are handled by post request
     datas = {}
     
     datas['name'] = request.form.get('name')
@@ -46,6 +46,15 @@ def addU():
 
     msg,isValidUser=validator.validUser(datas)
 
+    # check whether user is registered or not
+    res,isPresent=database.isUserExist(datas['email'])
+    if isPresent:
+        print("USER FOUND")
+        data={}
+        data['email']=res.email
+        return  render_template('userExists.html',data=data,local=local)
+
+        # here send email to login /Update Details
 
     # remove pincode or dist_id and Name based on selectby
 
@@ -114,3 +123,36 @@ def center():
     res,_=database.getAllCenters()
     
     return  render_template('info.html',info=str(res),local=local)
+
+@bp.route("/login")
+def login():
+
+    email=request.args.get('email',None)
+    res=''
+    if email!=None:
+        msg,_=user_util.generateLoginofUser(email)
+        res=msg
+        res+=" <br> Please goto your email inbox and click on the link to login"
+    else:
+        res= "Please provide valid Details"
+
+    return  render_template('info.html',info=str(res),local=local)
+    
+@bp.route("/dashboard")
+def dashboard():
+    token=request.args.get('token',None)
+    email=request.args.get('email',None)
+    res=''
+    if token!=None and email!=None:
+        msg,isTokenValid=database.matchToken(email,token)
+
+        if isTokenValid:
+            res='Valid User wow ',msg
+        else:
+            res="Invalid User ..boohooo"+msg
+
+    else:
+        return redirect(url_for('route1.home'))
+
+    return  render_template('info.html',info=str(res),local=local)
+    

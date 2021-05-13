@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block head %}
+ 
+<title>Register-Cowin Slots Tracker</title>
+{% endblock %}
+
+{%block content %}
+  <a href='https://cowin-track.herokuapp.com/'>
+    <div id='mainTitle'>Cowin Slots Tracker</div>
+  </a>
+  <div id="div_add_user_main">
+
+    <form action="/addUser" method="post" id="form_add_user">
+
+      <div class="Wrapper">
+        <div class="Input">
+          <input type="text" required name="name" id="name" class="Input-text" placeholder="Your Name">
+          <label for="name" class="Input-label">Name</label>
+        </div>
+      </div>
+      <div class="Wrapper">
+        <div class="Input">
+          <input type="number" id="age" class="Input-text" placeholder="Your Age" name="age" required min="18"
+            max="120">
+          <label for="age" class="Input-label">Age</label>
+        </div>
+      </div>
+      <div class="Wrapper">
+        <div class="Input">
+          <input type="email" id="email" name="email" required class="Input-text" placeholder="Your Email">
+          <label for="email" class="Input-label">Email</label>
+        </div>
+      </div>
+      <div class="Wrapper">
+        <div class="Input">
+          <input type="text" name="phone" id="phone" class="Input-text" placeholder="Phone number [optional]">
+          <label for="phone" class="Input-label">Phone</label>
+        </div>
+      </div>
+      <h2>Search Vaccination By </h3>
+        <div class="mainSelectDiv">
+          <div class="wrapper" align="center">
+            <input type="radio" name="selectby" id="option-1" value="pincode" onclick="selectBy_F(0)">
+            <input type="radio" name="selectby" id="option-2" value="district" checked onclick="selectBy_F(1)">
+            <label for="option-1" class="option option-1">
+              <div class="dot"></div>
+              <span>Pincode</span>
+            </label>
+            <label for="option-2" class="option option-2">
+              <div class="dot"></div>
+              <span>District</span>
+            </label>
+          </div>
+        </div>
+        <div class="Wrapper" id="pinINs">
+          <div class="Input">
+            <input type="text" name="pincode" placeholder="Enter Pincode" id="pincode" minlength="6" maxlength="6"
+              class="Input-text">
+            <label for="pincode" class="Input-label">Pincode</label>
+          </div>
+        </div>
+
+
+
+
+
+        <!-- Choose State -->
+        <div class="select animated zoomIn">
+          <input type="radio" name="option">
+          <i class="toggle icon icon-arrow-down"></i>
+          <i class="toggle icon icon-arrow-up"></i>
+          <span class="placeholder">Choose State</span>
+
+          {%for id,name in data['states'].items() %}
+          <label class="option">
+            <input type="radio" name="option" value={{id}} onclick="populateDistricts({{id}})">
+            <span class="title animated fadeIn"><i class="icon icon-badge"></i>{{name}}</span>
+          </label>
+          {%endfor%}
+        </div>
+
+
+
+
+        <!-- End State Choose -->
+
+        <!--Choose District-->
+
+        <div class="selectdiv">
+          <label>
+            <select id='insrtDist' onchange='changedDistrict()'>
+              <!-- insrt Data Here -->
+              <option value="0" selected disabled>Select Districts</option>
+            </select>
+          </label>
+        </div>
+
+
+
+
+
+
+        <!-- end choose District -->
+
+
+        <Button type="submit" value="submit" id="registerBtn">Register</Button>
+
+        <br>
+        <br>
+        <br>
+        <input readonly hidden type="text" id="dist_id" required name="dist_id" value="">
+        <input readonly hidden type="text" id="dist_name" required name="dist_name" value="">
+
+
+    </form>
+
+
+  </div>
+  {% endblock %}

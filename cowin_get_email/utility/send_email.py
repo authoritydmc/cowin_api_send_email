@@ -13,13 +13,14 @@ from config import prod_config,local_config,checkENV
 envrn=prod_config.environment
 EMAIL=''
 EMAIL_PASSWORD=''
-
+baseURL='https://cowin-track.herokuapp.com/'
 if checkENV()=='LOCAL':
     # it is local envrn
     lc=local_config()
     EMAIL=lc.sender_email
     EMAIL_PASSWORD=local_config.password
     logging.info('sendemail.py called in Local environment')
+    baseURL="http://127.0.0.1:5000/"
 
 else:
     EMAIL=prod_config.sender_email
@@ -146,7 +147,13 @@ def sendDailyReminder(centerDic,sessionList,UserList):
 
 
 
-
+def sendLoginEmail(rec_email,name,key):
+        subject='Login @ Cowin Slot Tracker '+name
+        print("Sending key->",key)
+        template = env.get_template('login_email.html')
+    
+        msg= template.render(name=name,key=key,baseurl=baseURL,email=rec_email)
+        sndEmail(rec_email,subject,msg)
 
   
 

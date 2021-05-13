@@ -12,7 +12,7 @@ class prod_config:
     sender_email=os.environ.get('sender_email',None)
     # DB_URI=os.environ.get('DATABASE_URL',None)
     DB_URI=os.environ.get('DB_URL',None)
-    
+    secret_key=os.environ.get('secret_key','23s%#34232')
     password=os.environ.get('password',None)
     environment=os.environ.get('environment',None)
 

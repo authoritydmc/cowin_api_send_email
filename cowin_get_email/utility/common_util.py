@@ -2,7 +2,8 @@ from datetime import  datetime
 import os,time
 from datetime import timezone
 import base64
-
+import secrets
+import random
 
 
 def getDate():
@@ -45,3 +46,11 @@ def getSimpleDatenTimeFromtimeStamp(timeStamp):
     time.tzset()
     x=datetime.fromtimestamp(timeStamp)
     return datetime.today().strftime('%d-%m-%Y %I:%M:%S %p')
+
+def getToken():
+    numbers="0123456789"
+    seq=""
+    for i in range(6):
+        seq+=random.choice(numbers)
+    return secrets.token_urlsafe()+str(seq)
+
