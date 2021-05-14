@@ -104,7 +104,7 @@ function populateDistricts(state_id) {
     {
       $('#pinINs').hide();
       $('.select').show();
-      $('.selectdiv').show();
+      // $('.selectdiv').show();
       $('#state_list').show();
 
   

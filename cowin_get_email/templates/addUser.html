@@ -67,7 +67,7 @@
 
 
         <!-- Choose State -->
-        <div id="state_list"> 
+        <div id="state_list" > 
           <input class="chosen-value" type="text" value="" placeholder="Select State [type to filter]">
           <ul class="value-list" >
         
@@ -121,6 +121,6 @@
 
 
 {% block script %}
-<script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='main.js') }}?version=1.0"></script>
 
 {% endblock %}

@@ -1,10 +1,10 @@
 .chosen-value,
 .value-list {
    /* position: absolute; */
-  /* top: 0; */
-  /* left: 0; */
+  top: 0; 
+  /* /* left: 0 */
   width: 320px;  
-  margin:50px auto;
+  margin:50px auto 0 auto;
 }
 
 .chosen-value {
@@ -41,13 +41,15 @@
 
 .value-list {
   list-style: none;
-  margin-top: 4rem;
-  box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2);
+  /* margin-top: 4rem; */
+  /* box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 0.2); */
   overflow: hidden;
   max-height: 0;
+  text-align:center;
   transition: 0.3s ease-in-out;
 }
 .value-list.open {
+  padding:5px;
   max-height: 320px;
   overflow: auto;
 }
@@ -57,11 +59,12 @@
   background-color: #FAFCFD;
   padding: 1rem;
   font-size: 1.1rem;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   cursor: pointer;
   transition: background-color 0.3s;
   opacity: 1;
+ 
 }
 .value-list li:hover {
   background-color: #FF908B;
