@@ -33,6 +33,11 @@ def addUser():
 
     if request.method == "GET":
         data = {}
+        email=request.args.get('email',None)
+        if email!=None:
+            data['email']=email
+            data['from']="main"
+        
         data['states'] = api.getStates()
         return render_template('addUser.html', data=data,local=local)
 
@@ -138,6 +143,12 @@ def login():
         return redirect(url_for('route1.home'))
     else :
         email=request.form.get('email',None)
+        # check if user exist or not..if exist send a mail to login else redirect to add user
+        _ures,iuex=database.isUserExist(email)
+        if iuex==False:
+            # redirect to register
+            return redirect(url_for('route1.addUser')+"?email="+str(email))
+
         res=''
         if email!=None:
             msg,_=user_util.generateLoginofUser(email)

@@ -29,7 +29,7 @@
       </div>
       <div class="Wrapper">
         <div class="Input">
-          <input type="email" id="email" name="email" required class="Input-text" placeholder="Your Email">
+          <input type="email" id="email" name="email" required class="Input-text" placeholder="Your Email" {% if data.from=="main" %} value="{{data.email}}" {%endif%}>
           <label for="email" class="Input-label">Email</label>
         </div>
       </div>
