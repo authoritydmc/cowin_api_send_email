@@ -12,13 +12,15 @@
 
 
     
-<div id="info">
-    
+<div id="info" style="padding:40px">
+  <form action="/login" method="post">
  There is already a User is registered with email: {{data['email']}}
-
- <br>  <a href='/login?email={{data["email"]}}'>
- Click here </a>to Login/Update the Details 
-
+<input hidden readonly name="email" id="email" value="{{data['email']}}">
+ <br>
+ <Button type="submit" value="submit" id="registerBtn" 
+ style="margin:30px auto;transform: translateX(10%);">
+ Send Mail to Login/Update</Button>
+</form>
 
 </div>
 

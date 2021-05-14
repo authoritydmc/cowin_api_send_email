@@ -21,9 +21,9 @@ def home():
         # redirect to dashboard.
         return redirect(url_for('route1.dashboard'))
     else:
-        # return render_template('landing.html',local=local)
-        return redirect(url_for('route1.addUser'))
-
+        return render_template('landing.html',local=local)
+        # return redirect(url_for('route1.addUser'))
+# 
 
 
 
@@ -131,19 +131,22 @@ def center():
     
     return  render_template('info.html',info=str(res),local=local)
 
-@bp.route("/login")
+@bp.route("/login",methods=['GET','POST'])
 def login():
+    
+    if request.method=="GET":
+        return redirect(url_for('route1.home'))
+    else :
+        email=request.form.get('email',None)
+        res=''
+        if email!=None:
+            msg,_=user_util.generateLoginofUser(email)
+            res=msg
+            res+=" Please goto your email inbox and click on the link to login-->"+email
+        else:
+            res= "Please provide valid Details"
 
-    email=request.args.get('email',None)
-    res=''
-    if email!=None:
-        msg,_=user_util.generateLoginofUser(email)
-        res=msg
-        res+=" <br>Please goto your email inbox and click on the link to login"
-    else:
-        res= "Please provide valid Details"
-
-    return  render_template('info.html',info=res,local=local)
+        return  render_template('info.html',info=res,local=local)
     
 @bp.route("/dashboard")
 def dashboard():
