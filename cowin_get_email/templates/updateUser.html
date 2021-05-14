@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='updateUser.css') }}">
  
-<title>Register-Cowin Slots Tracker</title>
+<title>Update-Cowin Slots Tracker</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='updateUser.css') }}">
+
 {% endblock %}
 
 {%block content %}
@@ -12,38 +13,38 @@
   </a>
   <div id="div_add_user_main">
 
-    <form action="/addUser" method="post" id="form_add_user">
+    <form action="/updateUser" method="post" id="form_add_user">
 
       <div class="Wrapper">
         <div class="Input">
-          <input type="text" required name="name" id="name" class="Input-text" placeholder="Your Name">
-          <label for="name" class="Input-label">Name</label>
+          <input type="text" required name="name" id="name" class="Input-text" placeholder="Your Name" value="{{data.name}}">
+          <label for="name" class="Input-label" >Name</label>
         </div>
       </div>
       <div class="Wrapper">
         <div class="Input">
           <input type="number" id="age" class="Input-text" placeholder="Your Age" name="age" required min="18"
-            max="120">
+            max="120" value="{{data.age}}">
           <label for="age" class="Input-label">Age</label>
         </div>
       </div>
       <div class="Wrapper">
         <div class="Input">
-          <input type="email" id="email" name="email" required class="Input-text" placeholder="Your Email">
+          <input type="email" readonly id="email" name="email" required class="Input-text" placeholder="Your Email" value="{{data.email}}">
           <label for="email" class="Input-label">Email</label>
         </div>
       </div>
       <div class="Wrapper">
         <div class="Input">
-          <input type="text" name="phone" id="phone" class="Input-text" placeholder="Phone number [optional]">
-          <label for="phone" class="Input-label">Phone</label>
+          <input type="text" name="phone" id="phone"  value="{{data.phone}}" class="Input-text" placeholder="Phone number [optional]">
+          <label for="phone" class="Input-label" >Phone</label>
         </div>
       </div>
       <h2>Search Vaccination By </h3>
         <div class="mainSelectDiv">
           <div class="wrapper" align="center">
-            <input type="radio" name="selectby" id="option-1" value="pincode" onclick="selectBy_F(0)">
-            <input type="radio" name="selectby" id="option-2" value="district" checked onclick="selectBy_F(1)">
+            <input type="radio" name="selectby" id="option-1" value="pincode" onclick="selectBy_F(0)"  {%if data.selectby=="pincode" %} checked {% endif %}>
+            <input type="radio" name="selectby" id="option-2" value="district"  onclick="selectBy_F(1)"  {%if data.selectby=="district" %} checked {% endif %}>
             <label for="option-1" class="option option-1">
               <div class="dot"></div>
               <span>Pincode</span>
@@ -57,7 +58,7 @@
         <div class="Wrapper" id="pinINs">
           <div class="Input">
             <input type="text" name="pincode" placeholder="Enter Pincode" id="pincode" minlength="6" maxlength="6"
-              class="Input-text">
+              class="Input-text" value="{{data.pincode}}">
             <label for="pincode" class="Input-label">Pincode</label>
           </div>
         </div>
@@ -67,17 +68,20 @@
 
 
         <!-- Choose State -->
-        <div id="state_list"> 
-          <input class="chosen-value" type="text" value="" placeholder="Select State [type to filter]">
-          <ul class="value-list" >
-        
-            {%for id,name in data['states'].items() %}
-            <li  onclick="populateDistricts({{id}})">{{name}}</li>
-         
-            {%endfor%}
-            
-          </ul>
-        </div> 
+  <div id="state_list"> 
+  <input class="chosen-value" type="text" value="" placeholder="Select State [type to filter]">
+  <ul class="value-list" >
+
+    {%for id,name in data['states'].items() %}
+    <li  onclick="populateDistricts({{id}})">{{name}}</li>
+ 
+    {%endfor%}
+    
+  </ul>
+</div> 
+
+
+ 
 
 
 
@@ -103,13 +107,15 @@
         <!-- end choose District -->
 
 
-        <Button type="submit" value="submit" id="registerBtn">Register</Button>
+        <Button type="submit" value="submit" id="registerBtn">Update</Button>
 
         <br>
         <br>
         <br>
-        <input readonly hidden type="text" id="dist_id" required name="dist_id" value="">
-        <input readonly hidden type="text" id="dist_name" required name="dist_name" value="">
+        <input readonly  type="text" id="old_dist_id" required name="old_dist_id" value="{{data.dist_id}}">
+        <input readonly  type="text" id="dist_id" required name="dist_id" value="">
+        <input readonly  type="text" id="dist_name" required name="dist_name" value="">
+        <input readonly  type="text" id="old_selectby" required name="old_selectby" value="{{data.selectby}}">
 
 
     </form>
@@ -121,6 +127,6 @@
 
 
 {% block script %}
-<script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='updateUser.js') }}"></script>
 
 {% endblock %}

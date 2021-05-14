@@ -10,11 +10,18 @@
     <div id='mainTitle'>Cowin Slots Tracker</div></a>
 
     
-<div id="info">
-    Hello ,{{data['name']}},
-    you are Currently Searching for vaccine availablity in {{data['selectby']}} {{data['searchparam']}}
+<div id="info"  style="padding :30px;">
+    Hello , <b>{{data['name']}}</b>,
+    you are Currently Searching for vaccine availablity in <b>{{data['selectby']}} {{data['searchparam']}}</b>
 
-    <a href="/logout">Click here to logout</a>
+    <a href="/logout" style="margin-left:50px;;">Click here to logout</a>
+<br>
+<br>
+<br>
+    <a href="/update">Click here to Update Details</a>
+
+
+
 </div>
 
 {% endblock %}

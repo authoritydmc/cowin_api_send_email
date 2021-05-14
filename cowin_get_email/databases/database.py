@@ -18,7 +18,7 @@ else:
     print('database.py called in Prod environment URL->'+str(DB_URL))
 
 
-engine = create_engine(DB_URL, echo=True)
+engine = create_engine(DB_URL, echo=False)
 
 
 Session = sessionmaker(autocommit=False,autoflush=False,bind=engine)
@@ -81,3 +81,9 @@ def matchToken(email,token):
 
 
 
+
+def updateUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='NA'):
+    from cowin_get_email.databases.user_model import updateUser
+    
+    
+    return updateUser(name, age, email, phone, search_by,pincode ,dist_id,dist_name)

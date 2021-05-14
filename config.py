@@ -15,6 +15,7 @@ class prod_config:
     secret_key=os.environ.get('secret_key','23s%#34232')
     password=os.environ.get('password',None)
     environment=os.environ.get('environment',None)
+    
 
 
 class local_config:
@@ -33,4 +34,4 @@ print("Running in ",ens)
 def checkENV():
     return prod_config.environment if prod_config.environment!=None else 'LOCAL'
 
-    
+

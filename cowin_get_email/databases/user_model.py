@@ -160,5 +160,25 @@ def getUsersofPincode(pincode):
         session.close()
 
 
+def updateUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='NA'):
+    session=Session()
+    
+    user ,_= isUserExist(email)
+    if _!=True:
+        return "Failed to Update the Details as user doesnt exist",False
+    user.name = name
+    user.age = int(age)
+    user.phone = phone
+    user.search_by = search_by
+    user.pincode = int(pincode) if user.search_by=='pincode' else -1
+    user.dist_id = int(dist_id) if user.search_by=='district' else -1
+    user.dist_name=dist_name  if user.search_by=='district' else 'NA'
+    session.add(user)
+    session.commit()
+    session.close()
+    return 'Added SuccessFully',True
+
+
+
 
 Base.metadata.create_all(bind=engine)

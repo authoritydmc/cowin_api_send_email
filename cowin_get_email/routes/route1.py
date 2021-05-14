@@ -151,23 +151,13 @@ def dashboard():
     if logged==True:
         data={}
         # get user info here 
-        email=session.get('email',None)
-        if email !=None:
-            user,isSuccess=database.isUserExist(email)
-            if isSuccess!=True:
-                removeSession()
-                return redirect(url_for('route1.home'))
-            print("LOGGED IN AS -> ",user)
-            data['name']=user.name
-            data['selectby']=user.search_by
-            data['searchparam']=user.pincode if user.search_by=="pincode" else user.dist_name
-            print("Passing Parameters",data)
-            return render_template('dashboard.html',local=local,data=data)
-
-        else:
-            return redirect(url_for('route1.home'))
-
-
+        user,_=getUserDetailsfromSession()
+        print("LOGGED IN AS -> ",user)
+        data['name']=user.name
+        data['selectby']=user.search_by
+        data['searchparam']=user.pincode if user.search_by=="pincode" else user.dist_name
+        print("Passing Parameters",data)
+        return render_template('dashboard.html',local=local,data=data)
     else:
         # token verification
         token=request.args.get('token',None)
@@ -190,7 +180,32 @@ def logout():
     removeSession()
     res="Logged out Successfuly"
     return  render_template('info.html',info=str(res),local=local)
- 
+
+
+
+@bp.route("/update")
+def update():
+    lgmsg,islog=isLoggedIn()
+    if islog==True:
+        user,_=getUserDetailsfromSession()
+        if _:
+            # updating User with Details
+            data={}
+            print("Updating for->",user)
+            data['name']=user.name
+            data['dist_id']=user.dist_id
+            data['email']=user.email
+            data['age']=user.age
+            data['pincode']=user.pincode
+            data['selectby']=user.search_by
+            data['phone']=user.phone
+
+            print("Sending Data",data)
+            data['states'] = api.getStates()
+
+            return  render_template('updateUser.html',data=data,local=local)
+    else:
+        return redirect(url_for('route1.home'))
 
 def setupSession(email,token):
     session['email']=email
@@ -216,3 +231,60 @@ def isLoggedIn():
     else:
         removeSession()
         return  "session Invalid ",False
+
+def getUserDetailsfromSession():
+    email=session.get('email',None)
+    if email !=None:
+        user,isSuccess=database.isUserExist(email)
+        if isSuccess!=True:
+            removeSession()
+            return redirect(url_for('route1.home')),False
+        return user,True
+
+@bp.route('/updateUser',methods=['POST'])
+def updateUser():
+
+    datas = {}
+    
+    datas['name'] = request.form.get('name')
+    datas['phone'] = request.form['phone']
+    datas['email'] = request.form['email']
+    datas['selectby'] = request.form['selectby']
+    datas['age'] = request.form['age']
+    datas['pincode'] = request.form['pincode']
+    datas['dist_id'] = request.form['dist_id']
+    datas['dist_name'] = request.form['dist_name']
+
+
+    msg,isValidUser=validator.validUser(datas)
+
+
+    if isValidUser==True:
+        if datas['selectby']=='pincode':
+            datas['dist_id']=''
+            datas['dist_name']=''
+            # save this pincode for Tracking...
+            database.addPincode(datas['pincode'])
+        else:
+            datas['pincode']=''
+            database.addDistrict(dist_id=datas['dist_id'],dist_name=datas['dist_name'])
+            # add pincodes of this Districts
+        msg,res=database.updateUser(name=datas['name'],
+                        age=datas['age'],
+                        email=datas['email'],
+                        phone=datas['phone'],
+                        search_by=datas['selectby'],
+                        pincode=datas['pincode'],
+                        dist_id=datas['dist_id'],
+                        dist_name=datas['dist_name'])
+        datas['msg'] = msg
+        datas['result']=res
+        info=msg
+        if res==True:
+            # send_email.sendWelcomeEmail(datas['name'],datas['email'],datas['selectby'],datas['pincode'],datas['dist_name'])
+            info='Your detail has been Modified Successfully'
+        return render_template('info.html',info=info,local=local)
+    else:
+       return  render_template('info.html',info=json.dumps(msg),local=local)
+
+
