@@ -1,5 +1,9 @@
 $('.selectdiv').hide();
 
+  
+const inputField = document.querySelector('.chosen-value');
+const dropdown = document.querySelector('.value-list');
+const dropdownArray = [... document.querySelectorAll('li')];
 function populateDistricts(state_id) {
       $('.selectdiv').show();
 
@@ -66,14 +70,15 @@ function selectBy_F(n)
     if (n==0)
     {
       // show pincode ,Hide Dist
+      
       $('#pinINs').show();
       $('.select').hide();
       $('.selectdiv').hide();
       $('#state_list').hide();
 
-      
+      // clear state Value
   
-      
+      inputField.value = '';
       
     }else
     {
@@ -83,75 +88,93 @@ function selectBy_F(n)
       $('#state_list').show();
 
   
-  
+      $("#pincode").val("");
   
     }
   }
 
-  window.onload = function(){
-    selectBy_F(1);
+  
+
+console.log(typeof dropdownArray)
+dropdown.classList.add('close');
+let valueArray = [];
+dropdownArray.forEach(item => {
+  valueArray.push(item.textContent);
+});
+
+const closeDropdown = () => {
+  dropdown.classList.remove('open');
+}
+
+inputField.addEventListener('input', () => {
+  dropdown.classList.add('open');
+    // hide district selector
+
+    $('.selectdiv').hide();
+  let inputValue = inputField.value.toLowerCase();
+  let valueSubstring;
+  if (inputValue.length > 0) {
+    for (let j = 0; j < valueArray.length; j++) {
+      if (!(inputValue.substring(0, inputValue.length) === valueArray[j].substring(0, inputValue.length).toLowerCase())) {
+        dropdownArray[j].classList.add('closed');
+      } else {
+        dropdownArray[j].classList.remove('closed');
+      }
+    }
+  } else {
+    for (let i = 0; i < dropdownArray.length; i++) {
+      dropdownArray[i].classList.remove('closed');
+    }
   }
-  
-  const inputField = document.querySelector('.chosen-value');
-  const dropdown = document.querySelector('.value-list');
-  const dropdownArray = [...document.querySelectorAll('li')];
-  console.log(typeof dropdownArray);
-  dropdown.classList.add('close');
-  
-  let valueArray = [];
-  dropdownArray.forEach(item => {
-    valueArray.push(item.textContent);
-  });
-  
-  const closeDropdown = () => {
-    dropdown.classList.remove('open');
-  };
-  
-  inputField.addEventListener('input', () => {
-    dropdown.classList.add('open');
-    let inputValue = inputField.value.toLowerCase();
-    let valueSubstring;
-    if (inputValue.length > 0) {
-      for (let j = 0; j < valueArray.length; j++) {if (window.CP.shouldStopExecution(0)) break;
-        if (!(inputValue.substring(0, inputValue.length) === valueArray[j].substring(0, inputValue.length).toLowerCase())) {
-          dropdownArray[j].classList.add('closed');
-        } else {
-          dropdownArray[j].classList.remove('closed');
-        }
-      }window.CP.exitedLoop(0);
-    } else {
-      for (let i = 0; i < dropdownArray.length; i++) {if (window.CP.shouldStopExecution(1)) break;
-        dropdownArray[i].classList.remove('closed');
-      }window.CP.exitedLoop(1);
-    }
-  });
-  
-  dropdownArray.forEach(item => {
-    item.addEventListener('click', evt => {
-      inputField.value = item.textContent;
-      dropdownArray.forEach(dropdown => {
-        dropdown.classList.add('closed');
-      });
-    });
-  });
-  
-  inputField.addEventListener('focus', () => {
-    inputField.placeholder = 'Type to filter';
-    dropdown.classList.add('open');
+});
+
+dropdownArray.forEach(item => {
+  item.addEventListener('click', (evt) => {
+    inputField.value = item.textContent;
     dropdownArray.forEach(dropdown => {
-      dropdown.classList.remove('closed');
+      dropdown.classList.add('closed');
     });
   });
-  
-  inputField.addEventListener('blur', () => {
-    inputField.placeholder = 'Select State';
+})
+
+inputField.addEventListener('focus', () => {
+   inputField.placeholder = 'Type to filter';
+   dropdown.classList.add('open');
+  // hide district selector
+
+   $('.selectdiv').hide();
+   dropdownArray.forEach(dropdown => {
+     dropdown.classList.remove('closed');
+   });
+});
+
+inputField.addEventListener('blur', () => {
+   inputField.placeholder = 'Select state';
+  dropdown.classList.remove('open');
+});
+
+document.addEventListener('click', (evt) => {
+
+
+
+  const isDropdown = dropdown.contains(evt.target);
+  const isInput = inputField.contains(evt.target);
+  if (!isDropdown && !isInput) {
     dropdown.classList.remove('open');
-  });
-  
-  document.addEventListener('click', evt => {
-    const isDropdown = dropdown.contains(evt.target);
-    const isInput = inputField.contains(evt.target);
-    if (!isDropdown && !isInput) {
-      dropdown.classList.remove('open');
-    }
-  });
+  }
+});
+
+
+
+console.log("Loaded --> ");
+var selectby = document.getElementsByName('selectby');
+              
+for(i = 0; i < selectby.length; i++) {
+    if(selectby[i].checked)
+   {
+     if( selectby[i].value=="pincode")
+     selectBy_F(0);
+    else
+     selectBy_F(1);
+   }
+  }
