@@ -104,6 +104,7 @@ def sendDailyReminder(centerDic,sessionList,UserList):
         search_data=user.pincode if user.search_by=="pincode" else user.dist_name
         emailData['search_by']=user.search_by
         emailData['search_data']=search_data
+        emailData['email']=user.email
         emailData['url']=''
         if user.search_by=="pincode":
             emailData['url']=pincode_util.getCowinApiUrl(search_data)
