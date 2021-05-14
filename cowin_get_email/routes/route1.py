@@ -21,14 +21,15 @@ def home():
         # redirect to dashboard.
         return redirect(url_for('route1.dashboard'))
     else:
-        return render_template('landing.html',local=local)
+        # return render_template('landing.html',local=local)
+        return redirect(url_for('route1.addUser'))
 
 
 
 
 
 @bp.route('/addUser', methods=['POST', 'GET'])
-def addU():
+def addUser():
 
     if request.method == "GET":
         data = {}
