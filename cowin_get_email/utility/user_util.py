@@ -29,7 +29,7 @@ def generateLoginofUser(email):
         print("Generated Key->",key)
         msg,isStored=user_pref_model.storeToken(email,key)
         send_email.sendLoginEmail(user.email,user.name,key)
-        return "Send Mail SuccessFully",True
+        return "Sent Login Mail SuccessFully to "+str(user.email),True
     else:
-        "Unable to send Mail",False
+        "Unable to send Login mail,Please Contact Admin",False
     

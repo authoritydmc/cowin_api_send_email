@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block head %}
+ 
+<title>Dashboard</title>
+{% endblock %}
+
+{%block content %}
+  <a href='https://cowin-track.herokuapp.com/'>
+    <div id='mainTitle'>Cowin Slots Tracker</div></a>
+
+    
+<div id="info">
+    Hello ,{{data['name']}},
+    you are Currently Searching for vaccine availablity in {{data['selectby']}} {{data['searchparam']}}
+
+    <a href="/logout">Click here to logout</a>
+</div>
+
+{% endblock %}
+

@@ -1,4 +1,4 @@
-from flask import render_template,redirect,url_for
+from flask import render_template,redirect,url_for,session
 from flask import  url_for, Blueprint, request,Response
 from flask import jsonify
 from cowin_get_email.databases import database
@@ -15,6 +15,12 @@ if checkENV()=="LOCAL":
 
 @bp.route('/')
 def home():
+
+    res,login=isLoggedIn()
+    if login==True:
+        # redirect to dashboard.
+        return redirect(url_for('route1.dashboard'))
+    else:
         return render_template('landing.html',local=local)
 
 
@@ -113,7 +119,7 @@ def districts():
 
 
 @bp.route('/sessions')
-def session():
+def storedSessions():
     res,_=database.getAllSessions()
 
     return  render_template('info.html',info=str(res),local=local)
@@ -132,27 +138,80 @@ def login():
     if email!=None:
         msg,_=user_util.generateLoginofUser(email)
         res=msg
-        res+=" <br> Please goto your email inbox and click on the link to login"
+        res+=" <br>Please goto your email inbox and click on the link to login"
     else:
         res= "Please provide valid Details"
 
-    return  render_template('info.html',info=str(res),local=local)
+    return  render_template('info.html',info=res,local=local)
     
 @bp.route("/dashboard")
 def dashboard():
-    token=request.args.get('token',None)
-    email=request.args.get('email',None)
-    res=''
-    if token!=None and email!=None:
-        msg,isTokenValid=database.matchToken(email,token)
+    logres,logged=isLoggedIn()
+    if logged==True:
+        data={}
+        # get user info here 
+        email=session.get('email',None)
+        if email !=None:
+            user,isSuccess=database.isUserExist(email)
+            if isSuccess!=True:
+                removeSession()
+                return redirect(url_for('route1.home'))
+            print("LOGGED IN AS -> ",user)
+            data['name']=user.name
+            data['selectby']=user.search_by
+            data['searchparam']=user.pincode if user.search_by=="pincode" else user.dist_name
+            print("Passing Parameters",data)
+            return render_template('dashboard.html',local=local,data=data)
 
-        if isTokenValid:
-            res='Valid User wow ',msg
         else:
-            res="Invalid User ..boohooo"+msg
+            return redirect(url_for('route1.home'))
+
 
     else:
+        # token verification
+        token=request.args.get('token',None)
+        email=request.args.get('email',None)
+        res=''
+        if token!=None and email!=None:
+            msg,isTokenValid=database.matchToken(email,token)
+
+            if isTokenValid:
+                # setup the session and redirect to homepage for proper landing.
+                setupSession(email,token)
+
         return redirect(url_for('route1.home'))
 
-    return  render_template('info.html',info=str(res),local=local)
+        
     
+
+@bp.route("/logout")
+def logout():
+    removeSession()
+    res="Logged out Successfuly"
+    return  render_template('info.html',info=str(res),local=local)
+ 
+
+def setupSession(email,token):
+    session['email']=email
+    session['token']=token
+
+def removeSession():
+    session.pop('email',None)
+    session.pop('token',None)
+
+def isLoggedIn():
+    # match email and token
+    email=session.get('email',None)
+    token=session.get('token',None)
+    if email==None or token==None:
+        removeSession()
+        return "Session not found",False
+
+    msg,isTokenValid=database.matchToken(email,token)
+
+    if isTokenValid==True:
+        # session is right ..
+        return "Session is Valid ",True
+    else:
+        removeSession()
+        return  "session Invalid ",False
