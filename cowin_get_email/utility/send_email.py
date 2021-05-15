@@ -6,8 +6,8 @@ from email.mime.multipart import MIMEMultipart
 from jinja2 import Environment, FileSystemLoader
 import os
 import logging
-from cowin_get_email.utility import common_util,pincode_util,district_util
-
+from cowin_get_email.utility import common_util,pincode_util,district_util,user_util
+from cowin_get_email.databases import user_pref_model
 from config import prod_config,local_config,checkENV
 
 envrn=prod_config.environment
@@ -111,8 +111,7 @@ def sendDailyReminder(centerDic,sessionList,UserList):
         else:
             emailData['url']=district_util.getCowinApiUrl((user.dist_id))
         
-
-
+        emailData['token']=user_util.tokenGetter(user.email)
         validSession=[]
         print("Currently Working to Send Mail to ->{} of age {}".format(user.email,user.age))
 

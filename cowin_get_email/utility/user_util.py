@@ -20,7 +20,13 @@ def getAllUsersSearchingByPincode():
     return x
 
 def generateLoginofUser(email):
+        key,user=generateToken(email)
+        send_email.sendLoginEmail(user.email,user.name,key)
+        return "Sent Login Mail SuccessFully to "+str(user.email),True
 
+    
+
+def generateToken(email):
     user,_=user_model.isUserExist(email)
     if _:
         # generate the s3cetkey
@@ -28,8 +34,17 @@ def generateLoginofUser(email):
         # store this key
         print("Generated Key->",key)
         msg,isStored=user_pref_model.storeToken(email,key)
-        send_email.sendLoginEmail(user.email,user.name,key)
-        return "Sent Login Mail SuccessFully to "+str(user.email),True
+        return key,user
+
+def tokenGetter(email):
+    usrP,found=user_pref_model.getPreference(email)
+    print("$"*80)
+    print("For email->",email)
+    if found:
+        print("Found token ->", usrP.token)
+        return usrP.token
     else:
-        "Unable to send Login mail,Please Contact Admin",False
-    
+        print("gen new token as it doesnt exist")
+        token,user=generateToken(user.email)
+        return token
+        

@@ -123,7 +123,7 @@ def getUserofDistID(distID):
             
         datas['users']=userslst
         datas['total']=len(datas['users'])
-
+    
         return datas,True
 
 
