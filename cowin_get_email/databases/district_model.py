@@ -1,6 +1,8 @@
 from cowin_get_email.databases.database import Base, engine, Session
 from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from cowin_get_email.utility import common_util
+from cowin_get_email.databases import user_model
+
 
 print("District model called")
 class District(Base):
@@ -145,6 +147,28 @@ def updateLastUpdated(dist_id):
         return 'Not Found e->{}'.format(e), False
     finally:
         session.close()
+
+
+def removeUnTaggedDistricts():
+    try:
+        session=Session()
+        alldist,_=getAllDistricts()
+
+        print(alldist)
+
+        for dist in alldist['districts']:
+            print(dist.district_id)
+            allUsers,_=user_model.getUserofDistID(dist.district_id)
+            print(allUsers)
+            if allUsers['total']<1:
+                print("Remove ",dist.district_id, " as no user is tagged to this dist id")
+                session.delete(dist)
+    except :
+        return False
+    finally:
+        session.commit()
+        session.close()
+
 
 
 

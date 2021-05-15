@@ -114,4 +114,45 @@ Base.metadata.create_all(bind=engine)
     
 
 
+def removeOutDatedSession():
+    try:
+        session = Session()
+        allSessions,_=getAllSessions()
+        print("$"*80)
+
+        print("Before deletion total ->",len(allSessions))
+        print("$"*80)
+        
+        currentDate_splitted=common_util.getDate().split("-")
+        cur_day,cur_mnth=int(currentDate_splitted[0]),int(currentDate_splitted[1])
+        print("Current Date->",cur_day,"-",cur_mnth)
+        for s in allSessions:
+            date_splitted=s.date.split("-")
+
+            session_day,session_mnth=int(date_splitted[0]),int(date_splitted[1])
+            print("session Date->",session_day,"-",session_mnth)
+                
+            if cur_mnth>session_mnth:
+                # like cur date  1-06-2021 and session date 31-05-2021 then also remove 
+                print("remove this session")
+                session.delete(s)
+            elif cur_mnth==session_mnth:
+                if cur_day-session_day >=1:
+                    print("Remove this Session ")
+                    session.delete(s)
+                else:
+                    print("Keep this session")
+    except Exception as e: 
+        return "Failure to delete outdated Session",False
+    finally:
+            session.commit()
+            session.close()
+            lsts,_=getAllSessions()
+            print("$"*80)
+            print("After deletion total ->",len(lsts))
+            print("$"*80)
+
+
+
+
 

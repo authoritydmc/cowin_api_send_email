@@ -2,6 +2,7 @@ from cowin_get_email.databases.database import Base, engine, Session
 from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from datetime import datetime
 from cowin_get_email.utility import common_util
+from cowin_get_email.databases import user_model
 
 print("pincode model called")
 class Pincode(Base):
@@ -166,7 +167,24 @@ def updateLastUpdated(pincode):
     finally:
         session.close()
 
+def removeunTaggedPincode():
+    try:
+        session = Session()
+        pincodes,_=getAllPincodeWithoutDistricts()
+        print("All pincodes without dist id ",pincodes['pincodes'])
+        for pin in pincodes['pincodes']:
+            print("Current Pin-> ",pin)
+            usersLst,_=user_model.getUsersofPincode(pin.pincode)
+            print("total Users of this pincode-> ",usersLst['total'])
+            if usersLst['total']<1:
+                print("remove pincode ",pin.pincode ," as no user is tagged to this pincode")
+                session.delete(pin)
 
+    except :
+        return "Failed to remove untagged Pincode",False
+    finally:
+        session.commit()
+        session.close()
 
 
 

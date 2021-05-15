@@ -123,7 +123,6 @@ def getUserofDistID(distID):
             
         datas['users']=userslst
         datas['total']=len(datas['users'])
-        print(datas)
 
         return datas,True
 
@@ -177,6 +176,7 @@ def updateUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='
     session.commit()
     session.close()
     return 'Added SuccessFully',True
+
 
 
 
