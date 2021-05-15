@@ -140,6 +140,7 @@ dropdownArray.forEach(item => {
 })
 
 inputField.addEventListener('focus', () => {
+  inputField.value = '';
    inputField.placeholder = 'Type to filter';
    dropdown.classList.add('open');
   // hide district selector
