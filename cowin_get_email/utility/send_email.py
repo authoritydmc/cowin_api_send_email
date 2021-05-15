@@ -78,7 +78,8 @@ def sendWelcomeEmail(name,rec_email,selectby,pincode,dist_name):
         subject='Welcome '+name
         template = env.get_template('email_welcome.html')
         sdata=pincode if selectby=='pincode' else dist_name
-        msg= template.render(name=name,selectby=selectby,search_data=sdata)
+        token=user_util.tokenGetter(rec_email)
+        msg= template.render(name=name,selectby=selectby,search_data=sdata,email=rec_email,token=token)
         sndEmail(rec_email,subject,msg)
 
 

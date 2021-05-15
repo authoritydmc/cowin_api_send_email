@@ -45,6 +45,6 @@ def tokenGetter(email):
         return usrP.token
     else:
         print("gen new token as it doesnt exist")
-        token,user=generateToken(user.email)
+        token,user=generateToken(email)
         return token
         

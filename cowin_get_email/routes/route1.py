@@ -95,8 +95,9 @@ def addUser():
         info=msg
         if res==True:
             send_email.sendWelcomeEmail(datas['name'],datas['email'],datas['selectby'],datas['pincode'],datas['dist_name'])
-
-            info='Thank you for Registering. Please Check your email Inbox [make sure to check SPAM folder too]'
+            token=user_util.tokenGetter(datas['email'])
+            # info='Thank you for Registering. Please Check your email Inbox [make sure to check SPAM folder too]'
+            return redirect(url_for('routeDashboard.dashboard')+"?token={}&email={}".format(token,datas['email']))
         return render_template('info.html',info=info,local=local)
     else:
        return  render_template('info.html',info=json.dumps(msg),local=local)
