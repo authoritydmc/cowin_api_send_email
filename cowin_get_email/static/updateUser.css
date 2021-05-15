@@ -6,10 +6,10 @@ min-width: 340px;
 
 }
 
-/* ul
+ul
 {
   margin:0 !important;
-} */
+}
 
 
 .chosen-value {
@@ -56,9 +56,10 @@ min-width: 340px;
 .value-list.open {
 
   max-height: 320px;
-  max-width: 320px;
+  /* max-width: 320px; */
   padding:5px;
   overflow: auto;
+  background:rgba(255, 255, 255, 0.2);
   overflow-x:hidden !important;
 }
 .value-list li {
@@ -66,7 +67,8 @@ min-width: 340px;
   height: 4rem;
   background-color: #FAFCFD;
   padding: 1rem;
-  font-size: 1.1rem;
+  font-size: 1.5rem;
+  text-align: center;
   display: flex;
   align-items: center;
   cursor: pointer;
