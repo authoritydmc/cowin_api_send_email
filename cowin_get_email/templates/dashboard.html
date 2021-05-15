@@ -3,6 +3,8 @@
 {% block head %}
  
 <title>Dashboard</title>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='dashboard.css') }}">
+
 {% endblock %}
 
 {%block content %}
@@ -13,7 +15,7 @@
 <div id="info"  style="padding :30px;">
     Hello , <b>{{data['name']}}</b>,
     you are Currently Searching for vaccine availablity in <b>{{data['selectby']}} {{data['searchparam']}}</b>
-
+<br>
     <a href="/logout" style="margin-left:50px;;">Click here to logout</a>
 <br>
 <br>
@@ -23,6 +25,50 @@
 
 
 </div>
+<br>
+<h1 align="center">Vaccine - Availability</h1>
+
+<div id="tracker-view">
+    <!-- tracker view  -->
+{% for center in data['centers'] %}
+
+<div class="center-view">
+
+<div class="center-info">
+
+<span class="center_name">Center: {{center.center_name}}</span><br>
+<span class="center_address">Address: {{center.address}}</span><br>
+<span class="fee">Fees: {{center.fee}}</span><br>
+<span class="data_fetched">data-cached: {{cnvtT(center.lastUpdated)}}</span>
+
+</div>
+
+<div class ="session-wrap">
+    {%for session in data['sessions'][center.center_id]%}
+    <div class="session-view">
+
+        <span class="vaccine-name">{{session.vaccine_name}}</span><br>
+        <span class= "available"> Available:{{session.available}}</span><br>
+        <span class= "date"> Date:{{session.date}}</span><br>
+        <!-- {{"\n".join(session.slots.split(','))}}<br> -->
+
+        
+
+
+    </div>
+    {%endfor%}
+ 
+</div>
+</div>
+
+{%endfor%}
+    
+
+    
+
+<!-- end of tracker view -->
+</div>
+
 
 {% endblock %}
 

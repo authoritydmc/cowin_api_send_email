@@ -95,7 +95,6 @@ def getCalendarByDistrict(dist_id):
        
 
 def getListofDistrictIds():
-    # this method will call addVaccineByPincode for each of the Districts
     allDistricts,_=district_model.getAllDistricts()
     lst=[]
     for district in allDistricts['districts']:  
@@ -103,7 +102,6 @@ def getListofDistrictIds():
     return lst
 
 def getListofDistricts():
-    # this method will call addVaccineByPincode for each of the Districts
     allDistricts,_=district_model.getAllDistricts()
     lst=[]
     for district in allDistricts['districts']:  

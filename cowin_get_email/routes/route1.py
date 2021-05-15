@@ -19,11 +19,10 @@ def home():
     res,login=isLoggedIn()
     if login==True:
         # redirect to dashboard.
-        return redirect(url_for('route1.dashboard'))
+        return redirect(url_for('routeDashboard.dashboard'))
     else:
         return render_template('landing.html',local=local)
-        # return redirect(url_for('route1.addUser'))
-# 
+ 
 
 
 
@@ -158,33 +157,7 @@ def login():
             res= "Please provide valid Details"
 
         return  render_template('info.html',info=res,local=local)
-    
-@bp.route("/dashboard")
-def dashboard():
-    logres,logged=isLoggedIn()
-    if logged==True:
-        data={}
-        # get user info here 
-        user,_=getUserDetailsfromSession()
-        print("LOGGED IN AS -> ",user)
-        data['name']=user.name
-        data['selectby']=user.search_by
-        data['searchparam']=user.pincode if user.search_by=="pincode" else user.dist_name
-        print("Passing Parameters",data)
-        return render_template('dashboard.html',local=local,data=data)
-    else:
-        # token verification
-        token=request.args.get('token',None)
-        email=request.args.get('email',None)
-        res=''
-        if token!=None and email!=None:
-            msg,isTokenValid=database.matchToken(email,token)
 
-            if isTokenValid:
-                # setup the session and redirect to homepage for proper landing.
-                setupSession(email,token)
-
-        return redirect(url_for('route1.home'))
 
         
     

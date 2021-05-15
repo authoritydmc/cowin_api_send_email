@@ -6,7 +6,7 @@ import logging
 # Keep it FALSE FOR PRODUCTION
 # while testing Use as True
 
-TEST_DATA_API=False 
+TEST_DATA_API=True 
 
 class prod_config:
     sender_email=os.environ.get('sender_email',None)
