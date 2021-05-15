@@ -29,14 +29,20 @@ def dashboard():
             allCenters=center_util.getListOfCenterByPincode(user.pincode)
             # get all session for each of centers
             sessionDic={}
+            validCenters=[]
             for center in allCenters:
-                sessionDic[center.center_id]=session_util.getListofSessionByCenter(center.center_id)
+                lsts=session_util.getListofSessionByCenter(center.center_id)
+                fmtitr=filter(lambda s: user.age>=s.min_age,lsts)
+                lsts=list(fmtitr)
+                if len(lsts)>0:
+                    validCenters.append(center)
+                    sessionDic[center.center_id]=lsts
             print('$'*80)
             print("sessions -> ",sessionDic)
             print('$'*80)
             print("All centers-> ",allCenters)
             print('$'*80)
-            data['centers']=allCenters
+            data['centers']=validCenters
             data['sessions']=sessionDic
             # get all center and session of this pincode
         else:
@@ -52,14 +58,20 @@ def dashboard():
             # get all session for each of centers
             print("All centers-> ",allCenters)
             sessionDic={}
+            validCenters=[]
             for center in allCenters:
-                sessionDic[center.center_id]=session_util.getListofSessionByCenter(center.center_id)
+                lsts=session_util.getListofSessionByCenter(center.center_id)
+                fmtitr=filter(lambda s: user.age>=s.min_age,lsts)
+                lsts=list(fmtitr)
+                if len(lsts)>0:
+                    validCenters.append(center)
+                    sessionDic[center.center_id]=lsts
             print('$'*80)
             print("sessions -> ",sessionDic)
             print('$'*80)
             print("All centers-> ",allCenters)
             print('$'*80)
-            data['centers']=allCenters
+            data['centers']=validCenters
             data['sessions']=sessionDic
         
         
