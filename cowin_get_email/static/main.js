@@ -111,6 +111,8 @@ inputField.addEventListener('input', () => {
     // hide district selector
 
     $('.selectdiv').hide();
+    // focus to it
+    $('.value-list').scrollTop(0);
   let inputValue = inputField.value.toLowerCase();
   let valueSubstring;
   if (inputValue.length > 0) {
@@ -143,6 +145,8 @@ inputField.addEventListener('focus', () => {
   // hide district selector
 
    $('.selectdiv').hide();
+   $('.value-list').scrollTop(0);
+
    dropdownArray.forEach(dropdown => {
      dropdown.classList.remove('closed');
    });

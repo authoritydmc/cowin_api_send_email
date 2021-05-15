@@ -71,12 +71,12 @@
   <div id="state_list"> 
   <input class="chosen-value"  autocomplete="off" type="text" value="" placeholder="Select S&zwnj;t&zwnj;ate [type to filter]">
   <ul class="value-list" >
-
     {%for id,name in data['states'].items() %}
+
     <li  onclick="populateDistricts({{id}})">{{name}}</li>
  
-    {%endfor%}
-    
+  {%endfor%}
+  
   </ul>
 </div> 
 
