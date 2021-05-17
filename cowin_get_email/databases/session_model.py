@@ -24,6 +24,7 @@ class VaccineSession(Base):
         data['center_id']=self.center_id
         data['min_age']=self.min_age
         data['available']=self.available
+        data['last_avail_cnt']=self.last_avail_cnt
         data['onDate']=self.date
         return json.dumps(data)
 
@@ -154,5 +155,38 @@ def removeOutDatedSession():
 
 
 
+def getAllSessionsWhereEmailNeededtoBEsend():
+    try:
+        session=Session()
+        allsessions,suc=getAllSessions()
+        validSessions=[]
+        if suc:
+            for s in allsessions:
+                # print("Current Session -> ",s)
+                if s.available-s.last_avail_cnt >0:
+                    # print("Email needed to send for this")
+                    validSessions.append(s)
+                else:
+                    # print("email shouldnt sent for this")
+                    pass
+        return validSessions
+
+    except:
+        pass
+
+    finally:
+        session.close()
 
 
+
+def updatePrevCnt(sid):
+    try:
+        session=Session()
+        s=session.query(VaccineSession).filter(VaccineSession.session_id==sid).first()
+        s.last_avail_cnt=s.available
+        session.add(s)
+        session.commit()
+    except Exception as e:
+        print("Exception at updating previous cnt",str(e))
+    finally:
+        session.close()

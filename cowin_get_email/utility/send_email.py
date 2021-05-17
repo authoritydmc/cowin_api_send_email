@@ -6,7 +6,7 @@ from email.mime.multipart import MIMEMultipart
 from jinja2 import Environment, FileSystemLoader
 import os
 import logging
-from cowin_get_email.utility import common_util,pincode_util,district_util,user_util
+from cowin_get_email.utility import common_util,pincode_util,district_util,user_util,session_util
 from cowin_get_email.databases import user_pref_model
 from config import prod_config,local_config,checkENV
 
@@ -137,6 +137,7 @@ def sendDailyReminder(centerLst,sessionList,UserList):
                 print("for data->",sdata)
                 if user.age>sdata.min_age and sdata.available>0:
                     print("Its valid session".upper())
+                    session_util.updatePrevCnt(sdata.session_id)
 
                     # TODO : change this or to and in PROD 
                     # valid Vaccine Add it to Valid sessions
@@ -185,4 +186,101 @@ def sendLoginEmail(rec_email,name,key):
         sndEmail(rec_email,subject,msg)
 
   
+
+
+def autoMailer(centerList,SessionDic,usersList,pincode):
+
+    print("Called AutoMailer ")
+
+    subject='Slots Available at pincode: [{}] '.format(pincode)
+    template = env.get_template('auto_reminder.html')
+    # remove duplicate centerDetails:
+    centerDIC={}
+
+    for center in centerList:
+        print("center -> ",center.center_id)
+        centerDIC[center.center_id]=center
+
+        print("NEW CENTERS---->",centerDIC)
+
+    newCenterList=[]
+    for cid,cdata in centerDIC.items():
+        newCenterList.append(cdata)
+
+
+
+   
+    print("@"*80)
+    print(usersList)
+    print("@"*80)
+       
+    print("@"*80)
+    print("\n\n CenterList->",centerList)
+    print("@"*80)
+
+    print("@"*80)
+    print("\n\n\n sessionDic->",SessionDic)
+    print("@"*80)
+
+    for user in usersList:
+        emailData={}
+        emailData['centers']=newCenterList
+        emailData['date']=common_util.getDate()
+        emailData['name']=user.name
+        emailData['age']=user.age
+        search_data=user.pincode if user.search_by=="pincode" else user.dist_name
+        emailData['search_by']=user.search_by
+        emailData['search_data']=search_data
+        emailData['email']=user.email
+        emailData['url']=''
+        if user.search_by=="pincode":
+            emailData['url']=pincode_util.getCowinApiUrl(search_data)
+        else:
+            emailData['url']=district_util.getCowinApiUrl((user.dist_id))
+        
+        emailData['token']=user_util.tokenGetter(user.email)
+        validSession={}
+        print("Currently Working to Send Mail to ->{} of age {}".format(user.email,user.age))
+        print('%'*80)
+
+        for center_id,center_data in SessionDic.items():
+            # only Valid Vaccines Are which has more than 0 available cap and age > min_age
+            # print("{} has Vaccine avilable to {} and its cap->{}".format(sdata.session_id,sdata.min_age,sdata.available))
+            print("\n\nFor center ->",center_id,"its data->",center_data)
+            for sdata in center_data:
+                print("for data->",sdata)
+                if user.age>sdata.min_age and sdata.available>0:
+                    print("Its valid session".upper())
+                    # TODO : uncomment below line in production
+                    session_util.updatePrevCnt(sdata.session_id)
+
+                    # TODO : change this or to and in PROD 
+                    # valid Vaccine Add it to Valid sessions
+                    sls=validSession.get(center_id,None)
+                    if sls==None:
+                        print(" list item found")
+                        validSession[center_id]=[sdata]
+                    else:
+                        validSession[center_id].append(sdata)
+                else:
+                    print("Its not valid session".upper())
+        
+            # print("Final result of processed center->",validSession)
+        
+        print("\n\nValid Sessions are -> ",validSession)
+
+        emailData['session']=validSession
+
+        print('!'*80)
+
+        print(validSession)
+        print('!'*80)
+
+        emailData['total']=len(validSession)
+
+        msg= template.render(data=emailData,cnvrtutcLocal=common_util.getSimpleDatenTimeFromtimeStamp)
+        if len(validSession)>0:
+            # send the mail
+            sndEmail(user.email,subject,msg)
+
 

@@ -27,3 +27,9 @@ def getListofSessionByCenter(centerID):
     else :
         return []
  
+
+def updatePrevCnt(sid):
+    return session_model.updatePrevCnt(sid)
+
+def getAutoMailerSessions():
+    return session_model.getAllSessionsWhereEmailNeededtoBEsend()

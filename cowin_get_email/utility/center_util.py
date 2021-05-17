@@ -29,3 +29,9 @@ def getListOfCenterByPincode(pincode):
         return x
     else:
         return []
+def getCenterByID(center_id):
+    x,_=center_model.getCenterByID(center_id)
+    if _:
+        return x
+    else:
+        return None

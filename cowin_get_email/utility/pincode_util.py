@@ -84,3 +84,10 @@ def populatePincodeBased():
 
             # update local Update of this Pincode.
             updateLocalUpdate(pin)
+
+def getPincodeByID(pincode):
+    x,_=pincode_model.isPincodeExist(pincode)
+    if _:
+        return x
+    else :
+        return None

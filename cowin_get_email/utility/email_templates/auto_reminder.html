@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Indie+Flower&family=Satisfy&display=swap');
+
+        body {
+            width: auto;
+            height: auto;
+            background: #FFEFBA;
+            /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #FFFFFF, #FFEFBA);
+            /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #FFFFFF, #FFEFBA);
+            font-family: 'Dosis', sans-serif;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px;
+        }
+        tr:nth-child(even) {background-color: #f2f2f2;}
+
+        .main {
+            font-size: 1.4em;
+        }
+
+        .centerInfo {
+            font-size: 1.1em;
+            margin-top: 5px;
+            padding:5px;
+        }
+
+        .centerName {
+            font-size: 1.3em;
+        }
+
+        #noVac {
+            font-size: 1.2em;
+        }
+
+        .footer-heart {
+            text-align: center;
+            font-family: open sans, sans-serif;
+        }
+
+        .footer-heart a {
+            border-bottom: 1px solid #453886;
+            color: #453886;
+            padding-bottom: .25em;
+            text-decoration: none;
+        }
+
+        .footer-heart a:hover {
+            color: #2196f3;
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg id='squiggle-link' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:ev='http://www.w3.org/2001/xml-events' viewBox='0 0 20 4'%3E%3Cstyle type='text/css'%3E.squiggle{animation:shift .3s linear infinite;}@keyframes shift {from {transform:translateX(0);}to {transform:translateX(-20px);}}%3C/style%3E%3Cpath fill='none' stroke='%23453886' stroke-width='2' class='squiggle' d='M0,3.5 c 5,0,5,-3,10,-3 s 5,3,10,3 c 5,0,5,-3,10,-3 s 5,3,10,3'/%3E%3C/svg%3E");
+            background-position: bottom;
+            background-repeat: repeat-x;
+            background-size: 20%;
+            border-bottom: 0;
+            padding-bottom: .3em;
+            text-decoration: none;
+        }
+
+        .emoji {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+
+        Hello <span id="name">{{data['name']}}</span>,<br><br>
+        {% if data['total']!=0 %}
+        Greetings from automatic slots tracker<br>
+        There is some slots available in  in {{data['search_by']}} {{data['search_data']}}
+        {%endif%}
+    </div>
+    {% if data['total']!=0 %}
+    <hr style="  border: 2px dotted green;
+        border-radius: 5px;width:100%">
+    {%endif%}
+
+    <div>
+        {% for center  in data['centers'] %}
+
+        {%if data['session'][center.center_id]|length >0 %}
+        <!-- Adding Vaccine Datas -->
+        <div class="centerInfo">
+            <div style="border:5px solid black;text-align:center;">
+
+
+                <div class="centerName">{{center.center_name}}</div> <br>
+                <div class="fee"> Fees: {{"&#8377;"if center.fee!="Free" else ""}}{{center.fee}}</div><br>
+
+                <div class="block">Block: {{center.block_name}}</div><br>
+
+                <div class="address"> Address: {{center.address}}</div><br>
+                
+                data cached @ {{cnvrtutcLocal(center.lastUpdated)}}
+
+                <br><br>
+                <hr style="  border: 2px solid red;
+       width:95%">
+                <table style="border:1px dotted red;" align="center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Vaccine Name</th>
+                            <th scope="col">Available</th>
+                            <th scope="col">Date</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for session in data['session'][center.center_id] %}
+                        <tr>
+                            <td> {{session.vaccine_name}}</td>
+
+                            <td> {{session.available}}</td>
+                            <td> {{session.date}}</td>
+
+                        </tr>
+                        <tr>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        {%endif%}
+        {%endfor%}
+    </div>
+    {% if data['total']==0 %}
+    <div id="noVac">
+        No Vaccine is Available based on your age {{data['age']}} and vaccine availability(count)
+        <br><br>
+
+    </div>
+
+    {% endif %}
+
+    <div class="main">
+        Regards,<br>
+        <a href=' https://cowin-track.herokuapp.com/'>Cowin Slots Tracker</a>
+        v1.0.2
+    </div>
+    <br>
+    <br>
+
+    data Fetched from api <a href="{{data['url']}}">URL</a>
+    <div style="border:1px solid red;padding:10px;  ">
+        <b>Notice</b><br>
+        <ul>
+            <b>Added:</b>
+            <li>Dashboard where you can view all this Data </li>
+            <li>Login by <a
+                    href="https://cowin-track.herokuapp.com/dashboard?email={{data['email']}}&token={{data['token']}}">clicking
+                    here</a></here>
+            </li>
+        </ul>
+    </div>
+    <br> </div>
+    <p class="footer-heart" style="font-size: 1.4em;">
+        Sent with <g-emoji class="g-emoji" alias="heart"
+            fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png">
+            <img class="emoji" alt="heart" height="20" width="20"
+                src="https://github.githubassets.com/images/icons/emoji/unicode/2764.png"></g-emoji> by <a
+            href="https://github.com/authoritydmc">Raj Dubey</a>
+    </p>
+
+</body>
+
+</html>

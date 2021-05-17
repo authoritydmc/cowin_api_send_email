@@ -90,5 +90,19 @@ def getCentersByPincode(pincode):
     finally:
         session.close()
 
+def getCenterByID(center_id):
+    try:
+        session = Session()
+        center = session.query(Center).filter(Center.center_id==center_id).first()
+        if center!=None:
+            return center,True
+        else :
+            return None,False
+
+    except Exception as e:
+        return "error {} occured while Getting Centers   for {}".format(e, cpin), False
+
+    finally:
+        session.close()
 
 Base.metadata.create_all(bind=engine)

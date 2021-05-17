@@ -22,6 +22,7 @@ def dashboard():
         print("LOGGED IN AS -> ",user)
         data['name']=user.name
         data['selectby']=user.search_by
+        
         print("Passing Parameters",data)
         # send center and sessions of users.
         if user.search_by=="pincode":
