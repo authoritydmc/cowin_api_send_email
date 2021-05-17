@@ -44,6 +44,12 @@ def dashboard():
             print('$'*80)
             data['centers']=validCenters
             data['sessions']=sessionDic
+                        
+            data['centers']=validCenters
+
+            if len(sessionDic)==0:
+                print("Will hide the Details")
+                data['hideVaccine']=True
             # get all center and session of this pincode
         else:
             data['searchparam']=user.dist_name
@@ -67,12 +73,21 @@ def dashboard():
                     validCenters.append(center)
                     sessionDic[center.center_id]=lsts
             print('$'*80)
-            print("sessions -> ",sessionDic)
+            print("sessions -> ",sessionDic, "total->",len(sessionDic))
             print('$'*80)
             print("All centers-> ",allCenters)
             print('$'*80)
-            data['centers']=validCenters
+            data['hideVaccine']=False
             data['sessions']=sessionDic
+
+            data['centers']=validCenters
+
+            if len(sessionDic)==0:
+                print("Will hide the Details")
+                data['hideVaccine']=True
+
+
+
         
         
         

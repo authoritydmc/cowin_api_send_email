@@ -26,8 +26,8 @@
 
 </div>
 <br>
-<h1 align="center">Vaccine - Availability</h1>
-
+<h1 align="center" style="font-size: 3em;">Vaccine - Availability</h1>
+{% if data['hideVaccine']!=true %}
 <div id="tracker-view">
     <!-- tracker view  -->
 {% for center in data['centers'] %}
@@ -45,10 +45,18 @@
 
 <div class ="session-wrap">
     {%for session in data['sessions'][center.center_id]%}
+    {% if session.available > 0 %}
     <div class="session-view">
+        {%endif%}
+
+        {% if session.available <= 0 %}
+    <div class="session-view-notavail">
+        {%endif%}
 
         <span class="vaccine-name">{{session.vaccine_name}}</span><br>
-        <span class= "available"> Available: {{session.available}}</span><br>
+        
+        Available:<span class= "available">  {{session.available}}</span><br>
+        
         <span class= "date"> Date: {{session.date}}</span><br>
         <!-- {{"\n".join(session.slots.split(','))}}<br> -->
 
@@ -62,7 +70,16 @@
 </div>
 
 {%endfor%}
-    
+    {%endif%}
+    {%if data['hideVaccine']==true %}
+<div style="font-size:2em;text-align:center;">
+    No Valid Vaccination Detail Found based on your age and vaccine Availability
+</div> 
+<div style="font-size:2em;text-align:center;">
+   <!-- add here from js  -->
+</div> 
+
+    {%endif%}
 
     
 
