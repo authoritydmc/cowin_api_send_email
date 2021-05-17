@@ -1,5 +1,5 @@
 from cowin_get_email.databases.database import Base,engine,Session
-from sqlalchemy import Column,Integer,String,DateTime
+from sqlalchemy import Column,Integer,String,DateTime,Boolean
 from datetime import  datetime
 import json
 
@@ -12,6 +12,7 @@ class UserPref(Base):
     lastLogin=Column(Integer,default=0)
     token=Column(String,default="NA")
     login_attempt_cnt=Column(Integer,default=0)
+    
     
 
 

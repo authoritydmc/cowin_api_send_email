@@ -48,5 +48,9 @@ def PincodeBasedUserMailer():
         allUser={}
         allUser['users']=[user]
         print("ALL CENTERS->{} \n ALL SESSIONS -> {} ".format(allCenters,ALL_VACCINE_SESSIONS))
-        send_email.sendDailyReminder(allCenters,ALL_VACCINE_SESSIONS,allUsers)
+        if len(allCenters)==0:
+            # send update detail
+            send_email.sendChangeSearchMethod(user)
+        else:
+            send_email.sendDailyReminder(allCenters,ALL_VACCINE_SESSIONS,allUsers)
         
