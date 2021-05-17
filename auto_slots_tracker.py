@@ -4,7 +4,7 @@
 
 # send email when user update.
 
-from cowin_get_email.utility import session_util,pincode_util,center_util,user_util,send_email
+from cowin_get_email.utility import session_util,pincode_util,center_util,user_util,send_email,district_util
 ALL_CENTERS={} #key:value = pincode:centerList
 ALL_SESSIONS={} #key:value = center_id:sessionList
 ALL_PINCODES={} #key:value = dist_id :pincodeList
@@ -65,24 +65,33 @@ def pincodeMailer():
         # if pincode district id ==-1
         usersList.extend(user_util.getListofUserSearchingByPincode(pincode)['users'])
 
-        if pincode_obj.district_id!=-1:
-            usersList.extend(user_util.getUserOfDistId(pincode_obj.district_id)['users'])
-            # print("this pincode has dist id")
 
-        # print("Final UsersList->{} of pincode {} ".format(usersList,pincode))
-
-        send_email.autoMailer(centersList,ALL_SESSIONS,usersList,pincode)
+        send_email.autoMailer(centersList,ALL_SESSIONS,usersList," pincode "+str(pincode))
     # now gather which pincode or dist has this center
+
+
+def dist_mailer():
+    print("Dist mailer called ")
+    DIST_BASED_ALL_CENTERS=[]
+    for dist_id ,pincodelist in ALL_PINCODES.items():
+        print("dist ID->{} ,pinList->{}".format(dist_id,pincodelist))
+        for pinobj in pincodelist:
+            print("\n\nfor pincode ->{} its data->{}".format(pinobj.pincode,ALL_CENTERS[pinobj.pincode]))
+            DIST_BASED_ALL_CENTERS.extend(ALL_CENTERS[pinobj.pincode])
+        distObj=district_util.getDistrictByID(dist_id)
+        print("FInal centers ->",DIST_BASED_ALL_CENTERS)
+
+        usersList=user_util.getUserOfDistId(dist_id)['users']
+    # gather all users of this pincode
+
+        send_email.autoMailer(DIST_BASED_ALL_CENTERS,ALL_SESSIONS,usersList," district "+str(distObj.district_name))
+
 
 
 dataGatherer()
 
-# print("$"*80)
-# print("\n\nAll center-> ",ALL_CENTERS)
-# print("$"*80)
-# print("\n\nAll session -> ",ALL_SESSIONS)
-# print("$"*80)
-# print("\n\nAll Pinodes -> ",ALL_PINCODES)
-# print("\n\n\n")
+
 
 pincodeMailer()
+
+dist_mailer()

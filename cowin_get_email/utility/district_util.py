@@ -133,3 +133,11 @@ def populateDistrictsData():
         # update that this dist has been Updated
 
         updateLocalUpdate(dist_id)
+
+
+def getDistrictByID(dist_id):
+    x,_= district_model.isDistExist(dist_id)
+    if _:
+        return x
+    else:
+        return None

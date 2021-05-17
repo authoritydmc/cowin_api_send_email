@@ -192,7 +192,7 @@ def autoMailer(centerList,SessionDic,usersList,pincode):
 
     print("Called AutoMailer ")
 
-    subject='Slots Available at pincode: [{}] '.format(pincode)
+    subject='Slots Available at : [{}] '.format(pincode)
     template = env.get_template('auto_reminder.html')
     # remove duplicate centerDetails:
     centerDIC={}
