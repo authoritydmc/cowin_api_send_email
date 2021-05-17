@@ -45,7 +45,7 @@ def getSimpleDatenTimeFromtimeStamp(timeStamp):
     os.environ['TZ'] = 'Asia/Calcutta'
     time.tzset()
     x=datetime.fromtimestamp(timeStamp)
-    return datetime.today().strftime('%d-%m-%Y %I:%M:%S %p')
+    return x.strftime('%d-%m-%Y %I:%M:%S %p')
 
 def getToken():
     numbers="0123456789"

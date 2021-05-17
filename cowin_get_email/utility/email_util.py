@@ -15,24 +15,18 @@ def DistrictMailer():
         allPincodes=pincode_util.getListofPincodeBydist_id(districtID)
         # allPincodes=[273001]
         print("All Pincode for ",districtID,"=",allPincodes)
-        ALL_VACCINE_SESSIONS=[]
-        ALL_CENTER_DATA={}
+        ALL_VACCINE_SESSIONS={}
+        ALL_CENTER_DATA=[]
         for pincode in allPincodes:
             allCenters=center_util.getListOfCenterByPincode(pincode)
-            # print("Current Pincode",pincode ,"Centers->",allCenters)
-
+            # print("Current Pincode",pincode ,"Centers->",allCenters   )
             # get All Sessions 
             for center in allCenters:
-                
-               te_sessions=session_util.getListofSessionByCenter(center.center_id)
+                te_sessions=session_util.getListofSessionByCenter(center.center_id)
             #    print("Sessions of [{}] of [{}] is -> {}".format(center.center_id,pincode,te_sessions))
-               ALL_VACCINE_SESSIONS.extend(te_sessions)
-               ALL_CENTER_DATA[center.center_id]=center
+                ALL_VACCINE_SESSIONS[center.center_id]=te_sessions
+                ALL_CENTER_DATA.append(center)
             
-        # print("All Sessions->",ALL_VACCINE_SESSIONS)
-
-        # get ALL Valid Users.
-
         allUsers=user_util.getUserOfDistId(districtID)
 
         send_email.sendDailyReminder(ALL_CENTER_DATA,ALL_VACCINE_SESSIONS,allUsers)
@@ -42,22 +36,17 @@ def PincodeBasedUserMailer():
     allUsers=user_util.getAllUsersSearchingByPincode()
     for user in allUsers['users']:
 
-        ALL_VACCINE_SESSIONS=[]
-        ALL_CENTER_DATA={}
+        ALL_VACCINE_SESSIONS={}
         allCenters=center_util.getListOfCenterByPincode(user.pincode)
-            # print("Current Pincode",pincode ,"Centers->",allCenters)
-
-            # get All Sessions 
         for center in allCenters:
                 
                te_sessions=session_util.getListofSessionByCenter(center.center_id)
-            #    print("Sessions of [{}] of [{}] is -> {}".format(center.center_id,pincode,te_sessions))
-               ALL_VACCINE_SESSIONS.extend(te_sessions)
-               ALL_CENTER_DATA[center.center_id]=center
+               
+               ALL_VACCINE_SESSIONS[center.center_id]=te_sessions
             
         # modiy user list so that it matches with District matched Userlist
         allUser={}
         allUser['users']=[user]
-
-        send_email.sendDailyReminder(ALL_CENTER_DATA,ALL_VACCINE_SESSIONS,allUsers)
+        print("ALL CENTERS->{} \n ALL SESSIONS -> {} ".format(allCenters,ALL_VACCINE_SESSIONS))
+        send_email.sendDailyReminder(allCenters,ALL_VACCINE_SESSIONS,allUsers)
         

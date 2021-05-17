@@ -20,9 +20,9 @@ else:
 
 engine = create_engine(DB_URL, echo=False)
 
-
 Session = sessionmaker(autocommit=False,autoflush=False,bind=engine)
 Base=declarative_base()
+metadata = Base.metadata
 
 
 def addUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='NA'):

@@ -83,7 +83,7 @@ def sendWelcomeEmail(name,rec_email,selectby,pincode,dist_name):
         sndEmail(rec_email,subject,msg)
 
 
-def sendDailyReminder(centerDic,sessionList,UserList):
+def sendDailyReminder(centerLst,sessionList,UserList):
     
 
     print("Called sendDaiilyReminder ")
@@ -99,9 +99,10 @@ def sendDailyReminder(centerDic,sessionList,UserList):
 
     for user in UserList['users']:
         emailData={}
-        emailData['centerData']=centerDic
+        emailData['centers']=centerLst
         emailData['date']=common_util.getDate()
         emailData['name']=user.name
+        emailData['age']=user.age
         search_data=user.pincode if user.search_by=="pincode" else user.dist_name
         emailData['search_by']=user.search_by
         emailData['search_data']=search_data
@@ -113,24 +114,43 @@ def sendDailyReminder(centerDic,sessionList,UserList):
             emailData['url']=district_util.getCowinApiUrl((user.dist_id))
         
         emailData['token']=user_util.tokenGetter(user.email)
-        validSession=[]
+        validSession={}
         print("Currently Working to Send Mail to ->{} of age {}".format(user.email,user.age))
+        print('%'*80)
 
-        for sdata in sessionList:
+        print(sessionList)
+        print('%'*80)
+
+        for center_id,center_data in sessionList.items():
             # only Valid Vaccines Are which has more than 0 available cap and age > min_age
             # print("{} has Vaccine avilable to {} and its cap->{}".format(sdata.session_id,sdata.min_age,sdata.available))
-            if user.age>sdata.min_age and sdata.available>0:
+            print("For center ->",center_id,"its data->",center_data)
+            for sdata in center_data:
+                print("for data->",sdata)
+                if user.age>sdata.min_age and sdata.available>0:
+                    print("Its valid session".upper())
 
-                # TODO : change this or to and in PROD 
-                # valid Vaccine Add it to Valid sessions
-                validSession.append(sdata)
-            
+                    # TODO : change this or to and in PROD 
+                    # valid Vaccine Add it to Valid sessions
+                    sls=validSession.get(center_id,None)
+                    if sls==None:
+                        print("No prior list item found")
+                        validSession[center_id]=[sdata]
+                    else:
+                        validSession[center_id].append(sdata)
+                else:
+                    print("Its not valid session".upper())
+        
+            # print("Final result of processed center->",validSession)
         
         print("Valid Sessions are -> ",validSession)
 
         emailData['session']=validSession
 
-        # print(sessionList)
+        print('!'*80)
+
+        print(validSession)
+        print('!'*80)
 
         emailData['total']=len(validSession)
 

@@ -2,7 +2,8 @@ from cowin_get_email.databases.database import Base,engine,Session
 from sqlalchemy import Column,Integer,String,DateTime
 from datetime import  datetime
 import json
-
+from cowin_get_email.utility import common_util
+metadata = Base.metadata
 # Valid search_by values = pincode or district
 
 
@@ -18,6 +19,7 @@ class User(Base):
     dist_name = Column('dist_name', String, default="NA")
     registered = Column('registered', DateTime, default=datetime.now)
     search_by = Column('search_by', String)
+    secret_key=Column('secret_key',String,default="NA")
 
     def __repr__(self):
 
@@ -42,6 +44,7 @@ def addUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='NA'
     user.pincode = int(pincode) if user.search_by=='pincode' else 0
     user.dist_id = int(dist_id) if user.search_by=='district' else 0
     user.dist_name=dist_name  if user.search_by=='district' else 'NA'
+    user.secret_key=common_util.getToken()+common_util.getToken()
     _,isExist=isUserExist(email)
     if isExist==False:
         session.add(user)
