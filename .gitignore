@@ -8,3 +8,5 @@ Pipfile*
 localRoute.py
 test.*
 Pipfile*
+*alembic*
+alembic/*
