@@ -198,6 +198,8 @@ def updatePrevCnt(sid):
         session=Session()
         s=session.query(VaccineSession).filter(VaccineSession.session_id==sid).first()
         s.last_avail_cnt=s.available
+        s.last_avail_dose_1=s.avail_dose_1
+        s.last_avail_dose_2=s.avail_dose_2
         session.add(s)
         session.commit()
     except Exception as e:
