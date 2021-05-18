@@ -253,7 +253,7 @@ def autoMailer(centerList,SessionDic,usersList,pincode):
                 if user.age>sdata.min_age and sdata.available>0:
                     print("Its valid session".upper())
                     # TODO : uncomment below line in production
-                    # session_util.updatePrevCnt(sdata.session_id)
+                    session_util.updatePrevCnt(sdata.session_id)
 
                     # TODO : change this or to and in PROD 
                     # valid Vaccine Add it to Valid sessions
