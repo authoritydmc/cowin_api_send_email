@@ -89,7 +89,7 @@
     font-size: 2em;
 }
 
-.available {
+.available,.dose1,.dose2 {
     font-size: 1.8em;
     margin: 0 2%;
 }
