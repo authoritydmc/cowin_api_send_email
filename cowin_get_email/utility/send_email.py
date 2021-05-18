@@ -167,7 +167,7 @@ def sendDailyReminder(centerLst,sessionList,UserList):
         if len(validSession)==0:
             temp_subject=subject+" [No Slots Available]"
         else:
-            temp_subject=subject+" [No Slots Available]"
+            temp_subject=subject+" [Slots Available]"
 
 
         # send the mail

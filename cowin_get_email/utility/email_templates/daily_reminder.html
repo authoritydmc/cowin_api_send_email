@@ -119,7 +119,11 @@
                         <tr>
                             <th scope="col">Vaccine Name</th>
                             <th scope="col">Available</th>
+                            <th scope="col">Dose1</th>
+                            <th scope="col">Dose2</th>
                             <th scope="col">Date</th>
+
+                            
 
                         </tr>
                     </thead>
@@ -127,8 +131,9 @@
                         {% for session in data['session'][center.center_id] %}
                         <tr>
                             <td> {{session.vaccine_name}}</td>
-
                             <td> {{session.available}}</td>
+                            <td>{{session.avail_dose_1}}</td>
+                            <td> {{session.avail_dose_2}}   </td>
                             <td> {{session.date}}</td>
 
                         </tr>

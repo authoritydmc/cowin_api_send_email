@@ -10,6 +10,10 @@ class VaccineSession(Base):
     center_id = Column(Integer)
     min_age = Column(Integer)
     available = Column(Integer)
+    avail_dose_1=Column(Integer)
+    last_avail_dose_1=Column(Integer)
+    avail_dose_2=Column(Integer)
+    last_avail_dose_2=Column(Integer)
     slots = Column(String)
     date = Column(String)
     vaccine_name = Column(String)
@@ -25,12 +29,14 @@ class VaccineSession(Base):
         data['min_age']=self.min_age
         data['available']=self.available
         data['last_avail_cnt']=self.last_avail_cnt
+        data['dose1']=self.avail_dose_1
+        data['dose2']=self.avail_dose_2
         data['onDate']=self.date
         return json.dumps(data)
 
 
 
-def addSessions(sid, cid, min_age, available, slots, date, vaccine_name):
+def addSessions(sid, cid, min_age, available,avail_dose_1,avail_dose_2, slots, date, vaccine_name):
     try:
         session = Session()
         slots=",".join(slots)
@@ -50,15 +56,23 @@ def addSessions(sid, cid, min_age, available, slots, date, vaccine_name):
             temp=oldRecord
             print("{} {} already Exist hence Updating...".format(sid,vaccine_name))
             temp.last_avail_cnt=oldRecord.available 
+            temp.last_avail_dose_1=oldRecord.avail_dose_1
+            temp.last_avail_dose_2=oldRecord.avail_dose_2
+
         else:
             temp=VaccineSession()
             print("{} {} is New Record".format(sid,vaccine_name))
             temp.last_avail_cnt=available
+            temp.last_avail_dose_1=avail_dose_1
+            temp.last_avail_dose_2=avail_dose_2
+
         
         temp.session_id = sid
         temp.center_id = cid
         temp.min_age = min_age
         temp.available = available
+        temp.avail_dose_1=avail_dose_1
+        temp.avail_dose_2=avail_dose_2
         temp.slots = slots
         temp.date = date
         temp.vaccine_name = vaccine_name
