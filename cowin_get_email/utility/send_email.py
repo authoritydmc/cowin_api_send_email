@@ -74,13 +74,13 @@ def sndEmail(rec_email,subject,body):
         if server!=None:
             server.quit() 
 
-def sendWelcomeEmail(name,rec_email,selectby,pincode,dist_name):
-        subject='Welcome '+name
+def sendWelcomeEmail(user):
+        subject='Welcome '+user.name
         template = env.get_template('email_welcome.html')
-        sdata=pincode if selectby=='pincode' else dist_name
-        token=user_util.tokenGetter(rec_email)
-        msg= template.render(name=name,selectby=selectby,search_data=sdata,email=rec_email,token=token)
-        sndEmail(rec_email,subject,msg)
+        sdata=user.pincode if user.search_by=='pincode' else user.dist_name
+        token=user_util.tokenGetter(user.email)
+        msg= template.render(name=user.name,selectby=user.search_by,search_data=sdata,email=user.email,token=token,dose_no=user.dose_no)
+        sndEmail(user.email,subject,msg)
 
 def sendChangeSearchMethod(user):
         subject='Important [change your search method] '+user.name
