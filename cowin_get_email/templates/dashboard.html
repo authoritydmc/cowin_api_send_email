@@ -61,9 +61,10 @@
 
         <span class="vaccine-name">{{session.vaccine_name}}</span><br>
         
-        Available:<span class= "available" value="{{session.available}}"> {{session.available}}</span><br>
-        Dose 1: <span class= "dose1" value="{{session.available}}"> {{session.avail_dose_1}}</span><br>
-        Dose 2: <span class= "dose2" value="{{session.available}}"> {{session.avail_dose_2}}</span><br>
+        Available Dose:<span class= "available" value="{{session.available}}"> {{session.available}}</span><br>
+        <span style="text-align:center;font-size:1.3em;">Availabiliy based on dose</span><br>
+        Dose 1: <span class="dose1">{{session.avail_dose_1}}</span>
+        Dose 2: <span class="dose2">{{session.avail_dose_2}}</span><br>
         <span class= "date"> Date: {{session.date}}</span><br>
         <!-- {{"\n".join(session.slots.split(','))}}<br> -->
 
