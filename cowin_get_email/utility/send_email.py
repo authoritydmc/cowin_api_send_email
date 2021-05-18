@@ -45,7 +45,7 @@ def sndEmail(rec_email,subject,body):
     message = MIMEMultipart("alternative")
     message["Subject"] = subject
     message["From"] = EMAIL
-    message["To"] = "authoritydmc@gmail.com"
+    message["To"] = rec_email
 
     print("Sending Email to ",rec_email)
     # Create a secure SSL context

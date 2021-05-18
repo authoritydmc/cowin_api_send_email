@@ -102,7 +102,6 @@ def getUsersWithPincodeSelectBy():
             
         datas['users']=userslst
         datas['total']=len(datas['users'])
-        print(datas)
 
         return datas,True
 

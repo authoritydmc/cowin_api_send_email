@@ -7,5 +7,5 @@ print('*'*30,'from Email Scheduler','*'*35)
 
 email_util.DistrictMailer()
 
-# email_util.PincodeBasedUserMailer()
+email_util.PincodeBasedUserMailer()
 print('*'*30,'End Email Scheduler','*'*35)

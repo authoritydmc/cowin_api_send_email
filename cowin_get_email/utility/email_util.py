@@ -31,37 +31,39 @@ def DistrictMailer():
             #    print("Sessions of [{}] of [{}] is -> {}".format(center.center_id,pincode,te_sessions))
                 ALL_VACCINE_SESSIONS[center.center_id]=te_sessions
                 ALL_CENTER_DATA.append(center)
+                print("Processing center {} {} of pincode {}".format(center.center_id,center.center_name,center.pincode))
             
         allUsers=user_util.getUserOfDistId(districtID)
 
         print("DIST {} centers -> {}\n\n\n\n and users ->{} ".format(districtID,ALL_CENTER_DATA,allUsers))
-        input("halt at dist level")
 
         send_email.sendDailyReminder(ALL_CENTER_DATA,ALL_VACCINE_SESSIONS,allUsers)
 
-        input("press key to go to next dist")
 
 
 
 def PincodeBasedUserMailer():
     allUsers=user_util.getAllUsersSearchingByPincode()
     for user in allUsers['users']:
-
+        print("Currenlty for ",user,"\n\n")
         ALL_VACCINE_SESSIONS={}
         allCenters=center_util.getListOfCenterByPincode(user.pincode)
         for center in allCenters:
-                
-               te_sessions=session_util.getListofSessionByCenter(center.center_id)
+                print("Processing center {} {} of pincode {}".format(center.center_id,center.center_name,center.pincode))
+            
+                te_sessions=session_util.getListofSessionByCenter(center.center_id)
                
-               ALL_VACCINE_SESSIONS[center.center_id]=te_sessions
+                ALL_VACCINE_SESSIONS[center.center_id]=te_sessions
             
         # modiy user list so that it matches with District matched Userlist
         allUser={}
-        allUser['users']=[user]
-        print("ALL CENTERS->{} \n ALL SESSIONS -> {} ".format(allCenters,ALL_VACCINE_SESSIONS))
+        x=[]
+        x.append(user)
+        allUser['users']=x
+        print("ALL CENTERS->{} \n\n\n ALL SESSIONS -> {} \n\n\n ALL USERS->{} ".format(allCenters,ALL_VACCINE_SESSIONS,allUser))
         if len(allCenters)==0:
             # send update detail
             send_email.sendChangeSearchMethod(user)
         else:
-            send_email.sendDailyReminder(allCenters,ALL_VACCINE_SESSIONS,allUsers)
+            send_email.sendDailyReminder(allCenters,ALL_VACCINE_SESSIONS,allUser)
         
