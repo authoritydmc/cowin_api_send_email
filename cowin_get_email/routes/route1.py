@@ -51,6 +51,8 @@ def addUser():
     datas['pincode'] = request.form['pincode']
     datas['dist_id'] = request.form['dist_id']
     datas['dist_name'] = request.form['dist_name']
+    datas['dose_no']=request.form['dose_no']
+    datas['state_id']=request.form['state_id']
 
     
     # Valid the Datas
@@ -74,7 +76,8 @@ def addUser():
 
     if isValidUser==True:
         if datas['selectby']=='pincode':
-            datas['dist_id']=''
+            datas['dist_id']=-1
+            datas['state_id']=-1
             datas['dist_name']=''
             # save this pincode for Tracking...
             database.addPincode(datas['pincode'])
@@ -89,7 +92,9 @@ def addUser():
                         search_by=datas['selectby'],
                         pincode=datas['pincode'],
                         dist_id=datas['dist_id'],
-                        dist_name=datas['dist_name'])
+                        dist_name=datas['dist_name']
+                        ,dose_no=datas['dose_no']
+                        ,state_id=datas['state_id'])
         datas['msg'] = msg
         datas['result']=res
         info=msg
@@ -187,6 +192,8 @@ def update():
             data['pincode']=user.pincode
             data['selectby']=user.search_by
             data['phone']=user.phone
+            data['dose_no']=user.dose_no
+            data['state_id']=user.state_id
 
             print("Sending Data",data)
             data['states'] = api.getStates()
@@ -242,6 +249,9 @@ def updateUser():
     datas['pincode'] = request.form['pincode']
     datas['dist_id'] = request.form['dist_id']
     datas['dist_name'] = request.form['dist_name']
+    datas['dose_no']=request.form['dose_no']
+    datas['state_id']=request.form['state_id']
+
 
 
     msg,isValidUser=validator.validUser(datas)
@@ -249,7 +259,8 @@ def updateUser():
 
     if isValidUser==True:
         if datas['selectby']=='pincode':
-            datas['dist_id']=''
+            datas['dist_id']=-1
+            datas['state_id']=-1
             datas['dist_name']=''
             # save this pincode for Tracking...
             database.addPincode(datas['pincode'])
@@ -264,7 +275,8 @@ def updateUser():
                         search_by=datas['selectby'],
                         pincode=datas['pincode'],
                         dist_id=datas['dist_id'],
-                        dist_name=datas['dist_name'])
+                        dist_name=datas['dist_name'],dose_no=datas['dose_no']
+                        ,state_id=datas['state_id'])
         datas['msg'] = msg
         datas['result']=res
         info=msg

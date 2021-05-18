@@ -6,7 +6,7 @@ const dropdown = document.querySelector('.value-list');
 const dropdownArray = [... document.querySelectorAll('li')];
 function populateDistricts(state_id) {
       $('.selectdiv').show();
-
+  document.querySelector('#state_id').value=state_id;
   var distDiv=document.getElementById('insrtDist');
   distDiv.innerHTML="";
 

@@ -25,11 +25,11 @@ Base=declarative_base()
 metadata = Base.metadata
 
 
-def addUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='NA'):
+def addUser(name, age, email, phone, dose_no,search_by,pincode ,state_id=-1,dist_id=-1,dist_name='NA'):
     from cowin_get_email.databases.user_model import addUser
     
     
-    return addUser(name, age, email, phone, search_by,pincode ,dist_id,dist_name)
+    return addUser(name, age, email, phone, dose_no,search_by,pincode ,state_id,dist_id,dist_name)
 
 def isUserExist(email):
     from cowin_get_email.databases.user_model import isUserExist
@@ -82,8 +82,8 @@ def matchToken(email,token):
 
 
 
-def updateUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='NA'):
+def updateUser(name, age, email, phone,dose_no, search_by,pincode ,state_id=-1,dist_id=-1,dist_name='NA'):
     from cowin_get_email.databases.user_model import updateUser
     
     
-    return updateUser(name, age, email, phone, search_by,pincode ,dist_id,dist_name)
+    return updateUser(name, age, email, phone,dose_no, search_by,pincode,state_id ,dist_id,dist_name)

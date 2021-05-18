@@ -20,6 +20,8 @@ class User(Base):
     registered = Column('registered', DateTime, default=datetime.now)
     search_by = Column('search_by', String)
     secret_key=Column('secret_key',String,default="NA")
+    state_id=Column(Integer,default=-1)
+    dose_no=Column(Integer,default=1)
 
     def __repr__(self):
 
@@ -29,10 +31,12 @@ class User(Base):
         returnData['age']=self.age
         returnData['search_by']=self.search_by
         returnData['dist_id']=self.dist_id
+        returnData['state_id']=self.state_id
+        returnData['dose_no']=self.dose_no
         returnData['pincode']=self.pincode
         return json.dumps(returnData)
 
-def addUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='NA'):
+def addUser(name, age, email, phone,dose_no, search_by,pincode,state_id=-1 ,dist_id=-1,dist_name='NA'):
     session=Session()
     
     user = User()
@@ -40,10 +44,15 @@ def addUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='NA'
     user.age = int(age)
     user.phone = phone
     user.email = email
+    user.dose_no=dose_no
     user.search_by = search_by
-    user.pincode = int(pincode) if user.search_by=='pincode' else -1
-    user.dist_id = int(dist_id) if user.search_by=='district' else -1
-    user.dist_name=dist_name  if user.search_by=='district' else 'NA'
+    if user.search_by=='pincode':
+        user.pincode = int(pincode)
+    else:
+        user.dist_id = int(dist_id)
+        user.dist_name=dist_name
+        user.state_id=int(state_id)
+
     user.secret_key=common_util.getToken()+common_util.getToken()
     _,isExist=isUserExist(email)
     if isExist==False:
@@ -161,7 +170,7 @@ def getUsersofPincode(pincode):
         session.close()
 
 
-def updateUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='NA'):
+def updateUser(name, age, email, phone,dose_no, search_by,pincode ,state_id=-1,dist_id=-1,dist_name='NA'):
     session=Session()
     
     user ,_= isUserExist(email)
@@ -170,9 +179,11 @@ def updateUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='
     user.name = name
     user.age = int(age)
     user.phone = phone
+    user.dose_no=dose_no
     user.search_by = search_by
     user.pincode = int(pincode) if user.search_by=='pincode' else -1
     user.dist_id = int(dist_id) if user.search_by=='district' else -1
+    user.state_id = int(state_id) if user.search_by=='district' else -1
     user.dist_name=dist_name  if user.search_by=='district' else 'NA'
     session.add(user)
     session.commit()
