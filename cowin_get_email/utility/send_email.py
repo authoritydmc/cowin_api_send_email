@@ -282,6 +282,6 @@ def autoMailer(centerList,SessionDic,usersList,pincode):
         msg= template.render(data=emailData,cnvrtutcLocal=common_util.getSimpleDatenTimeFromtimeStamp)
         if len(validSession)>0:
             # send the mail
-            sndEmail("authoritydmc@gmail.com",subject,msg)
+            sndEmail(user.email,subject,msg)
 
 
