@@ -141,8 +141,6 @@ def getPincodesByDistID(dist_id):
 
         datas['pincodes'] = lst
         datas['total'] = len(datas['pincodes'])
-        print(datas)
-
         return datas, True
 
     except Exception as e:

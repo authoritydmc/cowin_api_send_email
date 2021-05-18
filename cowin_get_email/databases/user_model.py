@@ -14,8 +14,8 @@ class User(Base):
     phone = Column('phone', String)
     email = Column('email', String, unique=True)
     age = Column('age', Integer, default=0)
-    pincode = Column('pincode', Integer, default=0)
-    dist_id = Column('dist_id', Integer, default=0)
+    pincode = Column('pincode', Integer, default=-1)
+    dist_id = Column('dist_id', Integer, default=-1)
     dist_name = Column('dist_name', String, default="NA")
     registered = Column('registered', DateTime, default=datetime.now)
     search_by = Column('search_by', String)
@@ -41,8 +41,8 @@ def addUser(name, age, email, phone, search_by,pincode ,dist_id=0,dist_name='NA'
     user.phone = phone
     user.email = email
     user.search_by = search_by
-    user.pincode = int(pincode) if user.search_by=='pincode' else 0
-    user.dist_id = int(dist_id) if user.search_by=='district' else 0
+    user.pincode = int(pincode) if user.search_by=='pincode' else -1
+    user.dist_id = int(dist_id) if user.search_by=='district' else -1
     user.dist_name=dist_name  if user.search_by=='district' else 'NA'
     user.secret_key=common_util.getToken()+common_util.getToken()
     _,isExist=isUserExist(email)

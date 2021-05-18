@@ -12,9 +12,14 @@ def DistrictMailer():
     print("All District->",allDistricts)
     # step 2 : for each district gather All Pincodes 
     for districtID in allDistricts:
+        print("/\\"*80)
+        print("Current Dist_ID->",districtID)
+        print("/\\"*80)
+
         allPincodes=pincode_util.getListofPincodeBydist_id(districtID)
-        # allPincodes=[273001]
+
         print("All Pincode for ",districtID,"=",allPincodes)
+
         ALL_VACCINE_SESSIONS={}
         ALL_CENTER_DATA=[]
         for pincode in allPincodes:
@@ -29,7 +34,13 @@ def DistrictMailer():
             
         allUsers=user_util.getUserOfDistId(districtID)
 
+        print("DIST {} centers -> {}\n\n\n\n and users ->{} ".format(districtID,ALL_CENTER_DATA,allUsers))
+        input("halt at dist level")
+
         send_email.sendDailyReminder(ALL_CENTER_DATA,ALL_VACCINE_SESSIONS,allUsers)
+
+        input("press key to go to next dist")
+
 
 
 def PincodeBasedUserMailer():

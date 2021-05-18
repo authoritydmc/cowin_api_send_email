@@ -45,7 +45,7 @@ def sndEmail(rec_email,subject,body):
     message = MIMEMultipart("alternative")
     message["Subject"] = subject
     message["From"] = EMAIL
-    message["To"] = rec_email
+    message["To"] = "authoritydmc@gmail.com"
 
     print("Sending Email to ",rec_email)
     # Create a secure SSL context
@@ -65,7 +65,7 @@ def sndEmail(rec_email,subject,body):
         message.attach(msgc)
 
 
-        server.sendmail(EMAIL,"authoritydmc@gmail.com",message.as_string())
+        server.sendmail(EMAIL,rec_email,message.as_string())
         print("Mail sent ")
     except Exception as e:
         # Print any error messages to stdout
@@ -165,12 +165,13 @@ def sendDailyReminder(centerLst,sessionList,UserList):
 
         msg= template.render(data=emailData,cnvrtutcLocal=common_util.getSimpleDatenTimeFromtimeStamp)
         if len(validSession)==0:
-            subject+=" [No Slots Available]"
+            temp_subject=subject+" [No Slots Available]"
         else:
-            subject+=" [Slots available]"
+            temp_subject=subject+" [No Slots Available]"
+
 
         # send the mail
-        sndEmail(user.email,subject,msg)
+        sndEmail(user.email,temp_subject,msg)
 
 
 
