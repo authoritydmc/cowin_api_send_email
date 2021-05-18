@@ -176,12 +176,12 @@ def getAllSessionsWhereEmailNeededtoBEsend():
         validSessions=[]
         if suc:
             for s in allsessions:
-                # print("Current Session -> ",s)
+                print("Current Session -> ",s)
                 if s.available-s.last_avail_cnt >0:
-                    # print("Email needed to send for this")
+                    print("Email needed to send for this")
                     validSessions.append(s)
                 else:
-                    # print("email shouldnt sent for this")
+                    print("email shouldnt sent for this")
                     pass
         return validSessions
 

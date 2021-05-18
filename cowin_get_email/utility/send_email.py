@@ -197,7 +197,7 @@ def autoMailer(centerList,SessionDic,usersList,pincode):
     template = env.get_template('auto_reminder.html')
     # remove duplicate centerDetails:
     centerDIC={}
-
+    print("centerList at -> ",centerList)
     for center in centerList:
         print("center -> ",center.center_id)
         centerDIC[center.center_id]=center
@@ -253,7 +253,7 @@ def autoMailer(centerList,SessionDic,usersList,pincode):
                 if user.age>sdata.min_age and sdata.available>0:
                     print("Its valid session".upper())
                     # TODO : uncomment below line in production
-                    session_util.updatePrevCnt(sdata.session_id)
+                    # session_util.updatePrevCnt(sdata.session_id)
 
                     # TODO : change this or to and in PROD 
                     # valid Vaccine Add it to Valid sessions
@@ -282,6 +282,6 @@ def autoMailer(centerList,SessionDic,usersList,pincode):
         msg= template.render(data=emailData,cnvrtutcLocal=common_util.getSimpleDatenTimeFromtimeStamp)
         if len(validSession)>0:
             # send the mail
-            sndEmail(user.email,subject,msg)
+            sndEmail("authoritydmc@gmail.com",subject,msg)
 
 

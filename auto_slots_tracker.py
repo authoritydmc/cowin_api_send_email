@@ -72,8 +72,8 @@ def pincodeMailer():
 
 def dist_mailer():
     print("Dist mailer called ")
-    DIST_BASED_ALL_CENTERS=[]
     for dist_id ,pincodelist in ALL_PINCODES.items():
+        DIST_BASED_ALL_CENTERS=[]
         print("dist ID->{} ,pinList->{}".format(dist_id,pincodelist))
         for pinobj in pincodelist:
             print("\n\nfor pincode ->{} its data->{}".format(pinobj.pincode,ALL_CENTERS[pinobj.pincode]))
