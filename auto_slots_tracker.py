@@ -79,12 +79,12 @@ def dist_mailer():
             print("\n\nfor pincode ->{} its data->{}".format(pinobj.pincode,ALL_CENTERS[pinobj.pincode]))
             DIST_BASED_ALL_CENTERS.extend(ALL_CENTERS[pinobj.pincode])
         distObj=district_util.getDistrictByID(dist_id)
-        print("FInal centers ->",DIST_BASED_ALL_CENTERS)
+        print("Final centers ->",DIST_BASED_ALL_CENTERS)
 
         usersList=user_util.getUserOfDistId(dist_id)['users']
-    # gather all users of this pincode
 
-        send_email.autoMailer(DIST_BASED_ALL_CENTERS,ALL_SESSIONS,usersList," district "+str(distObj.district_name))
+        if len(DIST_BASED_ALL_CENTERS)>0:
+            send_email.autoMailer(DIST_BASED_ALL_CENTERS,ALL_SESSIONS,usersList," district "+str(distObj.district_name))
 
 
 

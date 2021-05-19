@@ -280,7 +280,7 @@ def autoMailer(centerList,SessionDic,usersList,pincode):
         emailData['total']=len(validSession)
 
         msg= template.render(data=emailData,cnvrtutcLocal=common_util.getSimpleDatenTimeFromtimeStamp)
-        if len(validSession)>0:
+        if emailData['total']>0:
             # send the mail
             sndEmail(user.email,subject,msg)
 
