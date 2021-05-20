@@ -67,9 +67,11 @@ def pincodeMailer():
         # if pincode district id ==-1
         usersList.extend(user_util.getListofUserSearchingByPincode(pincode)['users'])
 
-
-        send_email.autoMailer(centersList,ALL_SESSIONS,usersList," pincode "+str(pincode))
-    # now gather which pincode or dist has this center
+        if len(centersList)>0:
+            send_email.autoMailer(centersList,ALL_SESSIONS,usersList," pincode "+str(pincode))
+        else:
+            print("{} has no center ".format(pincode))
+     # now gather which pincode or dist has this center
 
 
 def dist_mailer():
@@ -87,7 +89,8 @@ def dist_mailer():
 
         if len(DIST_BASED_ALL_CENTERS)>0:
             send_email.autoMailer(DIST_BASED_ALL_CENTERS,ALL_SESSIONS,usersList," district "+str(distObj.district_name))
-
+        else:
+            print("District {} has no Center".format(dist_id))
 
 
 dataGatherer()
