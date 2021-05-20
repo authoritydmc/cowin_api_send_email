@@ -5,6 +5,8 @@
 # send email when user update.
 
 from cowin_get_email.utility import session_util,pincode_util,center_util,user_util,send_email,district_util
+
+print("--------------------from auto slots tracker------------------------")
 ALL_CENTERS={} #key:value = pincode:centerList
 ALL_SESSIONS={} #key:value = center_id:sessionList
 ALL_PINCODES={} #key:value = dist_id :pincodeList
@@ -95,3 +97,4 @@ dataGatherer()
 pincodeMailer()
 
 dist_mailer()
+print("--------------------END auto slots tracker------------------------")

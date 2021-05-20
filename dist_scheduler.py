@@ -10,3 +10,4 @@ district_util.populateDistrictsData()
 
 print('*'*80)
 
+import auto_slots_tracker

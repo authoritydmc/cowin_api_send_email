@@ -10,3 +10,4 @@ pincode_util.populatePincodeBased()
 
 print('*'*80)
 
+import auto_slots_tracker
