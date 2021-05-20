@@ -40,6 +40,13 @@
           <label for="phone" class="Input-label" >Phone</label>
         </div>
       </div>
+      <div class="Wrapper">
+        <div class="Input">
+          <input type="number" min="1" max="2" name="dose_no" id="dose_no" class="Input-text" required placeholder="Dose No 1 or 2" value="{{data.dose_no}}">
+          <label for="dose_no" class="Input-label">Dose No.</label>
+        </div>
+      </div>
+
       <h2>Search Vaccination By </h3>
         <div class="mainSelectDiv">
           <div class="wrapper" align="center">
@@ -112,7 +119,6 @@
         <br>
         <br>
         <br>
-        <input  type="text" id="dose_no" required name="dose_no" value="1">
 
         <input readonly hidden  type="text" id="old_state_id" required name="old_state_id" value="{{data.state_id}}">
         <input readonly hidden  type="text" id="state_id" required name="state_id" value="">

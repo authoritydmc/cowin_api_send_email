@@ -198,7 +198,7 @@ def update():
             data['phone']=user.phone
             data['dose_no']=user.dose_no
             data['state_id']=user.state_id
-
+            data['dose_no']=user.dose_no
             print("Sending Data",data)
             data['states'] = api.getStates()
 
