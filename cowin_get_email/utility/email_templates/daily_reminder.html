@@ -85,7 +85,7 @@
 
         Hello <span id="name">{{data['name']}}</span>,<br><br>
         {% if data['total']!=0 %}
-        Here's your Daily Slot Tracking of Vaccines Available in {{data['search_by']}} {{data['search_data']}}
+        Here's your Daily Slot Tracking of Vaccines Available in {{data['search_by']}} {{data['search_data']}} of Dose {{data['dose_no']}}
         {%endif%}
     </div>
     {% if data['total']!=0 %}

@@ -115,6 +115,7 @@ def sendDailyReminder(centerLst,sessionList,UserList):
         emailData['search_by']=user.search_by
         emailData['search_data']=search_data
         emailData['email']=user.email
+        emailData['dose_no']=user.dose_no
         emailData['url']=''
         if user.search_by=="pincode":
             emailData['url']=pincode_util.getCowinApiUrl(search_data)
@@ -134,8 +135,15 @@ def sendDailyReminder(centerLst,sessionList,UserList):
             # print("{} has Vaccine avilable to {} and its cap->{}".format(sdata.session_id,sdata.min_age,sdata.available))
             print("For center ->",center_id,"its data->",center_data)
             for sdata in center_data:
+
                 print("for data->",sdata)
-                if user.age>sdata.min_age and sdata.available>0:
+                VALID_DOSE_COUNT=sdata.available
+                if user.dose_no==1:
+                    VALID_DOSE_COUNT=sdata.avail_dose_1
+                elif user.dose_no==2:
+                    VALID_DOSE_COUNT=sdata.avail_dose_2
+
+                if user.age>sdata.min_age and VALID_DOSE_COUNT>0:
                     print("Its valid session".upper())
                     session_util.updatePrevCnt(sdata.session_id)
 
@@ -229,11 +237,13 @@ def autoMailer(centerList,SessionDic,usersList,pincode):
         emailData['date']=common_util.getDate()
         emailData['name']=user.name
         emailData['age']=user.age
+        emailData['dose_no']=user.dose_no
         search_data=user.pincode if user.search_by=="pincode" else user.dist_name
         emailData['search_by']=user.search_by
         emailData['search_data']=search_data
         emailData['email']=user.email
         emailData['url']=''
+        
         if user.search_by=="pincode":
             emailData['url']=pincode_util.getCowinApiUrl(search_data)
         else:
@@ -250,7 +260,13 @@ def autoMailer(centerList,SessionDic,usersList,pincode):
             print("\n\nFor center ->",center_id,"its data->",center_data)
             for sdata in center_data:
                 print("for data->",sdata)
-                if user.age>sdata.min_age and sdata.available>0:
+                VALID_DOSE_COUNT=sdata.available
+                if user.dose_no==1:
+                    VALID_DOSE_COUNT=sdata.avail_dose_1
+                elif user.dose_no==2:
+                    VALID_DOSE_COUNT=sdata.avail_dose_2
+
+                if user.age>sdata.min_age and VALID_DOSE_COUNT>0 :
                     print("Its valid session".upper())
                     # TODO : uncomment below line in production
                     session_util.updatePrevCnt(sdata.session_id)
