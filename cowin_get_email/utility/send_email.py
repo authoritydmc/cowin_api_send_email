@@ -278,9 +278,11 @@ def autoMailer(centerList,SessionDic,usersList,pincode):
         print('!'*80)
 
         emailData['total']=len(validSession)
+        emailData['tc']=len(newCenterList)
+        
 
         msg= template.render(data=emailData,cnvrtutcLocal=common_util.getSimpleDatenTimeFromtimeStamp)
-        if emailData['total']>0:
+        if emailData['total']>0 and emailData['tc']>0:
             # send the mail
             sndEmail(user.email,subject,msg)
 
