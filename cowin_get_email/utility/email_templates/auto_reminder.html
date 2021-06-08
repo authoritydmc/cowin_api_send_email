@@ -85,7 +85,9 @@
 
         Hello <span id="name">{{data['name']}}</span>,<br><br>
         {% if data['total']!=0 %}
-        Greetings from automatic slots tracker<br>
+        Greetings from automatic slots tracker<br> 
+        Login To  <a href="https://cowin-track.herokuapp.com/dashboard?email={{data['email']}}&token={{data['token']}}">
+            Dashboard</a></here>
         <br>
         There is some slots available in {{data['search_by']}} {{data['search_data']}} of dose {{data['dose_no']}}.
         
@@ -162,7 +164,7 @@
     <div class="main">
         Regards,<br>
         <a href=' https://cowin-track.herokuapp.com/'>Cowin Slots Tracker</a>
-        v1.0.2
+        v1.1
     </div>
     <br>
     <br>
@@ -172,11 +174,14 @@
         <b>Notice</b><br>
         <ul>
             <b>Added:</b>
+            <li>Now you can Stop Receiving this emails  </li>
+            <li>To Stop receiving Emails ,Login and then click on Stop receiving Emails</li>
             <li>Dashboard where you can view all this Data ^ {{data['total']}}^ </li>
             <li>Login by <a
                     href="https://cowin-track.herokuapp.com/dashboard?email={{data['email']}}&token={{data['token']}}">clicking
                     here</a></here>
             </li>
+
         </ul>
     </div>
     <br> </div>
