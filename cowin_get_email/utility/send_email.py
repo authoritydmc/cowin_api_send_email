@@ -217,9 +217,7 @@ def autoMailer(centerList,SessionDic,usersList,pincode):
 
         print("NEW CENTERS---->",centerDIC)
 
-    newCenterList=[]
-    for cid,cdata in centerDIC.items():
-        newCenterList.append(cdata)
+
 
 
 
@@ -237,6 +235,9 @@ def autoMailer(centerList,SessionDic,usersList,pincode):
     print("@"*80)
 
     for user in usersList:
+        newCenterList=[]
+        for cid,cdata in centerDIC.items():
+         newCenterList.append(cdata)
         if user.receive_email==False:
             print(user.name," will not get email becuase he opted out ")
             continue
