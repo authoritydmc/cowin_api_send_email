@@ -106,6 +106,11 @@ def sendDailyReminder(centerLst,sessionList,UserList):
 
 
     for user in UserList['users']:
+        if user.receive_email==False:
+            print(user.name," will not get email becuase he opted out ")
+            continue
+        else:
+            print(user.name," will get the email")
         emailData={}
         emailData['centers']=centerLst
         emailData['date']=common_util.getDate()
@@ -232,6 +237,12 @@ def autoMailer(centerList,SessionDic,usersList,pincode):
     print("@"*80)
 
     for user in usersList:
+        if user.receive_email==False:
+            print(user.name," will not get email becuase he opted out ")
+            continue
+        else:
+            print(user.name," will get the email")
+
         emailData={}
         emailData['centers']=newCenterList
         emailData['date']=common_util.getDate()

@@ -15,14 +15,27 @@ def dashboard():
     logres,logged=route1.isLoggedIn()
 
 
+
     if logged==True:
+        user,_=route1.getUserDetailsfromSession()
+        par_receive_mail=request.args.get('get_email',None)
+
+        if par_receive_mail!=None:
+        #update receive_mail 
+            if par_receive_mail=="true":
+             database.start_receive_email(user.email)
+            elif par_receive_mail=='false':
+                database.stop_receive_email(user.email)
+
+
         data={}
         # get user info here 
-        user,_=route1.getUserDetailsfromSession()
+        
         print("LOGGED IN AS -> ",user)
         data['name']=user.name
         data['selectby']=user.search_by
-        
+        data['dose_no']=user.dose_no
+        data['receive_email']=user.receive_email
         print("Passing Parameters",data)
         # send center and sessions of users.
         if user.search_by=="pincode":

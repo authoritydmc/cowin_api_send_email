@@ -183,3 +183,9 @@ for(i = 0; i < selectby.length; i++) {
      selectBy_F(1);
    }
   }
+
+
+function refresh_page(){
+  window.location.reload();
+  console.log("Refreshing page");
+}

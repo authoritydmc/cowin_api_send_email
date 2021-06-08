@@ -14,8 +14,16 @@
     
 <div id="info"  style="padding :30px;">
     Hello , <b>{{data['name']}}</b>,
-    you are Currently Searching for vaccine availablity in <b>{{data['selectby']}} {{data['searchparam']}}</b>
-<br>
+    you are Currently Searching for vaccine availablity in <b>{{data['selectby']}} {{data['searchparam']}} for Dose no. {{data['dose_no']}}</b>
+    <br>Email Receiving-> {{data['receive_email']}}
+    <br>
+    {%if data['receive_email']==true %}
+    <a href="/dashboard?get_email=false" onclick='refresh_page()'>Stop Receiving Emails</a><br>
+    
+    {%else%}
+    <a href="/dashboard?get_email=true" onclick="refresh_page()">Start Receiving Emails</a>
+    {%endif%}
+    <br>
     <a href="/logout">Click here to logout</a>
 <br>
 <br>
@@ -105,6 +113,6 @@
 {% endblock %}
 
 {% block script %}
-<script type="text/javascript" src="{{ url_for('static', filename='dashboard.js') }}?version=1.2"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='dashboard.js') }}?version=1.3"></script>
 
 {%endblock%}

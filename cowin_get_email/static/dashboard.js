@@ -1,4 +1,12 @@
+function refresh_page(){
+  window.location.reload();
+  console.log("Refreshing page");
+}
+
 var checkbox = document.querySelector("#show0Qty");
+
+if(checkbox!=null){
+
 
 checkbox.addEventListener("change", function () {
   if (this.checked) {
@@ -9,6 +17,7 @@ checkbox.addEventListener("change", function () {
     hideCenter(false);
   }
 });
+}
 var dontHide = [];
 function Hide(shdhide) {
   var allAvailableSpans = document.getElementsByClassName("available");

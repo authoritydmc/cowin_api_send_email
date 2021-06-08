@@ -18,6 +18,8 @@ body {
 }
 
 
+
+
 #form_add_user {
     /* border:2px solid green; */
     padding: 10px;
@@ -226,7 +228,7 @@ body {
 .Wrapper {
   flex: 0 0 80%;
   max-width: 100%;
-  margin:10px  0;
+  margin:40px  0;
 }
 
 .Title {
@@ -257,6 +259,7 @@ body {
   border: none;
   border-radius: 0.4rem;
   transition: box-shadow var(--transitionDuration);
+  
 }
 
 .Input-text::placeholder {
@@ -273,7 +276,7 @@ body {
   position: absolute;
   bottom: 50%;
   left: 1rem;
-  color: #fff;
+  color: indianred;
   font-family: inherit;
   font-size: var(--inputFontSize);
   font-weight: inherit;

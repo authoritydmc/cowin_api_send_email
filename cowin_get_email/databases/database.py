@@ -87,3 +87,16 @@ def updateUser(name, age, email, phone,dose_no, search_by,pincode ,state_id=-1,d
     
     
     return updateUser(name, age, email, phone,dose_no, search_by,pincode,state_id ,dist_id,dist_name)
+
+
+def start_receive_email(email):
+    from cowin_get_email.databases.user_model import startReceivingMail
+
+    startReceivingMail(email)
+    
+def stop_receive_email(email):
+    from cowin_get_email.databases.user_model import stopReceivingMail
+
+    stopReceivingMail(email)
+
+

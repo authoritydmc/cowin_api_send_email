@@ -1,5 +1,5 @@
 from cowin_get_email.databases.database import Base,engine,Session
-from sqlalchemy import Column,Integer,String,DateTime
+from sqlalchemy import Column,Integer,String,DateTime,Boolean
 from datetime import  datetime
 import json
 from cowin_get_email.utility import common_util
@@ -22,7 +22,7 @@ class User(Base):
     secret_key=Column('secret_key',String,default="NA")
     state_id=Column(Integer,default=-1)
     dose_no=Column(Integer,default=1)
-
+    receive_email=Column(Boolean,default=True)
     def __repr__(self):
 
         returnData={}
@@ -191,7 +191,29 @@ def updateUser(name, age, email, phone,dose_no, search_by,pincode ,state_id=-1,d
     return 'Added SuccessFully',True
 
 
+def stopReceivingMail(email):
 
+    session=Session()
+    user ,_= isUserExist(email)
+    if _!=True:
+        return "Failed to Update the Details as user doesnt exist",False
+    user.receive_email=False
+
+    session.add(user)
+    session.commit()
+    session.close()
+
+
+def startReceivingMail(email):
+    session=Session()
+    user ,_= isUserExist(email)
+    if _!=True:
+        return "Failed to Update the Details as user doesnt exist",False
+    user.receive_email=True
+
+    session.add(user)
+    session.commit()
+    session.close()
 
 
 Base.metadata.create_all(bind=engine)
