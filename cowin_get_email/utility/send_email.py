@@ -65,7 +65,7 @@ def sndEmail(rec_email,subject,body):
         message.attach(msgc)
 
 
-        #server.sendmail(EMAIL,rec_email,message.as_string())
+        server.sendmail(EMAIL,rec_email,message.as_string())
         print("Mail sent ")
     except Exception as e:
         # Print any error messages to stdout
